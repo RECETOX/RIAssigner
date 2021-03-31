@@ -20,7 +20,7 @@ setup(
     long_description=readme,
     long_description_content_type="text/markdown",
     author="Helge Hecht",
-    author_email="hechth.tum@gmail.com",
+    author_email="helge.hecht@recetox.muni.cz",
     url="https://github.com/hechth/RIAssigner",
     packages=find_packages(exclude=['*tests*']),
     license="MIT License",

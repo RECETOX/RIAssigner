@@ -5,7 +5,9 @@ channels:
   - defaults
 dependencies:
   - pip
+  - pandas
   - prospector
+  - pytest
   - python >=3.7,<3.9
   - pip:
     - -e ..[dev]

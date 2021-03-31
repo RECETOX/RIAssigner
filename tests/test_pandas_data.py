@@ -7,4 +7,4 @@ def test_none():
 
 def test_constructor():
     data = PandasData()
-    pass
+    assert data is not None

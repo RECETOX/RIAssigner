@@ -1,0 +1,54 @@
+asgiref @ file:///home/conda/feedstock_root/build_artifacts/asgiref_1605523041333/work
+astroid @ file:///D:/bld/astroid_1588698392162/work
+atomicwrites @ file:///home/conda/feedstock_root/build_artifacts/atomicwrites_1588182545583/work
+attrs @ file:///home/conda/feedstock_root/build_artifacts/attrs_1605083924122/work
+certifi==2020.12.5
+colorama @ file:///home/conda/feedstock_root/build_artifacts/colorama_1602866480661/work
+Django @ file:///home/conda/feedstock_root/build_artifacts/django_1613732694779/work
+docutils @ file:///D:/bld/docutils_1610127977498/work
+dodgy @ file:///home/conda/feedstock_root/build_artifacts/dodgy_1591808883340/work
+flake8 @ file:///home/conda/feedstock_root/build_artifacts/flake8_1601874335748/work
+flake8-polyfill==1.0.2
+frosted==1.4.1
+importlib-metadata @ file:///D:/bld/importlib-metadata_1617116938855/work
+iniconfig @ file:///home/conda/feedstock_root/build_artifacts/iniconfig_1603384189793/work
+isort==4.3.21
+lazy-object-proxy @ file:///D:/bld/lazy-object-proxy_1602435572008/work
+logilab-common @ file:///home/conda/feedstock_root/build_artifacts/logilab-common_1603149247830/work
+mccabe==0.6.1
+more-itertools @ file:///home/conda/feedstock_root/build_artifacts/more-itertools_1612756563342/work
+mypy-extensions @ file:///D:/bld/mypy_extensions_1610127447970/work
+numpy @ file:///D:/bld/numpy_1616933441329/work
+packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1612459636436/work
+pandas @ file:///D:/bld/pandas_1614698105739/work
+pep8-naming==0.10.0
+pies==2.6.7
+pluggy @ file:///D:/bld/pluggy_1610318294270/work
+prospector @ file:///home/conda/feedstock_root/build_artifacts/prospector_1605659023596/work
+py @ file:///home/conda/feedstock_root/build_artifacts/py_1607783655754/work
+pycodestyle @ file:///home/conda/feedstock_root/build_artifacts/pycodestyle_1589305246696/work
+pydocstyle @ file:///home/conda/feedstock_root/build_artifacts/pydocstyle_1616176997890/work
+pyflakes==2.2.0
+pylint @ file:///D:/bld/pylint_1592404526574/work
+pylint-celery==0.3
+pylint-django==2.0.11
+pylint-flask==0.6
+pylint-plugin-utils @ file:///home/conda/feedstock_root/build_artifacts/pylint-plugin-utils_1604605879834/work
+pyparsing==2.4.7
+pyroma==2.4
+pytest==6.2.2
+python-dateutil==2.8.1
+pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1612179539967/work
+PyYAML==5.4.1
+requirements-detector @ file:///D:/bld/requirements-detector_1602510700225/work
+-e git+git@github.com:hechth/RIAssigner.git@3153d6b71b0bf1937b696a1b4ccf8233410d3b1e#egg=RIAssigner
+setoptconf==0.2.0
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1590081179328/work
+snowballstemmer @ file:///home/conda/feedstock_root/build_artifacts/snowballstemmer_1611270869511/work
+sqlparse @ file:///home/conda/feedstock_root/build_artifacts/sqlparse_1602142927465/work
+toml @ file:///home/conda/feedstock_root/build_artifacts/toml_1604308577558/work
+typing-extensions @ file:///home/conda/feedstock_root/build_artifacts/typing_extensions_1602702424206/work
+vulture @ file:///home/conda/feedstock_root/build_artifacts/vulture_1597187510721/work
+wincertstore==0.2
+wrapt @ file:///D:/bld/wrapt_1602463535053/work
+zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1614945704755/work

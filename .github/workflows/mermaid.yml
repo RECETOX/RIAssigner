@@ -33,4 +33,4 @@ jobs:
         # the path to the files to compile
           files: README.md
           # Where to output the file - std otherwise
-          output: README.md
+          output: docs/README.md

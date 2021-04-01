@@ -33,4 +33,4 @@ jobs:
         # the path to the files to compile
           files: docs/diagram.md
           # Where to output the file - std otherwise
-          output: docs/diagram_compiled.md
+          output: docs

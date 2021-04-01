@@ -33,4 +33,8 @@ jobs:
         # the path to the files to compile
           files: docs/diagram.md
           # Where to output the file - std otherwise
-          output: docs
+          output: .resources
+        env:
+          HIDE_CODEBLOCKS: 1
+          ABSOLUTE_IMAGE_LINKS: 1
+          OUTPUT_FILE_TYPE: "svg"

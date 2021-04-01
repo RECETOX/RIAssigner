@@ -42,6 +42,8 @@ requirements:
 
 test:
   imports:
+    - numpy
+    - pandas
     - RIAssigner
 
 about:

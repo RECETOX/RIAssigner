@@ -32,6 +32,9 @@ setup(
     ],
     test_suite="tests",
     python_requires='>=3.7',
-    install_requires=[ ],
+    install_requires=[
+        "numpy",
+        "pandas"
+     ],
     extras_require={ },
 )

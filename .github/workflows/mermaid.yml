@@ -31,6 +31,6 @@ jobs:
         uses: neenjaw/compile-mermaid-markdown-action@0.2.4
         with:
         # the path to the files to compile
-          files: README.md
+          files: docs/diagram.md
           # Where to output the file - std otherwise
-          output: docs/README.md
+          output: docs/diagram_compiled.md

@@ -18,16 +18,17 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      
 
       - name: Compile Mermaid Markdown
         # You may pin to the exact commit or the version.
         # uses: neenjaw/compile-mermaid-markdown-action@623a9c32deb506d5418ed46510c26b3995e3edbf
-        uses: neenjaw/compile-mermaid-markdown-action@0.2.4
+        uses: neenjaw/compile-mermaid-markdown-action@0.3.1
         with:
         # the path to the files to compile
           files: README.md
           # Where to output the file - std otherwise
-          output: .resources
+          output: '.resources'
         env:
           HIDE_CODEBLOCKS: 1
           ABSOLUTE_IMAGE_LINKS: 1          

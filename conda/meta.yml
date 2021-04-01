@@ -28,12 +28,16 @@ requirements:
     - python
     - setuptools
   host:
+    - pandas
     - python >=3.7,<3.9
     - pip
     - pytest-runner
     - setuptools
   run:
+    - numpy
     - pip
+    - pandas
+    - pytest
     - python >=3.7,<3.9
 
 test:

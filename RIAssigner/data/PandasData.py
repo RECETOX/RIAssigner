@@ -9,10 +9,9 @@ class PandasData(Data):
 
     def read(self, filename: str):
         self._data = read_csv(filename)
-        self._find_rt_index()
+        self._set_rt_index()
 
-    def _find_rt_index(self):
-        # Find first common element
+    def _set_rt_index(self):
         self._index = get_first_common_element(self._data.columns, self._column_names)
 
     @property

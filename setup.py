@@ -19,7 +19,7 @@ setup(
     description="Python library for retention index calculation.",
     long_description=readme,
     long_description_content_type="text/markdown",
-    author="Helge Hecht",
+    author="RECETOX",
     author_email="helge.hecht@recetox.muni.cz",
     url="https://github.com/hechth/RIAssigner",
     packages=find_packages(exclude=['*tests*']),
@@ -30,11 +30,22 @@ setup(
         "mass spectrometry",
         "retention index"
     ],
+    classifiers=[
+        "Development Status :: 2 - Pre-Alpha",
+        "Intended Audience :: Education",
+        "Intended Audience :: Science/Research",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Natural Language :: English",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8"
+    ],
     test_suite="tests",
     python_requires='>=3.7',
     install_requires=[
         "numpy",
         "pandas"
     ],
-    extras_require={ },
+    extras_require={},
 )

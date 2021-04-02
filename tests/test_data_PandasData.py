@@ -3,14 +3,15 @@ import numpy
 import os
 import pytest
 from RIAssigner.data import PandasData
+from RIAssigner.utils import get_first_common_element
 
 
 here = os.path.abspath(os.path.dirname(__file__))
 
 
-@pytest.fixture
-def filename_csv():
-    return os.path.join(here, "data", "Alkanes_20210325.csv")
+@pytest.fixture(params=["Alkanes_20210325.csv", "aplcms_aligned_peaks.csv", "xcms_variable_metadata.csv"])
+def filename_csv(request):
+    return os.path.join(here, "data", request.param)
 
 
 @pytest.fixture
@@ -23,7 +24,8 @@ def csv_content(filename_csv):
 
 @pytest.fixture
 def retention_times(csv_content):
-    rts = [float(row["RT"]) for row in csv_content]
+    index = get_first_common_element(csv_content[0].keys(), ["RT", "rt"])
+    rts = [float(row[index]) for row in csv_content]
     return rts
 
 

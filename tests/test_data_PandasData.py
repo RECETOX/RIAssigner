@@ -14,11 +14,17 @@ def filename_csv():
 
 
 @pytest.fixture
-def retention_times(filename_csv):
+def csv_content(filename_csv):
     with open(filename_csv, 'r') as csv_file:
         reader = csv.DictReader(csv_file)
-        rts = [float(row["RT"]) for row in reader]
-        return rts
+        data = list(reader)
+    return data
+
+
+@pytest.fixture
+def retention_times(csv_content):
+    rts = [float(row["RT"]) for row in csv_content]
+    return rts
 
 
 def test_none():

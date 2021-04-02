@@ -25,12 +25,12 @@ def test_none():
     pass
 
 
-def test_has_filename(filename_csv):
+def test_open_csv(filename_csv):
     data = PandasData(filename_csv)
     assert data.filename == filename_csv
 
 
-def test_has_rts(filename_csv, retention_times):
+def test_read_rts(filename_csv, retention_times):
     data = PandasData(filename_csv)
 
     actual = data.retention_times

@@ -10,7 +10,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 @pytest.fixture
 def filename_csv():
-    return os.path.join(here, "Alkanes_20210325.csv")
+    return os.path.join(here, "data", "Alkanes_20210325.csv")
 
 
 @pytest.fixture

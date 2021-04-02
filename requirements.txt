@@ -41,7 +41,6 @@ python-dateutil==2.8.1
 pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1612179539967/work
 PyYAML==5.4.1
 requirements-detector @ file:///D:/bld/requirements-detector_1602510700225/work
--e git+git@github.com:hechth/RIAssigner.git@3153d6b71b0bf1937b696a1b4ccf8233410d3b1e#egg=RIAssigner
 setoptconf==0.2.0
 six @ file:///home/conda/feedstock_root/build_artifacts/six_1590081179328/work
 snowballstemmer @ file:///home/conda/feedstock_root/build_artifacts/snowballstemmer_1611270869511/work

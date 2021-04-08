@@ -20,3 +20,8 @@ class Data(ABC):
     @abstractmethod
     def retention_times(self):
         ...
+
+    @property
+    @abstractmethod
+    def retention_indices(self):
+        ...

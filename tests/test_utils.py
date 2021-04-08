@@ -4,16 +4,15 @@ import RIAssigner.utils as Utils
 
 @pytest.fixture
 def first():
-    return ['blub', 'test', 'peter']
+    return 
 
 
 @pytest.fixture
 def second():
-    return ['a', 'b', 'peter', 'd']
+    return 
 
-
-def test_get_first_common_element(first, second):
+@pytest.mark.parametrize("first, second, expected", [[['blub', 'test', 'peter'], ['a', 'b', 'peter', 'd'], 'peter'], [['a'],['b'], None]])
+def test_get_first_common_element(first, second, expected):
     actual = Utils.get_first_common_element(first, second)
-    expected = 'peter'
 
     assert actual == expected

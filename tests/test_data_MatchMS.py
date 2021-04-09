@@ -3,7 +3,6 @@ import numpy
 from matchms.importing import load_from_msp
 import pytest
 from RIAssigner.data import MatchMSData
-from RIAssigner.data.MatchMSData import safe_read_rt
 
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -11,7 +10,9 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 @pytest.fixture(params=[
     "recetox_gc-ei_ms_20201028.msp",
-    "MSMS-Neg-Vaniya-Fiehn_Natural_Products_Library_20200109.msp"])
+    "MSMS-Neg-Vaniya-Fiehn_Natural_Products_Library_20200109.msp",
+    "MSMS-Neg-PFAS_20200806.msp",
+    "PFAS_added_rt.msp"])
 def filename_msp(request):
     return os.path.join(here, "data", "msp", request.param)
 
@@ -21,7 +22,14 @@ def retention_times(filename_msp):
     library = list(load_from_msp(filename_msp))
     retention_times = []
     for spectrum in library:
-        rt = safe_read_rt(spectrum)
+        rt = spectrum.get('retentiontime', None)
+        if rt == '':
+            rt = None
+        elif isinstance(rt, str):
+            try:
+                rt = float(rt)
+            except ValueError:
+                rt = None
         retention_times.append(rt)
     return retention_times
 

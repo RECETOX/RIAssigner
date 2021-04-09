@@ -34,7 +34,7 @@ requirements:
     - setuptools
   run:
     - numpy
-    - matchms >=0.82
+    - matchms >=0.8.2
     - pip
     - pandas
     - python >=3.7,<3.9

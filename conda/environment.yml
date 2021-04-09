@@ -5,6 +5,6 @@ channels:
   - defaults
 dependencies:
   - numpy
-  - matchms >=0.82
+  - matchms >=0.8.2
   - pandas
   - python >=3.7,<3.9

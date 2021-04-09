@@ -17,7 +17,7 @@ build:
   noarch: python
   preserve_egg_dir: True
   number: 0
-  script: python -m pip install --no-deps --ignore-installed . -vv
+  script: {{ PYTHON }} -m pip install --no-deps --ignore-installed . -vv
 
 requirements:
   build:

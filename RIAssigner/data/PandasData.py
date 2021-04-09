@@ -1,5 +1,6 @@
 from .Data import Data
 from pandas import read_csv
+from typing import Iterable
 from ..utils import get_first_common_element
 
 
@@ -20,7 +21,7 @@ class PandasData(Data):
         self._rt_index = get_first_common_element(self._data.columns, self._rt_column_names)
 
     @property
-    def retention_times(self):
+    def retention_times(self) -> Iterable[int]:
         return self._data[self._rt_index]
 
     @property
@@ -28,3 +29,7 @@ class PandasData(Data):
         if self._carbon_number_index is not None:
             return self._data[self._carbon_number_index] * 10
         raise KeyError("Dataset does not contain retention indices!")
+
+    @retention_indices.setter
+    def retention_indices(self, value: Iterable[int]):
+        raise NotImplementedError()

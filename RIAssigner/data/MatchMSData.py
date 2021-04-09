@@ -1,7 +1,7 @@
 from .Data import Data
 from matchms import Spectrum
 from matchms.importing import load_from_msp
-from typing import Optional
+from typing import Optional, Iterable
 
 
 class MatchMSData(Data):
@@ -27,11 +27,15 @@ class MatchMSData(Data):
             self._retention_times.append(rt)
 
     @property
-    def retention_times(self):
+    def retention_times(self) -> Iterable[Optional[float]]:
         return self._retention_times
 
     @property
-    def retention_indices(self):
+    def retention_indices(self) -> Iterable[Optional[int]]:
+        raise NotImplementedError()
+
+    @retention_indices.setter
+    def retention_indices(self, value: Iterable[int]):
         raise NotImplementedError()
 
 

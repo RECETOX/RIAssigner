@@ -1,9 +1,9 @@
 {% set name = "RIAssigner" %}
-{% set version = "0.0.1" %}
+{% set data = load_setup_py_data() %}
 
 package:
-  name: {{ name|lower }}
-  version: {{ version }}
+  name: riassigner
+  version: {{ data.get('version') }}
 
 source:
   path: ..
@@ -17,8 +17,7 @@ build:
   noarch: python
   preserve_egg_dir: True
   number: 0
-  skip: True # [py2k]
-  script: {{ PYTHON }} -m pip install --no-deps --ignore-installed . -vv
+  script: python -m pip install --no-deps --ignore-installed . -vv
 
 requirements:
   build:

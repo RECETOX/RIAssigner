@@ -1,4 +1,34 @@
-anaconda_dev:
+name: Anaconda Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  first_check:
+    name: first code check / python-3.8 / ubuntu-latest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Python info
+        run: |
+          which python
+          python --version
+      - name: Build package and create dev environment
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+      - name: Test with coverage
+        run: |
+          pytest --cov --cov-report term --cov-report xml --junitxml=xunit-result.xml
+          
+  anaconda_dev:
     name: Anaconda build and test documentation / python-3.8 / ubuntu-latest
     runs-on: ubuntu-latest
     strategy:

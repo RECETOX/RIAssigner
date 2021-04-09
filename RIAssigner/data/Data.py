@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Iterable, Optional
 
 
 class Data(ABC):
@@ -18,10 +19,15 @@ class Data(ABC):
 
     @property
     @abstractmethod
-    def retention_times(self):
+    def retention_times(self) -> Iterable[Optional[float]]:
         ...
 
     @property
     @abstractmethod
-    def retention_indices(self):
+    def retention_indices(self) -> Iterable[Optional[int]]:
+        ...
+
+    @retention_indices.setter
+    @abstractmethod
+    def retention_indices(self, value: Iterable[int]):
         ...

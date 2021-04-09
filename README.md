@@ -1,5 +1,6 @@
 [![Python package](https://github.com/hechth/RIAssigner/actions/workflows/python-package.yml/badge.svg)](https://github.com/hechth/RIAssigner/actions/workflows/python-package.yml)
 [![Python Package using Conda](https://github.com/hechth/RIAssigner/actions/workflows/python-package-conda.yml/badge.svg?branch=main)](https://github.com/hechth/RIAssigner/actions/workflows/python-package-conda.yml)
+[![Anaconda Build](https://github.com/hechth/RIAssigner/actions/workflows/anaconda.yml/badge.svg?branch=main)](https://github.com/hechth/RIAssigner/actions/workflows/anaconda.yml)
 # RIAssigner
 RIAssigner is a python tool for retention index (RI) computation for GC-MS data developed at [RECETOX](https://www.recetox.muni.cz/en).
 

@@ -32,4 +32,7 @@ class PandasData(Data):
 
     @retention_indices.setter
     def retention_indices(self, value: Iterable[int]):
-        raise NotImplementedError()
+        if len(value) == len(self._data):
+            self._data["retention_index"] = value
+        else:
+            raise ValueError("There is different numbers of computed indices and peaks.")

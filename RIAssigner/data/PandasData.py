@@ -34,9 +34,9 @@ class PandasData(Data):
         raise KeyError("Dataset does not contain retention indices!")
 
     @retention_indices.setter
-    def retention_indices(self, value: Iterable[int]):
-        if len(value) == len(self._data):
+    def retention_indices(self, values: Iterable[int]):
+        if len(values) == len(self._data):
             self._ri_position = self._rt_position + 1  
-            self._data.insert(loc=self._ri_position, column="retention_index", value=value)
+            self._data.insert(loc=self._ri_position, column="retention_index", value=values)
         else:
             raise ValueError("There is different numbers of computed indices and peaks.")

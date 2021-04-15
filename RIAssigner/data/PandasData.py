@@ -29,6 +29,8 @@ class PandasData(Data):
     def retention_indices(self):
         if self._carbon_number_index is not None:
             return self._data[self._carbon_number_index] * 10
+        elif "retention_index" in self._data.columns:
+            return self._data["retention_index"]
         raise KeyError("Dataset does not contain retention indices!")
 
     @retention_indices.setter

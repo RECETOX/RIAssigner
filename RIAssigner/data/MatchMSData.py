@@ -35,8 +35,12 @@ class MatchMSData(Data):
         raise NotImplementedError()
 
     @retention_indices.setter
-    def retention_indices(self, value: Iterable[int]):
-        raise NotImplementedError()
+    def retention_indices(self, values: Iterable[int]):
+        if len(values) == len(self._spectra):
+            for value_idx in range(len(values)):
+                self._spectra[value_idx].set(key="retentionindex", value=values[value_idx])
+        else:
+            raise ValueError("There is different numbers of computed indices and peaks.")
 
 
 def safe_read_rt(spectrum) -> Optional[float]:

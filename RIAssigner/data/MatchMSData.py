@@ -37,8 +37,7 @@ class MatchMSData(Data):
     @retention_indices.setter
     def retention_indices(self, values: Iterable[int]):
         if len(values) == len(self._spectra):
-            for value_idx in range(len(values)):
-                self._spectra[value_idx].set(key="retentionindex", value=values[value_idx])
+            list(map(_assign_ri_value, self._spectra, values))
         else:
             raise ValueError("There is different numbers of computed indices and peaks.")
 
@@ -59,3 +58,7 @@ def _spectrum_has_rt(spectrum: Spectrum) -> bool:
     if not has_key:
         return False
     return True
+
+
+def _assign_ri_value(spectrum: object, value: int):
+    spectrum.set(key="retentionindex", value=value)

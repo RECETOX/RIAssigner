@@ -24,10 +24,10 @@ class Data(ABC):
 
     @property
     @abstractmethod
-    def retention_indices(self) -> Iterable[Optional[int]]:
+    def retention_indices(self) -> Iterable[Optional[float]]:
         ...
 
     @retention_indices.setter
     @abstractmethod
-    def retention_indices(self, value: Iterable[int]):
+    def retention_indices(self, value: Iterable[float]):
         ...

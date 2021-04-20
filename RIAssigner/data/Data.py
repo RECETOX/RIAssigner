@@ -8,7 +8,6 @@ class Data(ABC):
     RetentionIndexType = Optional[float]
 
     def __init__(self, filename: str):
-        self._retention_times = []
         self._filename = filename
         self.read(self._filename)
 

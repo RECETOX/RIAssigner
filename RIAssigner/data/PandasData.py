@@ -21,15 +21,15 @@ class PandasData(Data):
         self._rt_index = get_first_common_element(self._data.columns, self._rt_column_names)
 
     @property
-    def retention_times(self) -> Iterable[int]:
+    def retention_times(self) -> Iterable[float]:
         return self._data[self._rt_index]
 
     @property
-    def retention_indices(self):
+    def retention_indices(self) -> Iterable[float]:
         if self._carbon_number_index is not None:
-            return self._data[self._carbon_number_index] * 10
+            return self._data[self._carbon_number_index] * 100
         raise KeyError("Dataset does not contain retention indices!")
 
     @retention_indices.setter
-    def retention_indices(self, value: Iterable[int]):
+    def retention_indices(self, value: Iterable[float]):
         raise NotImplementedError()

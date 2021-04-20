@@ -4,6 +4,9 @@ from typing import Iterable, Optional
 
 class Data(ABC):
     """ Base class for data managers. """
+    RetentionTimeType = Optional[float]
+    RetentionIndexType = Optional[float]
+
     def __init__(self, filename: str):
         self._retention_times = []
         self._filename = filename

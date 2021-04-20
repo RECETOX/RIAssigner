@@ -24,12 +24,12 @@ class PandasData(Data):
         self._rt_index = get_first_common_element(self._data.columns, self._rt_column_names)
 
     @property
-    def retention_times(self) -> Iterable[float]:
+    def retention_times(self) -> Iterable[Data.RetentionTimeType]:
         """ Get retention times."""
         return self._data[self._rt_index]
 
     @property
-    def retention_indices(self) -> Iterable[float]:
+    def retention_indices(self) -> Iterable[Data.RetentionIndexType]:
         """ Get retention indices from data or computed from carbon numbers. """
         if self._carbon_number_index is not None:
             return self._ri_from_carbon_numbers()
@@ -40,5 +40,5 @@ class PandasData(Data):
         return self._data[self._carbon_number_index] * 100
 
     @retention_indices.setter
-    def retention_indices(self, value: Iterable[float]):
+    def retention_indices(self, value: Iterable[Data.RetentionIndexType]):
         raise NotImplementedError()

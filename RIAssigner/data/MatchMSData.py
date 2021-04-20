@@ -28,15 +28,15 @@ class MatchMSData(Data):
         self._retention_times = [safe_read_key(spectrum, 'retentiontime') for spectrum in self._spectra]
 
     @property
-    def retention_times(self) -> Iterable[Optional[float]]:
+    def retention_times(self) -> Iterable[Data.RetentionTimeType]:
         return self._retention_times
 
     @property
-    def retention_indices(self) -> Iterable[Optional[float]]:
+    def retention_indices(self) -> Iterable[Data.RetentionIndexType]:
         return self._retention_indices
 
     @retention_indices.setter
-    def retention_indices(self, value: Iterable[float]):
+    def retention_indices(self, value: Iterable[Data.RetentionIndexType]):
         raise NotImplementedError()
 
 

@@ -11,15 +11,27 @@ class PandasData(Data):
 
     def read(self, filename: str):
         self._data = read_csv(filename)
-        self._set_rt_index_n_position()
         self._set_carbon_number_index()
+        self._init_rt_column_info()
+        self._init_ri_column_info()
+        self._init_ri_indices()
 
     def _set_carbon_number_index(self):
         self._carbon_number_index = get_first_common_element(self._data.columns, self._carbon_number_column_names)
 
-    def _set_rt_index_n_position(self):
+    def _init_rt_column_info(self):
         self._rt_index = get_first_common_element(self._data.columns, self._rt_column_names)
         self._rt_position = self._data.columns.tolist().index(self._rt_index)
+
+    def _init_ri_column_info(self):
+        self._ri_index = "retention_index"
+        self._ri_position = self._rt_position + 1
+
+    def _init_ri_indices(self):
+        if self._carbon_number_index is not None:
+            self._data[self._ri_index] = self._data[self._carbon_number_index] * 100
+        else:
+            self._data.insert(loc=self._ri_position, column=self._ri_index, value=None)
 
     @property
     def retention_times(self) -> Iterable[int]:
@@ -27,16 +39,11 @@ class PandasData(Data):
 
     @property
     def retention_indices(self):
-        if self._carbon_number_index is not None:
-            return self._data[self._carbon_number_index] * 10
-        elif "retention_index" in self._data.columns:
-            return self._data["retention_index"]
-        raise KeyError("Dataset does not contain retention indices!")
+        if not self._data[self._ri_index].isnull().all():
+            return self._data[self._rt_index]
+        else:
+            raise KeyError("Dataset does not contain retention indices!")
 
     @retention_indices.setter
     def retention_indices(self, values: Iterable[int]):
-        if len(values) == len(self._data):
-            self._ri_position = self._rt_position + 1  
-            self._data.insert(loc=self._ri_position, column="retention_index", value=values)
-        else:
-            raise ValueError("There is different numbers of computed indices and peaks.")
+        self._data[self._ri_index] = values

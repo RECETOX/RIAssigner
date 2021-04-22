@@ -47,9 +47,9 @@ def test_read_rts(filename_msp, retention_times):
     numpy.testing.assert_array_equal(actual, expected)
 
 
-@pytest.mark.parametrize("filename, expected", [["PFAS_added_rt.msp", [None, 0.45, 1.2, 10.5, 17.4, 188.9]]])
-def test_sort_by_rt(retention_times):
-    filename = os.path.join(here, "data", "msp", filename)
+@pytest.mark.parametrize("filename_msp, expected", [["PFAS_added_rt.msp", [None, 0.45, 1.2, 10.5, 17.4, 188.9]]])
+def test_sort_by_rt(filename_msp, expected):
+    filename = os.path.join(here, "data", "msp", filename_msp)
     data = MatchMSData(filename)
 
     actual = data.retention_times

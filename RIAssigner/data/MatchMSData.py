@@ -28,7 +28,7 @@ class MatchMSData(Data):
             self._retention_times.append(rt)
 
     def _sort_by_rt(self):
-        self._spectra.sort(key=lambda x: x.metadata["retentiontime"])
+        self._spectra.sort(key=lambda spectrum: spectrum.metadata["retentiontime"])
 
     @property
     def retention_times(self) -> Iterable[Optional[float]]:

@@ -13,12 +13,16 @@ class PandasData(Data):
         self._data = read_csv(filename)
         self._set_rt_index()
         self._set_carbon_number_index()
+        self._sort_by_rt()
 
     def _set_carbon_number_index(self):
         self._carbon_number_index = get_first_common_element(self._data.columns, self._carbon_number_column_names)
 
     def _set_rt_index(self):
         self._rt_index = get_first_common_element(self._data.columns, self._rt_column_names)
+
+    def _sort_by_rt(self):
+        self._data.sort_values(by=self._rt_index, axis=0, inplace=True)
 
     @property
     def retention_times(self) -> Iterable[int]:
@@ -33,3 +37,4 @@ class PandasData(Data):
     @retention_indices.setter
     def retention_indices(self, value: Iterable[int]):
         raise NotImplementedError()
+

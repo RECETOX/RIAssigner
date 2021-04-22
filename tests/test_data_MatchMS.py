@@ -31,6 +31,7 @@ def retention_times(filename_msp):
             except ValueError:
                 rt = None
         retention_times.append(rt)
+        retention_times.sort()
     return retention_times
 
 
@@ -45,12 +46,3 @@ def test_read_rts(filename_msp, retention_times):
     actual = data.retention_times
     expected = retention_times
     numpy.testing.assert_array_equal(actual, expected)
-
-
-@pytest.mark.parametrize("filename_msp, expected", [["PFAS_added_rt.msp", [None, 0.45, 1.2, 10.5, 17.4, 188.9]]])
-def test_sort_by_rt(filename_msp, expected):
-    filename = os.path.join(here, "data", "msp", filename_msp)
-    data = MatchMSData(filename)
-
-    actual = data.retention_times
-    assert actual == expected

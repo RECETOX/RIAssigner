@@ -13,6 +13,7 @@ class MatchMSData(Data):
     def read(self, filename: str):
         self._read_spectra(filename)
         self._retention_times = []
+        self._sort_by_rt()
         self._read_retention_times()
 
     def _read_spectra(self, filename):
@@ -25,6 +26,9 @@ class MatchMSData(Data):
         for spectrum in self._spectra:
             rt = safe_read_rt(spectrum)
             self._retention_times.append(rt)
+
+    def _sort_by_rt(self):
+        self._spectra.sort(key=lambda x: x.metadata["retentiontime"])
 
     @property
     def retention_times(self) -> Iterable[Optional[float]]:

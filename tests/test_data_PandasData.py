@@ -53,3 +53,12 @@ def test_read_ris(filename, expected):
 
     actual = data.retention_indices
     numpy.testing.assert_array_almost_equal(actual, expected)
+
+
+@pytest.mark.parametrize("filename, expected", [["aplcms_aligned_peaks.csv", [142.7, 143.0, 143.7, 144.2, 147.0]]])
+def test_sort_by_rt(filename, expected):
+    filename = os.path.join(here, "data", "csv", filename)
+    data = PandasData(filename)
+
+    actual = data.retention_times[0:5].tolist()
+    numpy.testing.assert_array_almost_equal(actual, expected)

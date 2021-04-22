@@ -25,7 +25,8 @@ def csv_content(filename_csv):
 @pytest.fixture
 def retention_times(csv_content):
     index = get_first_common_element(csv_content[0].keys(), ["RT", "rt"])
-    rts = [float(row[index]) for row in csv_content].sort()
+    rts = [float(row[index]) for row in csv_content]
+    rts.sort()
     return rts
 
 

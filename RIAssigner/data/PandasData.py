@@ -40,7 +40,7 @@ class PandasData(Data):
     @property
     def retention_indices(self):
         if not self._data[self._ri_index].isnull().all():
-            return self._data[self._rt_index]
+            return self._data[self._ri_index]
         else:
             raise KeyError("Dataset does not contain retention indices!")
 

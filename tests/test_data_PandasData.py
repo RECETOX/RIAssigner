@@ -25,7 +25,7 @@ def csv_content(filename_csv):
 @pytest.fixture
 def retention_times(csv_content):
     index = get_first_common_element(csv_content[0].keys(), ["RT", "rt"])
-    rts = [float(row[index]) for row in csv_content]
+    rts = [float(row[index]) for row in csv_content].sort()
     return rts
 
 
@@ -52,13 +52,4 @@ def test_read_ris(filename, expected):
     data = PandasData(filename)
 
     actual = data.retention_indices
-    numpy.testing.assert_array_almost_equal(actual, expected)
-
-
-@pytest.mark.parametrize("filename, expected", [["aplcms_aligned_peaks.csv", [142.7, 143.0, 143.7, 144.2, 147.0]]])
-def test_sort_by_rt(filename, expected):
-    filename = os.path.join(here, "data", "csv", filename)
-    data = PandasData(filename)
-
-    actual = data.retention_times[0:5].tolist()
     numpy.testing.assert_array_almost_equal(actual, expected)

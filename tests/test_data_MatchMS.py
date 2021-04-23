@@ -23,16 +23,14 @@ def retention_times(filename_msp):
     retention_times = []
     for spectrum in library:
         rt = spectrum.get('retentiontime', None)
-        if rt == '':
-            rt = 0.0
-        elif isinstance(rt, str):
+        if isinstance(rt, str):
             try:
                 rt = float(rt)
             except ValueError:
                 rt = ''
         retention_times.append(rt)
     retention_times.sort()
-    retention_times = [None if (i=='' or i==0.0) else i for i in retention_times]
+    retention_times = [None if i=='' else i for i in retention_times]
     return retention_times
 
 

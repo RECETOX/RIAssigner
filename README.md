@@ -12,10 +12,6 @@ RIAssigner is a python tool for retention index (RI) computation for GC-MS data 
 
 ```mermaid
 classDiagram
-    class Record {
-        float retention_time
-    }
-
     class MatchMSData{
         -List ~Spectra~ data
     }
@@ -31,29 +27,14 @@ classDiagram
         <<abstract>>
         +read(string filename)
         +write(string filename)
-        +get_rts() List~float~
-        +get_indices() List~int~
-        +set_indices(List~int~ indices)
+        +retention_times() List~float~
+        +retention_indices() List~int~
     }
 
-    class DataSet{
-        -Data source
-        +DataSet(Data source)
-        +get_rts() List~float~
-        +set_indices(List~int~ indices)
-    }
-
-    DataSet o-- Data
-
-    class IndexedDataSet{
-        +get_indices() List~int~
-    }
-
-    DataSet <|-- IndexedDataSet
 
     class ComputationMethod{
         <<interface>>
-        compute(DataSet targets, IndexedDataSet references) List~int~
+        +compute(Data query, Data reference) List~int~
 
     }
 

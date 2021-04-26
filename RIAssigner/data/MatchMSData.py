@@ -13,9 +13,10 @@ class MatchMSData(Data):
     def read(self, filename: str):
         self._read_spectra(filename)
 
+        self._sort_spectra_by_rt()
+
         self._read_retention_times()
         self._read_retention_indices()
-        self._sort_by_rt()
 
     def _read_spectra(self, filename):
         if filename.endswith('.msp'):
@@ -31,7 +32,7 @@ class MatchMSData(Data):
         """ Read retention indices from spectrum metadata. """
         self._retention_indices = [safe_read_key(spectrum, 'retentionindex') for spectrum in self._spectra]
 
-    def _sort_by_rt(self):
+    def _sort_spectra_by_rt(self):
         self._spectra.sort(key=lambda spectrum: spectrum.metadata["retentiontime"])
 
     @property

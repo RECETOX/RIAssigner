@@ -32,7 +32,7 @@ def retention_times(filename_msp):
                 rt = -0.1
         retention_times.append(rt)
     retention_times.sort()
-    retention_times = [None if i==-0.1 else i for i in retention_times]
+    retention_times = [None if i == -0.1 else i for i in retention_times]
     return retention_times
 
 

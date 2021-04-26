@@ -12,6 +12,9 @@ class MatchMSData(Data):
 
     def read(self, filename: str):
         self._read_spectra(filename)
+
+        self._sort_spectra_by_rt()
+
         self._read_retention_times()
         self._read_retention_indices()
 
@@ -28,6 +31,9 @@ class MatchMSData(Data):
     def _read_retention_indices(self):
         """ Read retention indices from spectrum metadata. """
         self._retention_indices = [safe_read_key(spectrum, 'retentionindex') for spectrum in self._spectra]
+
+    def _sort_spectra_by_rt(self):
+        self._spectra.sort(key=lambda spectrum: spectrum.metadata["retentiontime"])
 
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:

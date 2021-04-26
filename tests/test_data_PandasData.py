@@ -46,7 +46,7 @@ def test_read_rts(filename_csv, retention_times):
     numpy.testing.assert_array_almost_equal(actual, expected)
 
 
-@pytest.mark.parametrize("filename, expected", [["Alkanes_20210325.csv", range(110, 410, 10)]])
+@pytest.mark.parametrize("filename, expected", [["Alkanes_20210325.csv", range(1100, 4100, 100)]])
 def test_read_ris(filename, expected):
     filename = os.path.join(here, "data", "csv", filename)
     data = PandasData(filename)

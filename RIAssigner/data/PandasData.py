@@ -12,16 +12,29 @@ class PandasData(Data):
     def read(self, filename: str):
         """ Load content from file into PandasData object. """
         self._data = read_csv(filename)
-        self._init_rt_index()
         self._init_carbon_number_index()
+        self._init_rt_column_info()
+        self._init_ri_column_info()
+        self._init_ri_indices()
 
     def _init_carbon_number_index(self):
         """ Find key of carbon number column and store it. """
         self._carbon_number_index = get_first_common_element(self._data.columns, self._carbon_number_column_names)
 
-    def _init_rt_index(self):
+    def _init_rt_column_info(self):
         """ Find key of retention time column and store it. """
         self._rt_index = get_first_common_element(self._data.columns, self._rt_column_names)
+        self._rt_position = self._data.columns.tolist().index(self._rt_index)
+
+    def _init_ri_column_info(self):
+        self._ri_index = "retention_index"
+        self._ri_position = self._rt_position + 1
+
+    def _init_ri_indices(self):
+        if self._carbon_number_index is not None:
+            self._data[self._ri_index] = self._data[self._carbon_number_index] * 100
+        else:
+            self._data.insert(loc=self._ri_position, column=self._ri_index, value=None)
 
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
@@ -33,6 +46,8 @@ class PandasData(Data):
         """ Get retention indices from data or computed from carbon numbers. """
         if self._carbon_number_index is not None:
             return self._ri_from_carbon_numbers()
+        if not self._data[self._ri_index].isnull().all():
+            return self._data[self._ri_index]
         raise KeyError("Dataset does not contain retention indices!")
 
     def _ri_from_carbon_numbers(self):
@@ -40,5 +55,5 @@ class PandasData(Data):
         return self._data[self._carbon_number_index] * 100
 
     @retention_indices.setter
-    def retention_indices(self, value: Iterable[Data.RetentionIndexType]):
-        raise NotImplementedError()
+    def retention_indices(self, values: Iterable[int]):
+        self._data[self._ri_index] = values

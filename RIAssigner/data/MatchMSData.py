@@ -40,8 +40,11 @@ class MatchMSData(Data):
         return self._retention_indices
 
     @retention_indices.setter
-    def retention_indices(self, value: Iterable[Data.RetentionIndexType]):
-        raise NotImplementedError()
+    def retention_indices(self, values: Iterable[int]):
+        if len(values) == len(self._spectra):
+            list(map(_assign_ri_value, self._spectra, values))
+        else:
+            raise ValueError("There is different numbers of computed indices and peaks.")
 
 
 def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
@@ -69,3 +72,14 @@ def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
             # RT is in format that can't be converted to float -> set rt to None
             value = None
     return value
+
+
+def _spectrum_has_rt(spectrum: Spectrum) -> bool:
+    has_key = 'retentiontime' in spectrum.metadata.keys()
+    if not has_key:
+        return False
+    return True
+
+
+def _assign_ri_value(spectrum: object, value: int):
+    spectrum.set(key="retentionindex", value=value)

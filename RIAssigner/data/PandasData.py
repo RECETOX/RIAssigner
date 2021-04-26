@@ -12,10 +12,12 @@ class PandasData(Data):
     def read(self, filename: str):
         """ Load content from file into PandasData object. """
         self._data = read_csv(filename)
+
         self._init_carbon_number_index()
         self._init_rt_column_info()
         self._init_ri_column_info()
         self._init_ri_indices()
+        self._sort_by_rt()
 
     def _init_carbon_number_index(self):
         """ Find key of carbon number column and store it. """
@@ -35,6 +37,9 @@ class PandasData(Data):
             self._data[self._ri_index] = self._data[self._carbon_number_index] * 100
         else:
             self._data.insert(loc=self._ri_position, column=self._ri_index, value=None)
+
+    def _sort_by_rt(self):
+        self._data.sort_values(by=self._rt_index, axis=0, inplace=True)
 
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
@@ -57,3 +62,4 @@ class PandasData(Data):
     @retention_indices.setter
     def retention_indices(self, values: Iterable[int]):
         self._data[self._ri_index] = values
+    

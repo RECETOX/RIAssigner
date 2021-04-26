@@ -45,7 +45,8 @@ def test_exception_query_none(indexed_data):
 def test_compute_ri(non_indexed_data, indexed_data):
     method = Kovats()
 
-    expected = [1607, 1624, 1632, 1748, 1804, 1840, 1965, 1996]
+    expected = [741.525424,  760.169492,  769.491525,  932.420091,  965.296804,
+                986.757991, 1078.823529, 1157.142857]
     actual = method.compute(non_indexed_data, indexed_data)
 
-    numpy.testing.assert_array_equal(actual, expected)
+    numpy.testing.assert_array_almost_equal(actual, expected)

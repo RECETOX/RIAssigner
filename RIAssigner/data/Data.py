@@ -4,8 +4,10 @@ from typing import Iterable, Optional
 
 class Data(ABC):
     """ Base class for data managers. """
+    RetentionTimeType = Optional[float]
+    RetentionIndexType = Optional[float]
+
     def __init__(self, filename: str):
-        self._retention_times = []
         self._filename = filename
         self.read(self._filename)
 
@@ -24,10 +26,10 @@ class Data(ABC):
 
     @property
     @abstractmethod
-    def retention_indices(self) -> Iterable[Optional[int]]:
+    def retention_indices(self) -> Iterable[Optional[float]]:
         ...
 
     @retention_indices.setter
     @abstractmethod
-    def retention_indices(self, value: Iterable[int]):
+    def retention_indices(self, value: Iterable[float]):
         ...

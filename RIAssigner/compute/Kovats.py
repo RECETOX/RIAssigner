@@ -8,7 +8,7 @@ class Kovats(ComputationMethod):
 
     def compute(self, query: Data, reference: Data) -> List[float]:
         """ Compute non-isothermal Kovats retention index.
-        For details see https://webbook.nist.gov/chemistry/gc-ri/        
+        For details see https://webbook.nist.gov/chemistry/gc-ri/
         """
         self._check_data_args(query, reference)
 

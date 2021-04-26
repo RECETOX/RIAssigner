@@ -13,7 +13,7 @@ def indexed_data():
 
 @pytest.fixture
 def non_indexed_data():
-    retention_times = [3.99, 4.32, 4.21, 5.83, 6.55, 9.05, 7.02, 8.65]
+    retention_times = [3.99, 4.21, 4.32, 5.83, 6.55, 7.02, 8.65, 9.05]
     return DataStub(retention_times, [])
 
 
@@ -45,7 +45,7 @@ def test_exception_query_none(indexed_data):
 def test_compute_ri(non_indexed_data, indexed_data):
     method = Kovats()
 
-    expected = [1607, 1632, 1624, 1748, 1804, 1996, 1840, 1965]
+    expected = [1607, 1624, 1632, 1748, 1804, 1840, 1965, 1996]
     actual = method.compute(non_indexed_data, indexed_data)
 
     numpy.testing.assert_array_equal(actual, expected)

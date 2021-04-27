@@ -17,6 +17,12 @@ def non_indexed_data():
     return DataStub(retention_times, [])
 
 
+@pytest.fixture
+def invalid_rt_data():
+    retention_times = [-1.0, -0.1, None, 3.99]
+    return DataStub(retention_times, [])
+
+
 def test_construct():
     compute = Kovats()
     assert compute is not None
@@ -42,7 +48,7 @@ def test_exception_query_none(indexed_data):
     assert message == "Query data is 'None'."
 
 
-def test_compute_ri(non_indexed_data, indexed_data):
+def test_compute_ri_basic_case(non_indexed_data, indexed_data):
     method = Kovats()
 
     expected = [741.525424,  760.169492,  769.491525,  932.420091,  965.296804,
@@ -50,3 +56,12 @@ def test_compute_ri(non_indexed_data, indexed_data):
     actual = method.compute(non_indexed_data, indexed_data)
 
     numpy.testing.assert_array_almost_equal(actual, expected)
+
+
+def test_invalid_rt_has_none_ri(invalid_rt_data, indexed_data):
+    method = Kovats()
+
+    expected = [None, None, None, 741.5254237288136]
+    actual = method.compute(invalid_rt_data, indexed_data)
+
+    numpy.testing.assert_array_equal(actual, expected)

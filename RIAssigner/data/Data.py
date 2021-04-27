@@ -7,6 +7,10 @@ class Data(ABC):
     RetentionTimeType = Optional[float]
     RetentionIndexType = Optional[float]
 
+    @staticmethod
+    def is_valid(rt: RetentionTimeType) -> bool:
+        return rt is not None and rt >= 0.0
+
     def __init__(self, filename: str):
         self._filename = filename
         self.read(self._filename)

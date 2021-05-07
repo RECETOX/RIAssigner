@@ -87,5 +87,5 @@ def _spectrum_has_rt(spectrum: Spectrum) -> bool:
     return True
 
 
-def _assign_ri_value(spectrum: object, value: int):
-    spectrum.set(key="retentionindex", value=value)
+def _assign_ri_value(spectrum: Spectrum, value: int):
+    spectrum.set(key='retentionindex', value=value)

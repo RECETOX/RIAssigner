@@ -5,7 +5,7 @@ channels:
   - defaults
 dependencies:
   - numpy
-  - matchms >=0.8.2
+  - matchms >=0.9.0
   - pip
   - pandas
   - prospector

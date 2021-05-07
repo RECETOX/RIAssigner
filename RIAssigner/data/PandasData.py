@@ -29,7 +29,7 @@ class PandasData(Data):
         self._rt_position = self._data.columns.tolist().index(self._rt_index)
 
     def _init_ri_column_info(self):
-        self._ri_index = "retention_index"
+        self._ri_index = 'retention_index'
         self._ri_position = self._rt_position + 1
 
     def _init_ri_indices(self):

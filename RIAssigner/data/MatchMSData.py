@@ -33,7 +33,7 @@ class MatchMSData(Data):
         self._retention_indices = [safe_read_key(spectrum, 'retentionindex') for spectrum in self._spectra]
 
     def _sort_spectra_by_rt(self):
-        self._spectra.sort(key=lambda spectrum: spectrum.metadata["retentiontime"])
+        self._spectra.sort(key=lambda spectrum: spectrum.metadata['retentiontime'])
 
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
@@ -50,7 +50,7 @@ class MatchMSData(Data):
         if len(values) == len(self._spectra):
             list(map(_assign_ri_value, self._spectra, values))
         else:
-            raise ValueError("There is different numbers of computed indices and peaks.")
+            raise ValueError('There is different numbers of computed indices and peaks.')
 
 
 def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:

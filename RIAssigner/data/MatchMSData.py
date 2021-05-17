@@ -1,5 +1,6 @@
 from .Data import Data
 from matchms import Spectrum
+from matchms.exporting import save_as_msp
 from matchms.importing import load_from_msp
 from typing import Optional, Iterable
 
@@ -17,6 +18,9 @@ class MatchMSData(Data):
 
         self._read_retention_times()
         self._read_retention_indices()
+
+    def write(self, filename: str):
+        save_as_msp(self._spectra, filename)
 
     def _read_spectra(self, filename):
         if filename.endswith('.msp'):

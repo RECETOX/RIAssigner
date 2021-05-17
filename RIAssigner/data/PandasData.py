@@ -19,6 +19,9 @@ class PandasData(Data):
         self._init_ri_indices()
         self._sort_by_rt()
 
+    def write(self, filename: str):
+        self._data.to_csv(filename, index=False)
+
     def _init_carbon_number_index(self):
         """ Find key of carbon number column and store it. """
         self._carbon_number_index = get_first_common_element(self._data.columns, self._carbon_number_column_names)

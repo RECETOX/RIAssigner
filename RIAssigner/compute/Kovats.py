@@ -43,8 +43,11 @@ def _get_bound_indices(target_rt: float, reference_rts: Iterable[Data.RetentionT
         Retention times of reference compounds.
 
     """
-    while reference_rts[higher_index] < target_rt:
-        higher_index += 1
+    if target_rt > max(reference_rts) or higher_index >= len(reference_rts):
+        higher_index = len(reference_rts) - 1
+    else:
+        while reference_rts[higher_index] < target_rt:
+            higher_index += 1
     lower_index = max(lower_index, higher_index - 1)
     return lower_index, higher_index
 

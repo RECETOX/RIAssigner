@@ -1,6 +1,7 @@
 import numpy
 import pytest
 from .mocks.DataStub import DataStub
+from .fixtures.data import reference_alkanes, queries
 from RIAssigner.compute import Kovats
 
 
@@ -65,3 +66,10 @@ def test_invalid_rt_has_none_ri(invalid_rt_data, indexed_data):
     actual = method.compute(invalid_rt_data, indexed_data)
 
     numpy.testing.assert_array_equal(actual, expected)
+
+
+def test_ref_queries(reference_alkanes, queries):
+    method = Kovats()
+
+    actual = method.compute(queries, reference_alkanes)
+    assert actual is not None

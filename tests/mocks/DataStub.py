@@ -11,6 +11,9 @@ class DataStub(Data):
     def read(self, filename):
         pass
 
+    def write(self, filename):
+        pass
+
     @property
     def filename(self):
         return "mock"

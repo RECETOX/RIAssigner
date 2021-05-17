@@ -19,6 +19,10 @@ class Data(ABC):
     def read(self, filename):
         ...
 
+    @abstractmethod
+    def write(self, filename):
+        ...
+
     @property
     def filename(self):
         return self._filename

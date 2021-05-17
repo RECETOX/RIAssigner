@@ -1,5 +1,6 @@
 from .Data import Data
 from matchms import Spectrum
+from matchms.exporting import save_as_msp
 from matchms.importing import load_from_msp
 from typing import Optional, Iterable
 
@@ -18,6 +19,9 @@ class MatchMSData(Data):
         self._read_retention_times()
         self._read_retention_indices()
 
+    def write(self, filename: str):
+        save_as_msp(self._spectra, filename)
+
     def _read_spectra(self, filename):
         if filename.endswith('.msp'):
             self._spectra = list(load_from_msp(filename))
@@ -33,7 +37,8 @@ class MatchMSData(Data):
         self._retention_indices = [safe_read_key(spectrum, 'retentionindex') for spectrum in self._spectra]
 
     def _sort_spectra_by_rt(self):
-        self._spectra.sort(key=lambda spectrum: spectrum.metadata["retentiontime"])
+        """ Sort objects (peaks) in spectra list by their retention times. """
+        self._spectra.sort(key=lambda spectrum: spectrum.metadata['retentiontime'])
 
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
@@ -42,15 +47,17 @@ class MatchMSData(Data):
 
     @property
     def retention_indices(self) -> Iterable[Data.RetentionIndexType]:
-        """ Get retention indices."""
+        """ Get retention indices. """
         return self._retention_indices
 
     @retention_indices.setter
     def retention_indices(self, values: Iterable[int]):
+        """ Set retention indices. """
         if len(values) == len(self._spectra):
+            self._retention_indices = values
             list(map(_assign_ri_value, self._spectra, values))
         else:
-            raise ValueError("There is different numbers of computed indices and peaks.")
+            raise ValueError('There is different numbers of computed indices and peaks.')
 
 
 def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
@@ -87,5 +94,5 @@ def _spectrum_has_rt(spectrum: Spectrum) -> bool:
     return True
 
 
-def _assign_ri_value(spectrum: object, value: int):
-    spectrum.set(key="retentionindex", value=value)
+def _assign_ri_value(spectrum: Spectrum, value: int):
+    spectrum.set(key='retentionindex', value=value)

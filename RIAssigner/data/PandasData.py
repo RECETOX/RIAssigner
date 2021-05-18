@@ -68,4 +68,3 @@ class PandasData(Data):
     @retention_indices.setter
     def retention_indices(self, values: Iterable[int]):
         self._data[self._ri_index] = values
-    

@@ -1,9 +1,11 @@
 import csv
-import numpy
 import os
+
+import numpy
 import pytest
-from RIAssigner.data import PandasData
 from RIAssigner.utils import get_first_common_element
+
+from .builders.PandasDataBuilder import PandasDataBuilder
 
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -36,22 +38,25 @@ def test_none():
 
 
 def test_open_csv(filename_csv):
-    data = PandasData(filename_csv)
+    data = PandasDataBuilder().with_filename(filename_csv).build()
     assert data.filename == filename_csv
 
 
-def test_read_rts(filename_csv, retention_times):
-    data = PandasData(filename_csv)
+@pytest.mark.parametrize("filename, rt_format, expected", [
+    ["Alkanes_20210325.csv", 'min', [2.08, 2.43, 2.75, 3.08, 3.4, 3.71, 4.09, 4.48, 4.8, 5.12]]
+])
+def test_read_rts(filename, rt_format, expected):
+    filename = os.path.join(testdata_dir, filename)
+    data = PandasDataBuilder().with_filename(filename).with_rt_unit(rt_format).build()
 
-    actual = data.retention_times
-    expected = retention_times
+    actual = data.retention_times[:10]
     numpy.testing.assert_array_almost_equal(actual, expected)
 
 
 @pytest.mark.parametrize("filename, expected", [["Alkanes_20210325.csv", range(1100, 4100, 100)]])
 def test_read_ris(filename, expected):
     filename = os.path.join(testdata_dir, filename)
-    data = PandasData(filename)
+    data = PandasDataBuilder().with_filename(filename).build()
 
     actual = data.retention_indices
     numpy.testing.assert_array_almost_equal(actual, expected)

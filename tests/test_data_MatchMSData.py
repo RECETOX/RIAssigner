@@ -3,6 +3,7 @@ import numpy
 from matchms.importing import load_from_msp
 import pytest
 from RIAssigner.data import MatchMSData
+from .builders.MatchMSDataBuilder import MatchMSDataBuilder
 
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -38,12 +39,12 @@ def retention_times(filename_msp):
 
 
 def test_open_msp(filename_msp):
-    data = MatchMSData(filename_msp)
+    data = MatchMSDataBuilder().with_filename(filename_msp).build()
     assert data.filename == filename_msp
 
 
 def test_read_rts(filename_msp, retention_times):
-    data = MatchMSData(filename_msp)
+    data = MatchMSDataBuilder().with_filename(filename_msp).build()
 
     actual = data.retention_times
     expected = retention_times
@@ -54,7 +55,7 @@ def test_read_rts(filename_msp, retention_times):
     ["recetox_gc-ei_ms_20201028.msp", [2876, 2886.9, 1827.1, 1832.9, 1844.4, 1501, 1528.3, 2102.7, 2154.5, 2207.5]]])
 def test_read_ris(filename, expected):
     filename = os.path.join(testdata_dir, filename)
-    data = MatchMSData(filename)
+    data = MatchMSDataBuilder().with_filename(filename).build()
 
     actual = data.retention_indices[:10]
     numpy.testing.assert_array_almost_equal(actual, expected)

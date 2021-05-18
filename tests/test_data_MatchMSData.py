@@ -6,6 +6,7 @@ from RIAssigner.data import MatchMSData
 
 
 here = os.path.abspath(os.path.dirname(__file__))
+testdata_dir = os.path.join(here, 'data', 'msp')
 
 
 @pytest.fixture(params=[
@@ -14,7 +15,7 @@ here = os.path.abspath(os.path.dirname(__file__))
     "MSMS-Neg-PFAS_20200806.msp",
     "PFAS_added_rt.msp"])
 def filename_msp(request):
-    return os.path.join(here, "data", "msp", request.param)
+    return os.path.join(testdata_dir, request.param)
 
 
 @pytest.fixture
@@ -52,7 +53,7 @@ def test_read_rts(filename_msp, retention_times):
 @pytest.mark.parametrize("filename, expected", [
     ["recetox_gc-ei_ms_20201028.msp", [2876, 2886.9, 1827.1, 1832.9, 1844.4, 1501, 1528.3, 2102.7, 2154.5, 2207.5]]])
 def test_read_ris(filename, expected):
-    filename = os.path.join(here, "data", "msp", filename)
+    filename = os.path.join(testdata_dir, filename)
     data = MatchMSData(filename)
 
     actual = data.retention_indices[:10]

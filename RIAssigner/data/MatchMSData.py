@@ -11,8 +11,8 @@ class MatchMSData(Data):
     Currently only supports 'msp'.
     """
 
-    def read(self, filename: str):
-        self._read_spectra(filename)
+    def read(self):
+        self._read_spectra(self._filename)
 
         self._sort_spectra_by_rt()
 

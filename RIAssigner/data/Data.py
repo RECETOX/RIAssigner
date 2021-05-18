@@ -7,12 +7,13 @@ class Data(ABC):
     RetentionTimeType = Optional[float]
     RetentionIndexType = Optional[float]
 
-    def __init__(self, filename: str):
+    def __init__(self, filename: str, rt_unit: str = 'min'):
         self._filename = filename
-        self.read(self._filename)
+        self._rt_unit = rt_unit
+        self.read()
 
     @abstractmethod
-    def read(self, filename):
+    def read(self):
         ...
 
     @abstractmethod

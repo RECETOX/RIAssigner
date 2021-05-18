@@ -7,11 +7,11 @@ from ..utils import get_first_common_element
 class PandasData(Data):
     """ Class to handle data from filetypes which can be imported into a pandas dataframe. """
     _rt_column_names = set(['RT', 'rt', 'rts', 'retention_times', 'retention_time', 'retention', 'time'])
-    _carbon_number_column_names = set(['Carbon_Number'])
+    _carbon_number_column_names = set(['Carbon_Number'])        
 
-    def read(self, filename: str):
+    def read(self):
         """ Load content from file into PandasData object. """
-        self._data = read_csv(filename)
+        self._data = read_csv(self._filename)
 
         self._init_carbon_number_index()
         self._init_rt_column_info()

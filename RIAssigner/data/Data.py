@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Iterable, Optional
+import pint
 
 
 class Data(ABC):
@@ -10,6 +11,8 @@ class Data(ABC):
     def __init__(self, filename: str, rt_unit: str = 'min'):
         self._filename = filename
         self._rt_unit = rt_unit
+        self._unit = pint.Unit(self._rt_unit)
+        self._ureg = pint.UnitRegistry()
         self.read()
 
     @abstractmethod

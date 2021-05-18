@@ -42,6 +42,7 @@ requirements:
 test:
   imports:
     - RIAssigner
+    - pint
 
 about:
   home: https://github.com/hechth/RIAssigner

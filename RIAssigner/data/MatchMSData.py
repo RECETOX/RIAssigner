@@ -30,7 +30,7 @@ class MatchMSData(Data):
 
     def _read_retention_times(self):
         """ Read retention times from spectrum metadata. """
-        self._retention_times = [safe_read_key(spectrum, 'retentiontime') for spectrum in self._spectra]
+        self._retention_times = self._ureg.Quantity([safe_read_key(spectrum, 'retentiontime') for spectrum in self._spectra], self._unit)
 
     def _read_retention_indices(self):
         """ Read retention indices from spectrum metadata. """
@@ -43,7 +43,7 @@ class MatchMSData(Data):
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
         """ Get retention times in seconds. """
-        return self._retention_times
+        return self._retention_times.to('seconds')
 
     @property
     def retention_indices(self) -> Iterable[Data.RetentionIndexType]:

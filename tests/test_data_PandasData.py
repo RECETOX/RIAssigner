@@ -7,11 +7,12 @@ from RIAssigner.utils import get_first_common_element
 
 
 here = os.path.abspath(os.path.dirname(__file__))
+testdata_dir = os.path.join(here, 'data', 'csv')
 
 
 @pytest.fixture(params=["Alkanes_20210325.csv", "aplcms_aligned_peaks.csv", "xcms_variable_metadata.csv"])
 def filename_csv(request):
-    return os.path.join(here, "data", "csv", request.param)
+    return os.path.join(testdata_dir, request.param)
 
 
 @pytest.fixture
@@ -49,7 +50,7 @@ def test_read_rts(filename_csv, retention_times):
 
 @pytest.mark.parametrize("filename, expected", [["Alkanes_20210325.csv", range(1100, 4100, 100)]])
 def test_read_ris(filename, expected):
-    filename = os.path.join(here, "data", "csv", filename)
+    filename = os.path.join(testdata_dir, filename)
     data = PandasData(filename)
 
     actual = data.retention_indices

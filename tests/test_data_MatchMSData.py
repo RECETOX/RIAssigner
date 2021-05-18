@@ -1,8 +1,9 @@
 import os
+
 import numpy
-from matchms.importing import load_from_msp
 import pytest
-from RIAssigner.data import MatchMSData
+from matchms.importing import load_from_msp
+
 from .builders.MatchMSDataBuilder import MatchMSDataBuilder
 
 

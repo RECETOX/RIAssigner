@@ -5,7 +5,7 @@ class PandasDataBuilder:
 
     def __init__(self):
         self._filename = None
-        self._rt_unit = None
+        self._rt_unit = 'min'
 
     def with_filename(self, filename: str):
         self._filename = filename

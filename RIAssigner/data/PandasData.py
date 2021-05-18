@@ -7,17 +7,24 @@ from ..utils import get_first_common_element
 class PandasData(Data):
     """ Class to handle data from filetypes which can be imported into a pandas dataframe. """
     _rt_column_names = set(['RT', 'rt', 'rts', 'retention_times', 'retention_time', 'retention', 'time'])
-    _carbon_number_column_names = set(['Carbon_Number'])        
+    _carbon_number_column_names = set(['Carbon_Number'])
 
     def read(self):
         """ Load content from file into PandasData object. """
-        self._data = read_csv(self._filename)
+        self._read_into_dataframe()
 
         self._init_carbon_number_index()
         self._init_rt_column_info()
         self._init_ri_column_info()
         self._init_ri_indices()
         self._sort_by_rt()
+
+    def _read_into_dataframe(self):
+        """ Read the data from file into dataframe. """
+        if(self._filename.endswith('.csv')):
+            self._data = read_csv(self._filename)
+        else:
+            raise NotImplementedError('File formats different from csv are not implemented yet.')
 
     def write(self, filename: str):
         self._data.to_csv(filename, index=False)
@@ -50,7 +57,8 @@ class PandasData(Data):
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
         """ Get retention times in seconds."""
-        return self._data[self._rt_index]
+        values = self._data[self._rt_index].to_numpy()
+        return (values * self._unit).to('seconds')
 
     @property
     def retention_indices(self) -> Iterable[Data.RetentionIndexType]:

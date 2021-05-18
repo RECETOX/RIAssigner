@@ -63,6 +63,7 @@ def test_read_rts_v2(filename, rt_format, expected):
     actual = data.retention_times
     numpy.testing.assert_array_almost_equal(actual, expected)
 
+
 @pytest.mark.parametrize("filename, expected", [
     ["recetox_gc-ei_ms_20201028.msp", [2876, 2886.9, 1827.1, 1832.9, 1844.4, 1501, 1528.3, 2102.7, 2154.5, 2207.5]]])
 def test_read_ris(filename, expected):

@@ -49,7 +49,7 @@ class PandasData(Data):
 
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
-        """ Get retention times."""
+        """ Get retention times in seconds."""
         return self._data[self._rt_index]
 
     @property

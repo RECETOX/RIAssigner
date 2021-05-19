@@ -8,7 +8,7 @@ class Data(ABC):
     RetentionTimeType = Optional[float]
     RetentionIndexType = Optional[float]
 
-    def __init__(self, filename: str, rt_unit: str = 'min'):
+    def __init__(self, filename: str, rt_unit: str = 'seconds'):
         self._filename = filename
         self._rt_unit = rt_unit
         self._unit = Unit(self._rt_unit)

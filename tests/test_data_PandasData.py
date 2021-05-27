@@ -1,6 +1,7 @@
 import csv
 import numpy
 import os
+from pandas import read_csv
 import pytest
 from RIAssigner.data import PandasData
 from RIAssigner.utils import get_first_common_element
@@ -67,11 +68,24 @@ def test_write_new_file(filename_csv, filename, tmp_path):
     assert os.path.isfile(filepath)
 
 
-def test_write_wrong_filename_extension(filename_csv ,tmp_path):
-    filename = os.path.join(tmp_path, "test_file.abc")
+def test_write_wrong_filename_extension(filename_csv, tmp_path):
+    filepath = os.path.join(tmp_path, "test_file.abc")
 
     with pytest.raises(AssertionError) as exception:
-        PandasData(filename_csv).write(filename)
+        PandasData(filename_csv).write(filepath)
 
     message = exception.value.args[0]
     assert message == "File extention must be 'csv' or 'tsv'."
+
+
+def test_assert_written_content(filename_csv, tmp_path):
+    data = PandasData(filename_csv)
+    filename = os.path.split(filename_csv)[-1]
+
+    filepath = os.path.join(tmp_path, filename)
+    data.write(filepath)
+
+    expected = data._data
+    actual = read_csv(filepath)
+
+    numpy.array_equal(actual.values, expected.values)

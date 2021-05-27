@@ -54,3 +54,13 @@ def test_read_ris(filename, expected):
 
     actual = data.retention_indices
     numpy.testing.assert_array_almost_equal(actual, expected)
+
+
+def test_write_wrong_filename_extension(filename_csv ,tmp_path):
+    filename = os.path.join(tmp_path, "test_file.abc")
+
+    with pytest.raises(AssertionError) as exception:
+        PandasData(filename_csv).write(filename)
+
+    message = exception.value.args[0]
+    assert message == "File extention must be 'csv' or 'tsv'."

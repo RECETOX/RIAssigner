@@ -16,4 +16,3 @@ def define_separator(filename):
     else:
         separator = ","
     return separator
-    

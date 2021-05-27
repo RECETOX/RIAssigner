@@ -14,3 +14,4 @@ def test_define_separator(filename, expected):
     actual = Utils.define_separator(filename)
 
     assert actual == expected
+    

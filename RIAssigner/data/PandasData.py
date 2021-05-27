@@ -20,6 +20,7 @@ class PandasData(Data):
         self._sort_by_rt()
 
     def write(self, filename: str):
+        assert filename.endswith((".csv", ".tsv")), "File extention must be 'csv' or 'tsv'."
         self._data.to_csv(filename, index=False)
 
     def _init_carbon_number_index(self):

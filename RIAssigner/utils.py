@@ -9,3 +9,10 @@ def get_first_common_element(first: Iterable[T], second: Iterable[T]) -> T:
     Returns 'None' if there are no common elements.
     """
     return next((item for item in first if item in second), None)
+
+def define_separator(filename):
+    if filename.endswith(".tsv"):
+        separator = "\t"
+    else:
+        separator = ","
+    return separator

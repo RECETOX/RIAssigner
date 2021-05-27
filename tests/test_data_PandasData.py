@@ -56,6 +56,7 @@ def test_read_ris(filename, expected):
     numpy.testing.assert_array_almost_equal(actual, expected)
 
 
+# tmp_path from https://docs.pytest.org/en/6.2.x/tmpdir.html#the-tmp-path-fixture
 def test_write_wrong_filename_extension(filename_csv ,tmp_path):
     filename = os.path.join(tmp_path, "test_file.abc")
 

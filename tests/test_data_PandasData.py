@@ -57,6 +57,16 @@ def test_read_ris(filename, expected):
 
 
 # tmp_path from https://docs.pytest.org/en/6.2.x/tmpdir.html#the-tmp-path-fixture
+@pytest.mark.parametrize("filename", ["test_file.csv, test_file.tsv"])
+def test_write_new_file(filename_csv, filename, tmp_path):
+    filepath = os.path.join(tmp_path, filename)
+    
+    data = PandasData(filename_csv)
+    data.write(filepath)
+
+    assert os.path.isfile(filepath)
+
+
 def test_write_wrong_filename_extension(filename_csv ,tmp_path):
     filename = os.path.join(tmp_path, "test_file.abc")
 

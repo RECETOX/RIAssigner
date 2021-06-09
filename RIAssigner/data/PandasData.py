@@ -20,6 +20,7 @@ class PandasData(Data):
         self._sort_by_rt()
 
     def write(self, filename: str):
+        """ Write data on disk. Currently supports 'csv' and 'tsv' formats. """
         assert filename.endswith((".csv", ".tsv")), "File extention must be 'csv' or 'tsv'."
         separator = define_separator(filename)
         self._data.to_csv(filename, index=False, sep=separator)

@@ -11,7 +11,7 @@ def get_first_common_element(first: Iterable[T], second: Iterable[T]) -> T:
     return next((item for item in first if item in second), None)
 
 def define_separator(filename):
-    """ Selects separator for data values based on filename extension.
+    """ Select separator for data values based on filename extension.
     Returns separator.
     """
     if filename.endswith(".tsv"):

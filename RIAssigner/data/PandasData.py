@@ -1,7 +1,7 @@
 from .Data import Data
 from pandas import read_csv
 from typing import Iterable
-from ..utils import get_first_common_element
+from ..utils import get_first_common_element, define_separator
 
 
 class PandasData(Data):
@@ -27,7 +27,10 @@ class PandasData(Data):
             raise NotImplementedError('File formats different from csv are not implemented yet.')
 
     def write(self, filename: str):
-        self._data.to_csv(filename, index=False)
+        """ Write data on disk. Currently supports 'csv' and 'tsv' formats. """
+        assert filename.endswith((".csv", ".tsv")), "File extention must be 'csv' or 'tsv'."
+        separator = define_separator(filename)
+        self._data.to_csv(filename, index=False, sep=separator)
 
     def _init_carbon_number_index(self):
         """ Find key of carbon number column and store it. """

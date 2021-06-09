@@ -69,7 +69,7 @@ def test_read_ris(filename, expected):
 def test_write_new_file(filename_csv, filename, tmp_path):
     filepath = os.path.join(tmp_path, filename)
     
-    data = PandasData(filename_csv)
+    data = PandasDataBuilder().with_filename(filename_csv).build()
     data.write(filepath)
 
     assert os.path.isfile(filepath)
@@ -79,14 +79,14 @@ def test_filename_extension_assertion(filename_csv, tmp_path):
     filepath = os.path.join(tmp_path, "test_file.abc")
 
     with pytest.raises(AssertionError) as exception:
-        PandasData(filename_csv).write(filepath)
+        PandasDataBuilder().with_filename(filename_csv).build().write(filepath)
 
     message = exception.value.args[0]
     assert message == "File extention must be 'csv' or 'tsv'."
 
 
 def test_assert_written_content(filename_csv, tmp_path):
-    data = PandasData(filename_csv)
+    data = PandasDataBuilder().with_filename(filename_csv).build()
     filename = os.path.split(filename_csv)[-1]
 
     filepath = os.path.join(tmp_path, filename)

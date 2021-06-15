@@ -9,7 +9,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 @pytest.fixture
 def reference_alkanes():
     filename = os.path.join(here, os.pardir, "data", "csv", "Alkanes_20210325.csv")
-    return PandasData(filename)
+    return PandasData(filename, 'min')
 
 
 @pytest.fixture(params=["aplcms_aligned_peaks.csv", "xcms_variable_metadata.csv"])

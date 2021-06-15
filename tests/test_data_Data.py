@@ -1,5 +1,5 @@
 import pytest
-from RIAssigner.data.Data import Data
+from RIAssigner.data import Data
 
 
 def test_abc():

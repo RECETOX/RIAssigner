@@ -44,8 +44,10 @@ setup(
     test_suite="tests",
     python_requires='>=3.7',
     install_requires=[
+        "matchms",
         "numpy",
-        "pandas"
+        "pandas",
+        "pint"
     ],
     extras_require={},
 )

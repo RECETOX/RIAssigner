@@ -1,7 +1,7 @@
 from .Data import Data
 from pandas import read_csv
 from typing import Iterable
-from ..utils import get_first_common_element
+from ..utils import get_first_common_element, define_separator
 
 
 class PandasData(Data):
@@ -9,9 +9,9 @@ class PandasData(Data):
     _rt_column_names = set(['RT', 'rt', 'rts', 'retention_times', 'retention_time', 'retention', 'time'])
     _carbon_number_column_names = set(['Carbon_Number'])
 
-    def read(self, filename: str):
+    def read(self):
         """ Load content from file into PandasData object. """
-        self._data = read_csv(filename)
+        self._read_into_dataframe()
 
         self._init_carbon_number_index()
         self._init_rt_column_info()
@@ -19,8 +19,18 @@ class PandasData(Data):
         self._init_ri_indices()
         self._sort_by_rt()
 
+    def _read_into_dataframe(self):
+        """ Read the data from file into dataframe. """
+        if(self._filename.endswith('.csv')):
+            self._data = read_csv(self._filename)
+        else:
+            raise NotImplementedError('File formats different from csv are not implemented yet.')
+
     def write(self, filename: str):
-        self._data.to_csv(filename, index=False)
+        """ Write data on disk. Currently supports 'csv' and 'tsv' formats. """
+        assert filename.endswith((".csv", ".tsv")), "File extention must be 'csv' or 'tsv'."
+        separator = define_separator(filename)
+        self._data.to_csv(filename, index=False, sep=separator)
 
     def _init_carbon_number_index(self):
         """ Find key of carbon number column and store it. """
@@ -49,8 +59,9 @@ class PandasData(Data):
 
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
-        """ Get retention times."""
-        return self._data[self._rt_index]
+        """ Get retention times in seconds."""
+        values = self._data[self._rt_index].to_numpy()
+        return (values * self._unit).to('seconds')
 
     @property
     def retention_indices(self) -> Iterable[Data.RetentionIndexType]:

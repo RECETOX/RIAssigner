@@ -12,6 +12,8 @@ class MatchMSData(Data):
     """
 
     def read(self):
+        """Load data into object and initialize properties.
+        """
         self._read_spectra(self._filename)
 
         self._sort_spectra_by_rt()
@@ -87,5 +89,11 @@ def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
     return value
 
 
-def _assign_ri_value(spectrum: Spectrum, value: int):
+def _assign_ri_value(spectrum: Spectrum, value: Data.RetentionIndexType):
+    """Assign RI value to Spectrum object
+
+    Args:
+        spectrum (Spectrum): Spectrum to add RI to
+        value (Data.RetentionIndexType): RI to be added to Spectrum
+    """
     spectrum.set(key='retentionindex', value=value)

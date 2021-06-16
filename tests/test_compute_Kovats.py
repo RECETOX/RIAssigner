@@ -71,5 +71,6 @@ def test_invalid_rt_has_none_ri(invalid_rt_data, indexed_data):
 def test_ref_queries(reference_alkanes, queries):
     method = Kovats()
 
-    actual = method.compute(queries, reference_alkanes)
-    assert actual is not None
+    data, expected = queries
+    actual = method.compute(data, reference_alkanes)
+    numpy.testing.assert_array_almost_equal(actual, expected)

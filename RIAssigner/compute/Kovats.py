@@ -14,6 +14,13 @@ class Kovats(ComputationMethod):
         ----------
         query:
             Dataset for which to compute retention indices.
+        reference:
+            Reference dataset with retention times and retention indices
+
+        Returns
+        -------
+        retention_indices: List[Data.RetentionIndexType]
+            List of computed retention indices
         """
 
         self._check_data_args(query, reference)

@@ -91,7 +91,9 @@ def _spectrum_has_rt(spectrum: Spectrum) -> bool:
     has_key = 'retentiontime' in spectrum.metadata.keys()
     if not has_key:
         return False
-    return True
+    else:
+        value = safe_read_key(spectrum, 'retentiontime')
+        return value is not None
 
 
 def _assign_ri_value(spectrum: Spectrum, value: int):

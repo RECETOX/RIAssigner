@@ -1,9 +1,14 @@
 import os
 import pytest
 from RIAssigner.data import PandasData
+from RIAssigner.data import MatchMSData
 
 
 here = os.path.abspath(os.path.dirname(__file__))
+data_type_map = {
+    ".msp": MatchMSData,
+    ".csv": PandasData
+}
 
 
 @pytest.fixture
@@ -12,8 +17,9 @@ def reference_alkanes():
     return PandasData(filename, 'min')
 
 
-@pytest.fixture(params=["aplcms_aligned_peaks.csv", "xcms_variable_metadata.csv"])
+@pytest.fixture(params=["aplcms_aligned_peaks.csv", "xcms_variable_metadata.csv", "PFAS_added_rt.msp"])
 def queries(request):
     _, extension = os.path.splitext(request.param)
     filename = os.path.join(here, os.pardir, "data", extension[1:], request.param)
-    return PandasData(filename)
+
+    return data_type_map[extension](filename)

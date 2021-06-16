@@ -18,8 +18,7 @@ class Kovats(ComputationMethod):
 
         self._check_data_args(query, reference)
 
-        lower_index = 0
-        higher_index = 0
+        index = 0
         retention_indices = []
 
         # Copy rts and ris and insert 0 in the beginning, so that interpolation always starts at 0,0 to the first reference compound.
@@ -32,14 +31,14 @@ class Kovats(ComputationMethod):
         for target_rt in query.retention_times:
             ri = None
             if Data.is_valid(target_rt):
-                lower_index, higher_index = _get_bound_indices(target_rt, reference_rts, lower_index, higher_index)
-                ri = _compute_ri(target_rt, reference_rts, reference_ris, lower_index, higher_index)
+                index = _get_index(target_rt, reference_rts, index)
+                ri = _compute_ri(target_rt, reference_rts, reference_ris, index)
             retention_indices.append(ri)
 
         return retention_indices
 
 
-def _get_bound_indices(target_rt: float, reference_rts: Iterable[Data.RetentionTimeType], lower_index: int, higher_index: int):
+def _get_index(target_rt: float, reference_rts: Iterable[Data.RetentionTimeType], index: int):
     """ Get the indices of previosly eluting and next eluting reference compounds.
     Retention times in 'Data' objects are sorted in ascending order, so this method assumes
     that 'reference_rt' is sorted in ascending order.
@@ -50,23 +49,32 @@ def _get_bound_indices(target_rt: float, reference_rts: Iterable[Data.RetentionT
         Retention times of reference compounds.
 
     """
-    if target_rt > max(reference_rts) or higher_index >= len(reference_rts):
-        higher_index = len(reference_rts) - 1
+    if target_rt > max(reference_rts) or index >= len(reference_rts):
+        index = len(reference_rts) - 1
     else:
-        while reference_rts[higher_index] < target_rt:
-            higher_index += 1
-    lower_index = max(lower_index, higher_index - 1)
-    return lower_index, higher_index
+        while reference_rts[index] < target_rt:
+            index += 1
+    return index
 
 
 def _compute_ri(
         target_rt: float,
         reference_rts: Iterable[Data.RetentionTimeType],
         reference_ris: Iterable[Data.RetentionIndexType],
-        lower_index: int,
-        higher_index: int):
-    term_a = target_rt - reference_rts[lower_index]
-    term_b = reference_rts[higher_index] - reference_rts[lower_index]
+        index: int) -> Data.RetentionIndexType: 
+    """Compute retention index according to Van den Dool (see https://webbook.nist.gov/chemistry/gc-ri/)
 
-    ri = 100 * term_a / term_b + reference_ris[lower_index]
+    Args:
+        target_rt (float): Retention time for which to compute the RI
+        reference_rts (Iterable[Data.RetentionTimeType]): Reference data retention times
+        reference_ris (Iterable[Data.RetentionIndexType]): Reference data retention indices
+        index (int): Higher index of reference compound (n+1)
+
+    Returns:
+        Data.RetentionIndexType: Computed retention index
+    """
+    term_a = target_rt - reference_rts[index - 1]
+    term_b = reference_rts[index] - reference_rts[index - 1]
+
+    ri = 100 * term_a / term_b + reference_ris[index - 1]
     return ri

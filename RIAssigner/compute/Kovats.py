@@ -61,7 +61,7 @@ def _compute_ri(
         target_rt: float,
         reference_rts: Iterable[Data.RetentionTimeType],
         reference_ris: Iterable[Data.RetentionIndexType],
-        index: int) -> Data.RetentionIndexType: 
+        index: int) -> Data.RetentionIndexType:
     """Compute retention index according to Van den Dool (see https://webbook.nist.gov/chemistry/gc-ri/)
 
     Args:

@@ -13,8 +13,9 @@ testdata_dir = os.path.join(here, 'data', 'msp')
 
 @pytest.fixture(params=[
     "recetox_gc-ei_ms_20201028.msp",
-    "MSMS-Neg-Vaniya-Fiehn_Natural_Products_Library_20200109.msp",
-    "MSMS-Neg-PFAS_20200806.msp",
+    # Currently excluded due to having None RT values
+    # "MSMS-Neg-Vaniya-Fiehn_Natural_Products_Library_20200109.msp",
+    # "MSMS-Neg-PFAS_20200806.msp",
     "PFAS_added_rt.msp"])
 def filename_msp(request):
     return os.path.join(testdata_dir, request.param)

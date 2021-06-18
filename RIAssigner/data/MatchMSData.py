@@ -12,6 +12,8 @@ class MatchMSData(Data):
     """
 
     def read(self):
+        """Load data into object and initialize properties.
+        """
         self._read_spectra(self._filename)
 
         self._sort_spectra_by_rt()
@@ -30,7 +32,7 @@ class MatchMSData(Data):
 
     def _read_retention_times(self):
         """ Read retention times from spectrum metadata. """
-        self._retention_times = self._ureg.Quantity([safe_read_key(spectrum, 'retentiontime') for spectrum in self._spectra], self._unit)
+        self._retention_times = Data.URegistry.Quantity([safe_read_key(spectrum, 'retentiontime') for spectrum in self._spectra], self._unit)
 
     def _read_retention_indices(self):
         """ Read retention indices from spectrum metadata. """
@@ -38,7 +40,7 @@ class MatchMSData(Data):
 
     def _sort_spectra_by_rt(self):
         """ Sort objects (peaks) in spectra list by their retention times. """
-        self._spectra.sort(key=lambda spectrum: spectrum.metadata['retentiontime'])
+        self._spectra.sort(key=lambda spectrum: safe_read_key(spectrum, 'retentiontime'))
 
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
@@ -87,12 +89,11 @@ def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
     return value
 
 
-def _spectrum_has_rt(spectrum: Spectrum) -> bool:
-    has_key = 'retentiontime' in spectrum.metadata.keys()
-    if not has_key:
-        return False
-    return True
+def _assign_ri_value(spectrum: Spectrum, value: Data.RetentionIndexType):
+    """Assign RI value to Spectrum object
 
-
-def _assign_ri_value(spectrum: Spectrum, value: int):
+    Args:
+        spectrum (Spectrum): Spectrum to add RI to
+        value (Data.RetentionIndexType): RI to be added to Spectrum
+    """
     spectrum.set(key='retentionindex', value=value)

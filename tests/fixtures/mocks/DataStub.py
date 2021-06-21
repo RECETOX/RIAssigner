@@ -7,6 +7,8 @@ class DataStub(Data):
     def __init__(self, retention_times: Iterable[float], retention_indices: Iterable[float]):
         self._retention_times = retention_times
         self._retention_indices = retention_indices
+        self._retention_indices.sort()
+        self._retention_times.sort()
 
     def read(self, filename):
         pass

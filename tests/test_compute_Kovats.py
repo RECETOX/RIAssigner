@@ -1,27 +1,7 @@
 import numpy
 import pytest
-from .mocks.DataStub import DataStub
-from .fixtures.data import reference_alkanes, queries
+from .fixtures.data import reference_alkanes, queries, indexed_data, non_indexed_data, invalid_rt_data
 from RIAssigner.compute import Kovats
-
-
-@pytest.fixture
-def indexed_data():
-    retention_times = [3.5, 4.68, 5.12, 7.31, 9.01, 9.08]
-    retention_indices = [700, 800, 900, 1000, 1100, 1200]
-    return DataStub(retention_times, retention_indices)
-
-
-@pytest.fixture
-def non_indexed_data():
-    retention_times = [3.99, 4.21, 4.32, 5.83, 6.55, 7.02, 8.65, 9.05]
-    return DataStub(retention_times, [])
-
-
-@pytest.fixture
-def invalid_rt_data():
-    retention_times = [-1.0, -0.1, None, 3.99]
-    return DataStub(retention_times, [])
 
 
 def test_construct():

@@ -1,6 +1,6 @@
 import numpy
 import pytest
-from .fixtures.data import reference_alkanes, queries, indexed_data, non_indexed_data, invalid_rt_data
+from tests.fixtures.data import reference_alkanes, queries, indexed_data, non_indexed_data, invalid_rt_data
 from RIAssigner.compute import Kovats
 
 

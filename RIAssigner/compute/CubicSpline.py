@@ -1,5 +1,5 @@
 from typing import List
-
+from scipy.interpolate import CubicSpline as Model
 from RIAssigner.data import Data
 
 from .ComputationMethod import ComputationMethod
@@ -16,3 +16,6 @@ class CubicSpline(ComputationMethod):
         Returns:
             List[Data.RetentionIndexType]: Computed retention indices
         """
+        model = Model(reference.retention_times, reference.retention_indices)
+        predicted_ri = model(query.retention_times)
+        return predicted_ri

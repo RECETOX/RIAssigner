@@ -25,7 +25,10 @@ def queries(request):
     basename, extension = os.path.splitext(request.param)
     filename = os.path.join(data_location, extension[1:], request.param)
 
-    results_path = os.path.join(data_location, "kovats", basename + ".npy")
+    # Get name of method passed to test fixture using @pytest.mark
+    method = request.node.get_closest_marker("method").args[0]
+
+    results_path = os.path.join(data_location, method, basename + ".npy")
     expected = numpy.load(results_path)
     return (data_type_map[extension](filename), expected)
 

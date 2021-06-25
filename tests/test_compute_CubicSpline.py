@@ -2,7 +2,7 @@ import numpy
 import pytest
 from RIAssigner.compute import CubicSpline
 
-from tests.fixtures.data import indexed_data, non_indexed_data, reference_alkanes, queries
+from tests.fixtures.data import non_indexed_data, reference_alkanes, queries
 from tests.fixtures.mocks.DataStub import DataStub
 
 

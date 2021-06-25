@@ -47,7 +47,8 @@ setup(
         "matchms",
         "numpy",
         "pandas",
-        "pint"
+        "pint",
+        "scipy"
     ],
     extras_require={},
 )

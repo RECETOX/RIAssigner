@@ -16,6 +16,8 @@ class CubicSpline(ComputationMethod):
         Returns:
             List[Data.RetentionIndexType]: Computed retention indices
         """
+        self._check_data_args(query, reference)
+
         model = Model(reference.retention_times, reference.retention_indices)
         predicted_ri = model(query.retention_times)
         return predicted_ri

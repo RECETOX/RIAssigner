@@ -48,6 +48,7 @@ class PandasData(Data):
         if self._ri_index in self._data.columns:
             self._ri_position = self._data.columns.get_loc(self._ri_index)
         else:
+            self._ri_index = 'retention_index'
             self._ri_position = None
 
     def _init_ri_indices(self):

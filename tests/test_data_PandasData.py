@@ -101,3 +101,11 @@ def test_assert_written_content(filename_csv, tmp_path):
     actual = read_csv(filepath)
 
     numpy.array_equal(actual.values, expected.values)
+
+
+@pytest.mark.parametrize("filename", ["aplcms_aligned_peaks.csv"])
+def test_ri_column_was_added(filename):
+    filename = os.path.join(testdata_dir, filename)
+    data = PandasDataBuilder().with_filename(filename).build()
+
+    assert data._ri_index == 'retention_index'

@@ -45,7 +45,7 @@ def test_open_csv(filename_csv):
 
 @pytest.mark.parametrize("filename, rt_format, expected", [
     ["Alkanes_20210325.csv", 'min', [124.8, 145.8, 165, 184.8, 204, 222.6, 245.4, 268.8, 288, 307.2]],
-    ["Alkanes_20210325_ri.csv", 'min', [124.8, 145.8, 165, 184.8, 204, 222.6, 245.4, 268.8, 288, 307.2]],
+    ["Alkanes_ri.csv", 'min', [124.8, 145.8, 165, 184.8, 204, 222.6, 245.4, 268.8, 288, 307.2]],
     ["Alkanes_20210325.csv", 'second', [2.08, 2.43, 2.75, 3.08, 3.4, 3.71, 4.09, 4.48, 4.8, 5.12]]
 ])
 def test_read_rts(filename, rt_format, expected):
@@ -58,7 +58,8 @@ def test_read_rts(filename, rt_format, expected):
 
 @pytest.mark.parametrize("filename, expected", [
     ["Alkanes_20210325.csv", range(1100, 4100, 100)],
-    ["Alkanes_20210325_ri.csv", range(1100, 4100, 100)]
+    ["Alkanes_ri.csv", range(1100, 4100, 100)],
+    ["Alkanes_retention_index.csv", range(1100, 4100, 100)]
 ])
 def test_read_ris(filename, expected):
     filename = os.path.join(testdata_dir, filename)

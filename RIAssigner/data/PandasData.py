@@ -7,6 +7,7 @@ from ..utils import get_first_common_element, define_separator
 class PandasData(Data):
     """ Class to handle data from filetypes which can be imported into a pandas dataframe. """
     _rt_column_names = set(['RT', 'rt', 'rts', 'retention_times', 'retention_time', 'retention', 'time'])
+    _ri_column_names = set(['RI', 'ri', 'ris', 'retention_indices', 'retention_index', 'kovats', 'retentionindex'])
     _carbon_number_column_names = set(['Carbon_Number'])
 
     def read(self):
@@ -43,7 +44,7 @@ class PandasData(Data):
 
     def _init_ri_column_info(self):
         """ Initialize retention index column name and set its position next to the retention time column. """
-        self._ri_index = 'retention_index'
+        self._ri_index = get_first_common_element(self._data.columns, self._ri_column_names)
         if self._ri_index in self._data.columns:
             self._ri_position = self._data.columns.get_loc(self._ri_index)
         else:

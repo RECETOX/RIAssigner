@@ -45,6 +45,7 @@ def test_open_csv(filename_csv):
 
 @pytest.mark.parametrize("filename, rt_format, expected", [
     ["Alkanes_20210325.csv", 'min', [124.8, 145.8, 165, 184.8, 204, 222.6, 245.4, 268.8, 288, 307.2]],
+    ["Alkanes_ri.csv", 'min', [124.8, 145.8, 165, 184.8, 204, 222.6, 245.4, 268.8, 288, 307.2]],
     ["Alkanes_20210325.csv", 'second', [2.08, 2.43, 2.75, 3.08, 3.4, 3.71, 4.09, 4.48, 4.8, 5.12]]
 ])
 def test_read_rts(filename, rt_format, expected):
@@ -55,7 +56,11 @@ def test_read_rts(filename, rt_format, expected):
     numpy.testing.assert_array_almost_equal(actual, expected)
 
 
-@pytest.mark.parametrize("filename, expected", [["Alkanes_20210325.csv", range(1100, 4100, 100)]])
+@pytest.mark.parametrize("filename, expected", [
+    ["Alkanes_20210325.csv", range(1100, 4100, 100)],
+    ["Alkanes_ri.csv", range(1100, 4100, 100)],
+    ["Alkanes_retention_index.csv", range(1100, 4100, 100)]
+])
 def test_read_ris(filename, expected):
     filename = os.path.join(testdata_dir, filename)
     data = PandasDataBuilder().with_filename(filename).build()
@@ -68,7 +73,7 @@ def test_read_ris(filename, expected):
 @pytest.mark.parametrize("filename", ["test_file.csv, test_file.tsv"])
 def test_write_new_file(filename_csv, filename, tmp_path):
     filepath = os.path.join(tmp_path, filename)
-    
+
     data = PandasDataBuilder().with_filename(filename_csv).build()
     data.write(filepath)
 
@@ -96,3 +101,11 @@ def test_assert_written_content(filename_csv, tmp_path):
     actual = read_csv(filepath)
 
     numpy.array_equal(actual.values, expected.values)
+
+
+@pytest.mark.parametrize("filename", ["aplcms_aligned_peaks.csv"])
+def test_ri_column_was_added(filename):
+    filename = os.path.join(testdata_dir, filename)
+    data = PandasDataBuilder().with_filename(filename).build()
+
+    assert data._ri_index == 'retention_index'

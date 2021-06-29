@@ -14,5 +14,6 @@ dependencies:
   - pytest-cov
   - python >=3.7,<3.9
   - rope
+  - scipy
   - pip:
     - -e ..[dev]

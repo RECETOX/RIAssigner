@@ -1,9 +1,10 @@
 import os
+
 import numpy
 import pytest
-from RIAssigner.data import PandasData
-from RIAssigner.data import MatchMSData
+from RIAssigner.data import MatchMSData, PandasData
 
+from .mocks.DataStub import DataStub
 
 here = os.path.abspath(os.path.dirname(__file__))
 data_location = os.path.join(here, os.pardir, "data")
@@ -24,6 +25,28 @@ def queries(request):
     basename, extension = os.path.splitext(request.param)
     filename = os.path.join(data_location, extension[1:], request.param)
 
-    results_path = os.path.join(data_location, "kovats", basename + ".npy")
+    # Get name of method passed to test fixture using @pytest.mark
+    method = request.node.get_closest_marker("method").args[0]
+
+    results_path = os.path.join(data_location, method, basename + ".npy")
     expected = numpy.load(results_path)
     return (data_type_map[extension](filename), expected)
+
+
+@pytest.fixture
+def indexed_data():
+    retention_times = [3.5, 4.68, 5.12, 7.31, 9.01, 9.08]
+    retention_indices = [700, 800, 900, 1000, 1100, 1200]
+    return DataStub(retention_times, retention_indices)
+
+
+@pytest.fixture
+def non_indexed_data():
+    retention_times = [3.99, 4.21, 4.32, 5.83, 6.55, 7.02, 8.65, 9.05]
+    return DataStub(retention_times, [])
+
+
+@pytest.fixture
+def invalid_rt_data():
+    retention_times = [-1.0, -0.1, None, 3.99]
+    return DataStub(retention_times, [])

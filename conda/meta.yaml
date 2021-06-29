@@ -1,4 +1,4 @@
-{% set name = "RIAssigner" %}
+{% set name = "riassigner" %}
 {% set data = load_setup_py_data() %}
 
 package:
@@ -33,7 +33,7 @@ requirements:
     - setuptools
   run:
     - numpy
-    - matchms >=0.9.0
+    - matchms >=0.9.1
     - pint >=0.17
     - pip
     - pandas
@@ -45,13 +45,13 @@ test:
     - RIAssigner
 
 about:
-  home: https://github.com/hechth/RIAssigner
+  home: https://github.com/RECETOX/RIAssigner
   license: MIT
   license_file: LICENSE
   summary: 'GC-MS retention index calculation'
   description: |
     RIAssigner is a python tool for retention index (RI) computation for GC-MS data
-  dev_url: https://github.com/hechth/RIAssigner
+  dev_url: https://github.com/RECETOX/RIAssigner
 
 extra:
   recipe-maintainers:

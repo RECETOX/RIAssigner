@@ -1,11 +1,10 @@
 import argparse
-import os.path
 
 import numpy
+import pytest
 from RIAssigner.cli import LoadDataAction
-from RIAssigner.data import PandasData
 
-from tests.fixtures.data import data_location
+from tests.fixtures.data import load_test_file
 
 
 def test_create():
@@ -13,16 +12,19 @@ def test_create():
     assert sut is not None
 
 
-def test_load_data_pandas():
+@pytest.mark.parametrize("filename", [
+    "Alkanes_20210325.csv",
+    "Alkanes_20210325.msp"
+])
+def test_load_data_pandas(filename):
     # Arrange
-    filename = os.path.join(data_location, "csv", "Alkanes_20210325.csv")
-    expected = PandasData(filename)
+    expected = load_test_file(filename)
     namespace = argparse.Namespace()
     parser = argparse.ArgumentParser()
     sut = LoadDataAction("", "data")
 
     # Act
-    sut(parser, namespace, filename)
+    sut(parser, namespace, expected.filename)
     actual = namespace.data
 
     # Assert

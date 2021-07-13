@@ -53,7 +53,7 @@ class MatchMSData(Data):
         return self._retention_indices
 
     @retention_indices.setter
-    def retention_indices(self, values: Iterable[int]):
+    def retention_indices(self, values: Iterable[Data.RetentionIndexType]):
         """ Set retention indices. """
         if len(values) == len(self._spectra):
             self._retention_indices = values

@@ -1,5 +1,5 @@
+from os.path import splitext
 from typing import Iterable, TypeVar
-
 
 T = TypeVar('T')
 
@@ -20,3 +20,15 @@ def define_separator(filename):
     else:
         separator = ","
     return separator
+
+
+def get_extension(filename: str):
+    """Get extension of filename.
+
+    Args:
+        filename (str): Filename for which to get the extension.
+
+    Returns:
+        str: Filename extension.
+    """
+    return splitext(filename)[1]

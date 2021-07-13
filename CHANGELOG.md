@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 ### Changed
+- data/MatchMSData.py: `_assign_ri_value` now converts all values to float and stores them as string in metadata field
+- data/MatchMSData.py `_read_retention_indices` now calls retention_indices property setter to store values
 ### Removed
 ## [0.1.0] - 2021-07-12
 ### Added

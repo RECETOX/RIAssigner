@@ -109,3 +109,12 @@ def test_ri_column_was_added(filename):
     data = PandasDataBuilder().with_filename(filename).build()
 
     assert data._ri_index == 'retention_index'
+
+
+@pytest.mark.parametrize("filename", ["aplcms_aligned_peaks.csv", "Alkanes_20210325.csv"])
+def test_equal(filename):
+    filename = os.path.join(testdata_dir, filename)
+    actual = PandasDataBuilder().with_filename(filename).build()
+    expected = PandasDataBuilder().with_filename(filename).build()
+
+    assert expected == actual

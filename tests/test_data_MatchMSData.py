@@ -75,7 +75,7 @@ def test_read_ris(filename, expected):
     numpy.testing.assert_array_almost_equal(actual, expected)
 
 
-@pytest.mark.parametrize("filename", ["PFAS_added_rt.msp"])
+@pytest.mark.parametrize("filename", ["PFAS_added_rt.msp", "recetox_gc-ei_ms_20201028.msp"])
 def test_basic_write(filename, tmp_path):
     # TODO: Reafactor with load_test_file
     filepath = os.path.join(testdata_dir, filename)

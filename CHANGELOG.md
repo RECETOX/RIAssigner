@@ -6,8 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Command line interface functionality [#29]()
+  - utils.py: `get_extension` function
+  - tests/fixtures/data.py: Added `load_test_file` function
 ### Changed
+- tests/fixtures/data.py: Changed loading of test data
 ### Removed
+
 ## [0.1.0] - 2021-07-12
 ### Added
 - Reading data from `CSV` and `MSP` files [#8](https://github.com/RECETOX/RIAssigner/pull/8)[#15](https://github.com/RECETOX/RIAssigner/pull/15)[#36](https://github.com/RECETOX/RIAssigner/pull/36)

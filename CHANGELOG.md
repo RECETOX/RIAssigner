@@ -15,10 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2021-07-12
 ### Added
-- Reading data from `CSV` and `MSP` files [#8](https://github.com/RECETOX/RIAssigner/pull/8)[#15](https://github.com/RECETOX/RIAssigner/pull/15)[#36](https://github.com/RECETOX/RIAssigner/pull/36)
+- Reading data from `CSV` and `MSP` files [#8](https://github.com/RECETOX/RIAssigner/pull/8) [#15](https://github.com/RECETOX/RIAssigner/pull/15) [#36](https://github.com/RECETOX/RIAssigner/pull/36)
 - Computing Kovats retention index [#25](https://github.com/RECETOX/RIAssigner/pull/25)
 - Computing RI based on cubic splines [#33](https://github.com/RECETOX/RIAssigner/pull/33)
 - Added CI actions to GitHub [#43](https://github.com/RECETOX/RIAssigner/pull/43)
-- Added writing data back to memory for `MSP`, `CSV` and `tsv` files [#7](https://github.com/RECETOX/RIAssigner/pull/7)[#14](https://github.com/RECETOX/RIAssigner/pull/14)[#19](https://github.com/RECETOX/RIAssigner/pull/19)
+- Added writing data back to memory for `MSP`, `CSV` and `tsv` files [#7](https://github.com/RECETOX/RIAssigner/pull/7) [#14](https://github.com/RECETOX/RIAssigner/pull/14) [#19](https://github.com/RECETOX/RIAssigner/pull/19)
 
 

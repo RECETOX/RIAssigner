@@ -42,6 +42,20 @@ class MatchMSData(Data):
         """ Sort objects (peaks) in spectra list by their retention times. """
         self._spectra.sort(key=lambda spectrum: safe_read_key(spectrum, 'retentiontime'))
 
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, MatchMSData):
+            return False
+        other: MatchMSData = o
+
+        are_equal = (self.retention_times == other.retention_times).all()
+        try:
+            are_equal &= (self.retention_indices == other.retention_indices)
+        except KeyError:
+            pass
+        are_equal &= self.filename == other.filename
+        are_equal &= self._spectra == other._spectra
+        return are_equal
+
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
         """ Get retention times in seconds. """

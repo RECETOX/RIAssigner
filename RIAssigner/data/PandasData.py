@@ -63,6 +63,20 @@ class PandasData(Data):
         """ Sort peaks by their retention times. """
         self._data.sort_values(by=self._rt_index, axis=0, inplace=True)
 
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, PandasData):
+            return False
+        other: PandasData = o
+
+        are_equal = (self.retention_times == other.retention_times).all()
+        try:
+            are_equal &= (self.retention_indices == other.retention_indices).all()
+        except KeyError:
+            pass
+        are_equal &= self.filename == other.filename
+        are_equal &= self._data.equals(other._data)
+        return are_equal
+
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
         """ Get retention times in seconds."""

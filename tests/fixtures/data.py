@@ -2,7 +2,8 @@ import os
 
 import numpy
 import pytest
-from RIAssigner.data import MatchMSData, PandasData
+from RIAssigner.data import Data, MatchMSData, PandasData
+from RIAssigner.utils import get_extension
 
 from .mocks.DataStub import DataStub
 
@@ -12,6 +13,16 @@ data_type_map = {
     ".msp": MatchMSData,
     ".csv": PandasData
 }
+
+
+def load_test_file(filename: str) -> Data:
+    extension = get_extension(filename)
+    filepath = os.path.join(data_location, extension[1:], filename)
+    return _load_data(filepath, extension)
+
+
+def _load_data(filename: str, extension: str) -> Data:
+    return data_type_map[extension](filename)
 
 
 @pytest.fixture
@@ -30,7 +41,7 @@ def queries(request):
 
     results_path = os.path.join(data_location, method, basename + ".npy")
     expected = numpy.load(results_path)
-    return (data_type_map[extension](filename), expected)
+    return (_load_data(filename, extension), expected)
 
 
 @pytest.fixture

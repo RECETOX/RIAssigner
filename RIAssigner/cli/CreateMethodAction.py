@@ -17,6 +17,8 @@ class CreateMethodAction(argparse.Action):
             values (str): Method name indicating which method to use.
             option_string (str, optional): Unused. Defaults to None.
         """
+        if values not in ['kovats', 'cubicspline']:
+            raise AssertionError("Method must be one of ['cubicspline', 'kovats'].")
 
         if values == "kovats":
             method = Kovats()

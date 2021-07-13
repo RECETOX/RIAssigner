@@ -28,3 +28,17 @@ def test_create_method(method):
     # Assert
     # TODO: Implement comparison operator for computation methods
     assert isinstance(actual, type(expected))
+
+
+@pytest.mark.parametrize("method", ['guessing', 'Kovats'])
+def test_exception_on_wrong_keyword(method):
+    namespace = argparse.Namespace()
+    parser = argparse.ArgumentParser()
+    sut = CreateMethodAction("", "method")
+
+    # Act
+    with pytest.raises(AssertionError) as exception:
+        sut(parser, namespace, method)
+
+    message = exception.value.args[0]
+    assert message == "Method must be one of ['cubicspline', 'kovats']."

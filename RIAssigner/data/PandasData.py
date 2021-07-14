@@ -1,7 +1,10 @@
-from .Data import Data
-from pandas import read_csv
 from typing import Iterable
-from ..utils import get_first_common_element, define_separator
+
+from pandas import read_csv
+from pandas.io.parsers import read_table
+from RIAssigner.utils import define_separator, get_first_common_element
+
+from .Data import Data
 
 
 class PandasData(Data):
@@ -22,10 +25,11 @@ class PandasData(Data):
 
     def _read_into_dataframe(self):
         """ Read the data from file into dataframe. """
-        if(self._filename.endswith('.csv')):
-            self._data = read_csv(self._filename)
+        if(self._filename.endswith('.csv') or self._filename.endswith('.tsv')):
+            separator = define_separator(self._filename)
+            self._data = read_csv(self._filename, sep=separator)
         else:
-            raise NotImplementedError('File formats different from csv are not implemented yet.')
+            raise NotImplementedError("File formats different from ['csv', 'tsv'] are not implemented yet.")
 
     def write(self, filename: str):
         """ Write data on disk. Currently supports 'csv' and 'tsv' formats. """

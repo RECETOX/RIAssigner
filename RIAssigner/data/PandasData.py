@@ -73,7 +73,6 @@ class PandasData(Data):
             are_equal &= (self.retention_indices == other.retention_indices).all()
         except KeyError:
             pass
-        are_equal &= self.filename == other.filename
         are_equal &= self._data.equals(other._data)
         return are_equal
 

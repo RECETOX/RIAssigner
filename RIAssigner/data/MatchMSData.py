@@ -52,7 +52,6 @@ class MatchMSData(Data):
             are_equal &= (self.retention_indices == other.retention_indices)
         except KeyError:
             pass
-        are_equal &= self.filename == other.filename
         are_equal &= self._spectra == other._spectra
         return are_equal
 

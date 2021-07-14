@@ -2,10 +2,10 @@ import os
 
 import numpy
 import pytest
+from matchms.exporting import save_as_msp
 from matchms.importing import load_from_msp
 
-from .builders.MatchMSDataBuilder import MatchMSDataBuilder
-
+from tests.builders.MatchMSDataBuilder import MatchMSDataBuilder
 
 here = os.path.abspath(os.path.dirname(__file__))
 testdata_dir = os.path.join(here, 'data', 'msp')
@@ -73,3 +73,26 @@ def test_read_ris(filename, expected):
 
     actual = data.retention_indices[:10]
     numpy.testing.assert_array_almost_equal(actual, expected)
+
+
+@pytest.mark.parametrize("filename", ["PFAS_added_rt.msp", "recetox_gc-ei_ms_20201028.msp"])
+def test_basic_write(filename, tmp_path):
+    # TODO: Reafactor with load_test_file
+    filepath = os.path.join(testdata_dir, filename)
+    data = MatchMSDataBuilder().with_filename(filepath).build()
+
+    outpath = os.path.join(tmp_path, "riassigner.msp")
+    data.write(outpath)
+
+    spectra = list(load_from_msp(filepath))
+    spectra.sort(key=lambda spectrum: float(spectrum.get('retentiontime')))
+
+    expected_outpath = os.path.join(tmp_path, "matchms.msp")
+    save_as_msp(spectra, expected_outpath)
+
+    with open(expected_outpath, 'r') as file:
+        expected = file.readlines()
+    with open(outpath, 'r') as file:
+        actual = file.readlines()
+
+    assert expected == actual

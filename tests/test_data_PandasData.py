@@ -45,11 +45,13 @@ def test_open_csv(filename_csv):
 
 @pytest.mark.parametrize("filename, rt_format, expected", [
     ["Alkanes_20210325.csv", 'min', [124.8, 145.8, 165, 184.8, 204, 222.6, 245.4, 268.8, 288, 307.2]],
+    ["Alkanes_20210325.tsv", 'min', [124.8, 145.8, 165, 184.8, 204, 222.6, 245.4, 268.8, 288, 307.2]],
     ["Alkanes_ri.csv", 'min', [124.8, 145.8, 165, 184.8, 204, 222.6, 245.4, 268.8, 288, 307.2]],
     ["Alkanes_20210325.csv", 'second', [2.08, 2.43, 2.75, 3.08, 3.4, 3.71, 4.09, 4.48, 4.8, 5.12]]
 ])
 def test_read_rts(filename, rt_format, expected):
-    filename = os.path.join(testdata_dir, filename)
+    _, ext = os.path.splitext(filename)
+    filename = os.path.join(here, 'data', ext[1:], filename)
     data = PandasDataBuilder().with_filename(filename).with_rt_unit(rt_format).build()
 
     actual = data.retention_times[:10]
@@ -58,11 +60,13 @@ def test_read_rts(filename, rt_format, expected):
 
 @pytest.mark.parametrize("filename, expected", [
     ["Alkanes_20210325.csv", range(1100, 4100, 100)],
+    ["Alkanes_20210325.tsv", range(1100, 4100, 100)],
     ["Alkanes_ri.csv", range(1100, 4100, 100)],
     ["Alkanes_retention_index.csv", range(1100, 4100, 100)]
 ])
 def test_read_ris(filename, expected):
-    filename = os.path.join(testdata_dir, filename)
+    _, ext = os.path.splitext(filename)
+    filename = os.path.join(here, 'data', ext[1:], filename)
     data = PandasDataBuilder().with_filename(filename).build()
 
     actual = data.retention_indices
@@ -109,3 +113,12 @@ def test_ri_column_was_added(filename):
     data = PandasDataBuilder().with_filename(filename).build()
 
     assert data._ri_index == 'retention_index'
+
+
+@pytest.mark.parametrize("filename", ["aplcms_aligned_peaks.csv", "Alkanes_20210325.csv"])
+def test_equal(filename):
+    filename = os.path.join(testdata_dir, filename)
+    actual = PandasDataBuilder().with_filename(filename).build()
+    expected = PandasDataBuilder().with_filename(filename).build()
+
+    assert expected == actual

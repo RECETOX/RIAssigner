@@ -36,11 +36,24 @@ class MatchMSData(Data):
 
     def _read_retention_indices(self):
         """ Read retention indices from spectrum metadata. """
-        self._retention_indices = [safe_read_key(spectrum, 'retentionindex') for spectrum in self._spectra]
+        self.retention_indices = [safe_read_key(spectrum, 'retentionindex') for spectrum in self._spectra]
 
     def _sort_spectra_by_rt(self):
         """ Sort objects (peaks) in spectra list by their retention times. """
         self._spectra.sort(key=lambda spectrum: safe_read_key(spectrum, 'retentiontime'))
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, MatchMSData):
+            return False
+        other: MatchMSData = o
+
+        are_equal = (self.retention_times == other.retention_times).all()
+        try:
+            are_equal &= (self.retention_indices == other.retention_indices)
+        except KeyError:
+            pass
+        are_equal &= self._spectra == other._spectra
+        return are_equal
 
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
@@ -53,7 +66,7 @@ class MatchMSData(Data):
         return self._retention_indices
 
     @retention_indices.setter
-    def retention_indices(self, values: Iterable[int]):
+    def retention_indices(self, values: Iterable[Data.RetentionIndexType]):
         """ Set retention indices. """
         if len(values) == len(self._spectra):
             self._retention_indices = values
@@ -96,4 +109,6 @@ def _assign_ri_value(spectrum: Spectrum, value: Data.RetentionIndexType):
         spectrum (Spectrum): Spectrum to add RI to
         value (Data.RetentionIndexType): RI to be added to Spectrum
     """
-    spectrum.set(key='retentionindex', value=value)
+    if value is not None:
+        retention_index = ('%f' % float(value)).rstrip('0').rstrip('.')
+        spectrum.set(key='retentionindex', value=retention_index)

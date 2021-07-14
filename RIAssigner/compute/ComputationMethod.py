@@ -20,4 +20,4 @@ class ComputationMethod(ABC):
         assert reference is not None, "Reference data is 'None'."
 
     def __eq__(self, o: object) -> bool:
-        return isinstance(o, type(self))
+        return type(o) == type(self)

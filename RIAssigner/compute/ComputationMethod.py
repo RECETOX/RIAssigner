@@ -18,3 +18,6 @@ class ComputationMethod(ABC):
         """
         assert query is not None, "Query data is 'None'."
         assert reference is not None, "Reference data is 'None'."
+
+    def __eq__(self, o: object) -> bool:
+        return type(o) == type(self)

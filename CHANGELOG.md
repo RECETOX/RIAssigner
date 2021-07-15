@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Added `__eq__` to `PandasData` and `MatchMSData` [#51](https://github.com/RECETOX/RIAssigner/pull/51)
+- Added `__eq__` to `ComputationMethod` class and subclasses [#52](https://github.com/RECETOX/RIAssigner/pull/52)
 - data/PandasData.py: Added reading `tsv` files. [#49](https://github.com/RECETOX/RIAssigner/pull/49)
 ### Changed
 - data/MatchMSData.py: `_assign_ri_value` now converts all values to float and stores them as string in metadata field

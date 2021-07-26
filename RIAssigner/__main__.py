@@ -7,20 +7,25 @@ from RIAssigner.data import Data
 
 def create_parser():
     parser = argparse.ArgumentParser(prog="RIAssigner")
-    parser.add_argument("reference",
+
+    parser.add_argument("--reference",
+                        required=True,
                         type=str,
                         action=LoadDataAction,
                         help="Reference dataset containing retention times and indices. Path to CSV or MSP.")
-    parser.add_argument("query",
+    parser.add_argument("--query",
+                        required=True,
                         type=str,
                         action=LoadDataAction,
                         help="Query dataset for which to compute retention indices. Path to CSV or MSP.")
-    parser.add_argument("method",
+    parser.add_argument("--method",
+                        required=True,
                         type=str,
                         action=CreateMethodAction,
                         choices=['kovats', 'cubiscpline'],
                         help="Computation method for RI.")
-    parser.add_argument("output",
+    parser.add_argument("--output",
+                        required=True,
                         type=str,
                         help="Output filename.")
     return parser

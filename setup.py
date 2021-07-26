@@ -21,7 +21,7 @@ setup(
     long_description_content_type="text/markdown",
     author="RECETOX",
     author_email="helge.hecht@recetox.muni.cz",
-    url="https://github.com/hechth/RIAssigner",
+    url="https://github.com/RECETOX/RIAssigner",
     packages=find_packages(exclude=['*tests*']),
     license="MIT License",
     zip_safe=False,

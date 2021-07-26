@@ -1,7 +1,10 @@
-from .Data import Data
-from pandas import read_csv
 from typing import Iterable
-from ..utils import get_first_common_element, define_separator
+
+from pandas import read_csv
+from pandas.io.parsers import read_table
+from RIAssigner.utils import define_separator, get_first_common_element
+
+from .Data import Data
 
 
 class PandasData(Data):
@@ -22,10 +25,11 @@ class PandasData(Data):
 
     def _read_into_dataframe(self):
         """ Read the data from file into dataframe. """
-        if(self._filename.endswith('.csv')):
-            self._data = read_csv(self._filename)
+        if(self._filename.endswith('.csv') or self._filename.endswith('.tsv')):
+            separator = define_separator(self._filename)
+            self._data = read_csv(self._filename, sep=separator)
         else:
-            raise NotImplementedError('File formats different from csv are not implemented yet.')
+            raise NotImplementedError("File formats different from ['csv', 'tsv'] are not implemented yet.")
 
     def write(self, filename: str):
         """ Write data on disk. Currently supports 'csv' and 'tsv' formats. """
@@ -62,6 +66,19 @@ class PandasData(Data):
     def _sort_by_rt(self):
         """ Sort peaks by their retention times. """
         self._data.sort_values(by=self._rt_index, axis=0, inplace=True)
+
+    def __eq__(self, o: object) -> bool:
+        if not isinstance(o, PandasData):
+            return False
+        other: PandasData = o
+
+        are_equal = (self.retention_times == other.retention_times).all()
+        try:
+            are_equal &= (self.retention_indices == other.retention_indices).all()
+        except KeyError:
+            pass
+        are_equal &= self._data.equals(other._data)
+        return are_equal
 
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:

@@ -52,5 +52,10 @@ setup(
         "pint",
         "scipy"
     ],
-    extras_require={},
+    extras_require={
+        'test': [
+            'pytest',
+            'pytest-cov'
+        ]
+    },
 )

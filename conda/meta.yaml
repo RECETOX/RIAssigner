@@ -1,5 +1,5 @@
 {% set name = "riassigner" %}
-{% set data = load_setup_py_data('../setup.py') %}
+{% set data = load_setup_py_data() %}
 
 package:
   name: riassigner

@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `__eq__` to `PandasData` and `MatchMSData` [#51](https://github.com/RECETOX/RIAssigner/pull/51)
 - Added `__eq__` to `ComputationMethod` class and subclasses [#52](https://github.com/RECETOX/RIAssigner/pull/52)
 - data/PandasData.py: Added reading `tsv` files. [#49](https://github.com/RECETOX/RIAssigner/pull/49)
-- Command line interface functionality [#29]()
+- Command line interface functionality [#29](https://github.com/RECETOX/RIAssigner/pull/55)
   - utils.py: `get_extension` function
   - tests/fixtures/data.py: Added `load_test_file` function
 ### Changed

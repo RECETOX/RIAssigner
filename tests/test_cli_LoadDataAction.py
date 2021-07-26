@@ -14,9 +14,10 @@ def test_create():
 
 @pytest.mark.parametrize("filename", [
     "Alkanes_20210325.csv",
+    "Alkanes_20210325.tsv",
     "Alkanes_20210325.msp"
 ])
-def test_load_data_pandas(filename):
+def test_load_data(filename):
     # Arrange
     expected = load_test_file(filename)
     namespace = argparse.Namespace()

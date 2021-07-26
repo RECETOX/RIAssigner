@@ -12,7 +12,7 @@ class LoadDataAction(argparse.Action):
         filetype = get_extension(values)
         if filetype == '.msp':
             data = MatchMSData(values)
-        elif filetype == '.csv':
+        elif filetype in ['.csv', '.tsv']:
             data = PandasData(values)
 
         setattr(namespace, self.dest, data)

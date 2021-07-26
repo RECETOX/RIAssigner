@@ -11,7 +11,8 @@ here = os.path.abspath(os.path.dirname(__file__))
 data_location = os.path.join(here, os.pardir, "data")
 data_type_map = {
     ".msp": MatchMSData,
-    ".csv": PandasData
+    ".csv": PandasData,
+    ".tsv": PandasData,
 }
 
 

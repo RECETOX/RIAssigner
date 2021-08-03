@@ -1,7 +1,6 @@
 from typing import Iterable
 
 from pandas import read_csv
-from pandas.io.parsers import read_table
 from RIAssigner.utils import define_separator, get_first_common_element
 
 from .Data import Data

@@ -14,3 +14,9 @@ def test_define_separator(filename, expected):
     actual = Utils.define_separator(filename)
 
     assert actual == expected
+
+
+@pytest.mark.parametrize("filename, expected", [('test_file.csv', '.csv'), ('test_file.tsv', '.tsv')])
+def test_get_extension(filename, expected):
+    actual = Utils.get_extension(filename)
+    assert actual == expected

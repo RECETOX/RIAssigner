@@ -41,15 +41,11 @@ classDiagram
     class Kovats {
 
     }
-    class Harangi {
-
-    }
     class CubicSpline {
 
     }
 
     ComputationMethod <|-- Kovats
-    ComputationMethod <|-- Harangi
     ComputationMethod <|-- CubicSpline
 
 ```

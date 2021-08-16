@@ -20,4 +20,4 @@ class CubicSpline(ComputationMethod):
 
         model = Model(reference.retention_times, reference.retention_indices)
         predicted_ri = model(query.retention_times)
-        return float(predicted_ri)
+        return predicted_ri.astype(float)

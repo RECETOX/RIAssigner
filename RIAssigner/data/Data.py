@@ -7,7 +7,7 @@ from pint.unit import build_unit_class
 class Data(ABC):
     """ Base class for data managers. """
     RetentionTimeType = Optional[float]
-    RetentionIndexType = float
+    RetentionIndexType = Optional[float]
     URegistry = UnitRegistry()
     Unit = build_unit_class(URegistry)
 

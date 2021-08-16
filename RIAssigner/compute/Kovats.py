@@ -86,7 +86,7 @@ def _compute_kovats(
         target_rt: float,
         reference_rts: Iterable[Data.RetentionTimeType],
         reference_ris: Iterable[Data.RetentionIndexType],
-        index: int) -> Data.RetentionIndexType:
+        index: int) -> float:
     """Compute retention index according to Van den Dool (see https://webbook.nist.gov/chemistry/gc-ri/)
 
     Args:
@@ -102,4 +102,4 @@ def _compute_kovats(
     term_b = reference_rts[index] - reference_rts[index - 1]
 
     ri = 100 * term_a / term_b + reference_ris[index - 1]
-    return Data.RetentionIndexType(ri)
+    return float(ri)

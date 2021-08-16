@@ -7,7 +7,7 @@ from pint.unit import build_unit_class
 class Data(ABC):
     """ Base class for data managers. """
     RetentionTimeType = Optional[float]
-    RetentionIndexType = Optional[float]
+    RetentionIndexType = float
     URegistry = UnitRegistry()
     Unit = build_unit_class(URegistry)
 
@@ -35,15 +35,15 @@ class Data(ABC):
 
     @property
     @abstractmethod
-    def retention_times(self) -> Iterable[Optional[float]]:
+    def retention_times(self) -> Iterable[RetentionTimeType]:
         ...
 
     @property
     @abstractmethod
-    def retention_indices(self) -> Iterable[Optional[float]]:
+    def retention_indices(self) -> Iterable[RetentionIndexType]:
         ...
 
     @retention_indices.setter
     @abstractmethod
-    def retention_indices(self, value: Iterable[float]):
+    def retention_indices(self, value: Iterable[RetentionIndexType]):
         ...

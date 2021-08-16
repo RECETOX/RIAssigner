@@ -102,4 +102,4 @@ def _compute_kovats(
     term_b = reference_rts[index] - reference_rts[index - 1]
 
     ri = 100 * term_a / term_b + reference_ris[index - 1]
-    return ri
+    return Data.RetentionIndexType(ri)

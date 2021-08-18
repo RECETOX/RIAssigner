@@ -2,6 +2,7 @@
 [![Python package](https://github.com/RECETOX/RIAssigner/actions/workflows/python-package.yml/badge.svg)](https://github.com/RECETOX/RIAssigner/actions/workflows/python-package.yml)
 [![Python Package using Conda](https://github.com/RECETOX/RIAssigner/actions/workflows/python-package-conda.yml/badge.svg?branch=main)](https://github.com/RECETOX/RIAssigner/actions/workflows/python-package-conda.yml)
 [![Anaconda Build](https://github.com/RECETOX/RIAssigner/actions/workflows/anaconda.yml/badge.svg?branch=main)](https://github.com/RECETOX/RIAssigner/actions/workflows/anaconda.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=hechth_RIAssigner&metric=alert_status)](https://sonarcloud.io/dashboard?id=hechth_RIAssigner)
 ## Overview
 RIAssigner is a python tool for retention index (RI) computation for GC-MS data developed at [RECETOX](https://www.recetox.muni.cz/en).
 

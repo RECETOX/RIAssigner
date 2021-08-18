@@ -22,9 +22,22 @@ class MatchMSData(Data):
         self._read_retention_indices()
 
     def write(self, filename: str):
+        """Write data to back to 'msp' file
+
+        Args:
+            filename (str): Path to filename under which to store the data.
+        """
         save_as_msp(self._spectra, filename)
 
-    def _read_spectra(self, filename):
+    def _read_spectra(self, filename: str):
+        """Read spectra from 'msp' file into data.
+
+        Args:
+            filename (str): Path to filename from which to load the data.
+
+        Raises:
+            NotImplementedError: For filetypes other tahn 'msp'.
+        """
         if filename.endswith('.msp'):
             self._spectra = list(load_from_msp(filename))
         else:

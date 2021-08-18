@@ -35,15 +35,15 @@ class Data(ABC):
 
     @property
     @abstractmethod
-    def retention_times(self) -> Iterable[Optional[float]]:
+    def retention_times(self) -> Iterable[RetentionTimeType]:
         ...
 
     @property
     @abstractmethod
-    def retention_indices(self) -> Iterable[Optional[float]]:
+    def retention_indices(self) -> Iterable[RetentionIndexType]:
         ...
 
     @retention_indices.setter
     @abstractmethod
-    def retention_indices(self, value: Iterable[float]):
+    def retention_indices(self, value: Iterable[RetentionIndexType]):
         ...

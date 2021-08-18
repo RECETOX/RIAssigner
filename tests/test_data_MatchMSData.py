@@ -76,7 +76,7 @@ def test_read_ris(filename, expected):
 
 
 @pytest.mark.parametrize("filename", [
-    "recetox_gc-ei_ms_20201028.msp", 
+    "recetox_gc-ei_ms_20201028.msp",
     "Alkanes_20210325.msp",
     "PFAS_added_rt.msp"
 ])

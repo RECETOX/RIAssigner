@@ -6,7 +6,7 @@ from pandas import read_csv
 import pytest
 from RIAssigner.utils import get_first_common_element
 
-from .builders.PandasDataBuilder import PandasDataBuilder
+from tests.builders.PandasDataBuilder import PandasDataBuilder
 
 
 here = os.path.abspath(os.path.dirname(__file__))

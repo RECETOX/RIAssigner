@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - data/MatchMSData.py: `_assign_ri_value` now converts all values to float and stores them as string in metadata field
 - data/MatchMSData.py `_read_retention_indices` now calls retention_indices property setter to store values
 - tests/fixtures/data.py: Changed loading of test data
+- compute/CubicSpline.py: `compute` now returns an array of floats [#61](https://github.com/RECETOX/RIAssigner/pull/61)
+- compute/Kovats.py: `compute` now returns a list of floats [#61](https://github.com/RECETOX/RIAssigner/pull/61)
 
 ### Removed
 

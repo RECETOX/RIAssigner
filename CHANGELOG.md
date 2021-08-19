@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+### Changed
+### Removed
+
+## [0.2.0] - 2021-08-18
+### Added
 - Added `__eq__` to `PandasData` and `MatchMSData` [#51](https://github.com/RECETOX/RIAssigner/pull/51)
 - Added `__eq__` to `ComputationMethod` class and subclasses [#52](https://github.com/RECETOX/RIAssigner/pull/52)
 - data/PandasData.py: Added reading `tsv` files. [#49](https://github.com/RECETOX/RIAssigner/pull/49)
@@ -18,8 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - tests/fixtures/data.py: Changed loading of test data
 - compute/CubicSpline.py: `compute` now returns an array of floats [#61](https://github.com/RECETOX/RIAssigner/pull/61)
 - compute/Kovats.py: `compute` now returns a list of floats [#61](https://github.com/RECETOX/RIAssigner/pull/61)
-
-### Removed
 
 ## [0.1.0] - 2021-07-12
 ### Added

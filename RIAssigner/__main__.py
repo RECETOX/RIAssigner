@@ -24,7 +24,7 @@ def create_parser():
                           required=True,
                           type=str,
                           action=CreateMethodAction,
-                          choices=['kovats', 'cubiscpline'],
+                          choices=['kovats', 'cubicspline'],
                           help="Computation method for RI.")
     required.add_argument("--output",
                           required=True,

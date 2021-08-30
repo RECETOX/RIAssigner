@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 ### Changed
+- utils.py: `get_extension` function now returns extension without `.`
+- data/Data.py: Added `filetype` to constructor and made `rt_unit` non-optional.
+- data/MatchMSData.py: Added `filetype` to constructor and made `rt_unit` non-optional.
+- data/PandasData.py: Added `filetype` to constructor and made `rt_unit` non-optional.
 ### Removed
 
 ## [0.2.0] - 2021-08-18

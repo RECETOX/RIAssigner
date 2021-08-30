@@ -14,12 +14,16 @@ def create_parser():
                           required=True,
                           type=str,
                           action=LoadDataAction,
-                          help="Reference dataset containing retention times and indices. Path to CSV or MSP.")
+                          nargs=3,
+                          help="""Reference dataset containing retention times and indices.
+                          Path to CSV or MSP, filetype and retention time unit.""")
     required.add_argument("--query",
                           required=True,
                           type=str,
                           action=LoadDataAction,
-                          help="Query dataset for which to compute retention indices. Path to CSV or MSP.")
+                          nargs=3,
+                          help="""Query dataset for which to compute retention indices. 
+                          Path to CSV or MSP, filetype and retention time unit.""")
     required.add_argument("--method",
                           required=True,
                           type=str,

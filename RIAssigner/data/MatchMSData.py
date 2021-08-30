@@ -14,7 +14,7 @@ class MatchMSData(Data):
     def read(self):
         """Load data into object and initialize properties.
         """
-        self._read_spectra(self._filename)
+        self._read_spectra(self._filename, self._filetype)
 
         self._sort_spectra_by_rt()
 
@@ -29,7 +29,7 @@ class MatchMSData(Data):
         """
         save_as_msp(self._spectra, filename)
 
-    def _read_spectra(self, filename: str):
+    def _read_spectra(self, filename: str, filetype: str):
         """Read spectra from 'msp' file into data.
 
         Args:
@@ -38,7 +38,7 @@ class MatchMSData(Data):
         Raises:
             NotImplementedError: For filetypes other tahn 'msp'.
         """
-        if filename.endswith('.msp'):
+        if filetype == 'msp':
             self._spectra = list(load_from_msp(filename))
         else:
             raise NotImplementedError("Currently only supports 'msp'.")

@@ -6,6 +6,7 @@ class PandasDataBuilder:
     def __init__(self):
         self._filename = None
         self._rt_unit = 'seconds'
+        self._filetype = 'csv'
 
     def with_filename(self, filename: str):
         self._filename = filename
@@ -16,5 +17,5 @@ class PandasDataBuilder:
         return self
 
     def build(self) -> PandasData:
-        data = PandasData(self._filename, self._rt_unit)
+        data = PandasData(self._filename, self._filetype, self._rt_unit)
         return data

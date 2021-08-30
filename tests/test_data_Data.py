@@ -36,7 +36,7 @@ def does_not_raise():
     ["Alkanes_20210325.msp", "csv", PandasDataBuilder, pytest.raises(Exception)]
 ])
 def test_filetype(filename, filetype, builder, expectation):
-    extension = get_extension(filename)[1:]
+    extension = get_extension(filename)
     filepath = os.path.join(here, "data", extension, filename)
     builder = builder().with_filename(filepath).with_filetype(filetype)
 

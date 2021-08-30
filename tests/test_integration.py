@@ -3,6 +3,7 @@ import os
 from pandas import read_csv
 from RIAssigner.compute import Kovats
 from RIAssigner.data import MatchMSData, PandasData
+from tests.builders import MatchMSDataBuilder, PandasDataBuilder
 
 here = os.path.abspath(os.path.dirname(__file__))
 testdata_dir = os.path.join(here, 'data')
@@ -10,10 +11,10 @@ testdata_dir = os.path.join(here, 'data')
 def test_integration(tmp_path):
     # Load test data and init computation method
     query_path = os.path.join(testdata_dir, "csv/aplcms_aligned_peaks.csv")
-    query = PandasData(query_path)
+    query = PandasDataBuilder().with_filename(query_path).build()
 
     reference_path = os.path.join(testdata_dir, "msp/Alkanes_20210325.msp")
-    reference = MatchMSData(reference_path, rt_unit="min")
+    reference = MatchMSDataBuilder().with_filename(reference_path).with_rt_unit("min").build()
 
     method = Kovats()
 

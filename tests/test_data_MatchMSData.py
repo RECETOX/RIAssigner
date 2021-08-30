@@ -6,7 +6,7 @@ import pytest
 from matchms.exporting import save_as_msp
 from matchms.importing import load_from_msp
 
-from tests.builders.MatchMSDataBuilder import MatchMSDataBuilder
+from tests.builders import MatchMSDataBuilder
 from RIAssigner.utils import get_extension
 here = os.path.abspath(os.path.dirname(__file__))
 testdata_dir = os.path.join(here, 'data', 'msp')

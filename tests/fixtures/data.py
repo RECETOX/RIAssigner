@@ -23,13 +23,14 @@ def load_test_file(filename: str) -> Data:
 
 
 def _load_data(filename: str, extension: str) -> Data:
-    return data_type_map[extension](filename)
+    filetype = extension[1:]
+    return data_type_map[extension](filename, filetype, "sec")
 
 
 @pytest.fixture
 def reference_alkanes():
     filename = os.path.join(data_location, "csv", "Alkanes_20210325.csv")
-    return PandasData(filename, 'min')
+    return PandasData(filename, 'csv', 'min')
 
 
 @pytest.fixture(params=["aplcms_aligned_peaks.csv", "xcms_variable_metadata.csv", "PFAS_added_rt.msp"])

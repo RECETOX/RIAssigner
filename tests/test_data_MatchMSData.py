@@ -1,5 +1,4 @@
 import os
-from contextlib import contextmanager
 
 import numpy
 import pytest
@@ -112,21 +111,3 @@ def test_basic_write(filename, tmp_path):
     assert expected == actual
 
 
-@contextmanager
-def does_not_raise():
-    yield
-
-
-@pytest.mark.parametrize("filename, filetype, expectation", [
-    ["Alkanes_20210325.msp", "msp", does_not_raise()],
-    ["Alkanes_20210325.msp", "csv", pytest.raises(NotImplementedError)],
-    ["Alkanes_20210325.dat", "msp", does_not_raise()],
-    ["Alkanes_20210325.csv", "msp", pytest.raises(Exception)]
-])
-def test_filetype(filename, filetype, expectation):
-    extension = get_extension(filename)[1:]
-    filepath = os.path.join(here, "data", extension, filename)
-    builder = MatchMSDataBuilder().with_filename(filepath).with_filetype(filetype)
-
-    with expectation:
-        builder.build()

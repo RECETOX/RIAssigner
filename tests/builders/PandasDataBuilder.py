@@ -16,6 +16,10 @@ class PandasDataBuilder:
         self._rt_unit = rt_unit
         return self
 
+    def with_filetype(self, filetype: str):
+        self._filetype = filetype
+        return self
+
     def build(self) -> PandasData:
         data = PandasData(self._filename, self._filetype, self._rt_unit)
         return data

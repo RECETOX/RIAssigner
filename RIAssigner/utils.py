@@ -31,4 +31,4 @@ def get_extension(filename: str):
     Returns:
         str: Filename extension.
     """
-    return splitext(filename)[1]
+    return splitext(filename)[1][1:]

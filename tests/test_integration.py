@@ -2,7 +2,7 @@ import os
 
 from pandas import read_csv
 from RIAssigner.compute import Kovats
-from RIAssigner.data import MatchMSData, PandasData
+
 from tests.builders import MatchMSDataBuilder, PandasDataBuilder
 
 here = os.path.abspath(os.path.dirname(__file__))

@@ -8,6 +8,7 @@ from tests.builders import MatchMSDataBuilder, PandasDataBuilder
 here = os.path.abspath(os.path.dirname(__file__))
 testdata_dir = os.path.join(here, 'data')
 
+
 def test_integration(tmp_path):
     # Load test data and init computation method
     query_path = os.path.join(testdata_dir, "csv/aplcms_aligned_peaks.csv")

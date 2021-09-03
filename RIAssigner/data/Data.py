@@ -15,8 +15,9 @@ class Data(ABC):
     def is_valid(rt: RetentionTimeType) -> bool:
         return rt is not None and rt >= 0.0
 
-    def __init__(self, filename: str, rt_unit: str = 'seconds'):
+    def __init__(self, filename: str, filetype: str, rt_unit: str):
         self._filename = filename
+        self._filetype = filetype
         self._rt_unit = rt_unit
         self._unit = Data.Unit(self._rt_unit)
         self.read()

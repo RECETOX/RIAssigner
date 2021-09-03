@@ -1,3 +1,5 @@
+import sys
+from typing import Tuple
 from RIAssigner.compute.ComputationMethod import ComputationMethod
 import argparse
 
@@ -14,12 +16,16 @@ def create_parser():
                           required=True,
                           type=str,
                           action=LoadDataAction,
-                          help="Reference dataset containing retention times and indices. Path to CSV or MSP.")
+                          nargs=3,
+                          help="""Reference dataset containing retention times and indices.
+                          Path to CSV or MSP, filetype and retention time unit.""")
     required.add_argument("--query",
                           required=True,
                           type=str,
                           action=LoadDataAction,
-                          help="Query dataset for which to compute retention indices. Path to CSV or MSP.")
+                          nargs=3,
+                          help="""Query dataset for which to compute retention indices.
+                          Path to CSV or MSP, filetype and retention time unit.""")
     required.add_argument("--method",
                           required=True,
                           type=str,
@@ -33,14 +39,14 @@ def create_parser():
     return parser
 
 
-def main():
+def main(argv):
     """Command line interface for the RIAssigner library.
 
     Args:
         argv (List[string]): Arguments passed to the program
     """
     parser = create_parser()
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     query: Data = args.query
     reference: Data = args.reference
@@ -54,4 +60,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

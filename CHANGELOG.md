@@ -6,7 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- __main__.py + cli/LoadDataAction.py: Added required passing of filetype and rt unit. [#64](https://github.com/RECETOX/RIAssigner/issues/64) [#67](https://github.com/RECETOX/RIAssigner/issues/67) [#68](https://github.com/RECETOX/RIAssigner/pull/68)
 ### Changed
+- utils.py: `get_extension` function now returns extension without `.` [#68](https://github.com/RECETOX/RIAssigner/pull/68)
+- data/Data.py: Added `filetype` to constructor and made `rt_unit` non-optional. [#67](https://github.com/RECETOX/RIAssigner/issues/67) [#68](https://github.com/RECETOX/RIAssigner/pull/68)
+- data/MatchMSData.py: Added `filetype` to constructor and made `rt_unit` non-optional. [#67](https://github.com/RECETOX/RIAssigner/issues/67) [#68](https://github.com/RECETOX/RIAssigner/pull/68)
+- data/PandasData.py: Added `filetype` to constructor and made `rt_unit` non-optional. [#67](https://github.com/RECETOX/RIAssigner/issues/67) [#68](https://github.com/RECETOX/RIAssigner/pull/68)
 ### Removed
 
 ## [0.2.0] - 2021-08-18

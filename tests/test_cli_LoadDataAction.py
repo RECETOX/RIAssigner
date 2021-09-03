@@ -3,6 +3,7 @@ import argparse
 import numpy
 import pytest
 from RIAssigner.cli import LoadDataAction
+from RIAssigner.utils import get_extension
 
 from tests.fixtures.data import load_test_file
 
@@ -12,20 +13,21 @@ def test_create():
     assert sut is not None
 
 
-@pytest.mark.parametrize("filename", [
-    "Alkanes_20210325.csv",
-    "Alkanes_20210325.tsv",
-    "Alkanes_20210325.msp"
+@pytest.mark.parametrize("filename, rt_unit", [
+    ["Alkanes_20210325.csv", "min"],
+    ["Alkanes_20210325.tsv", "min"],
+    ["Alkanes_20210325.msp", "min"]
 ])
-def test_load_data(filename):
+def test_load_data(filename, rt_unit):
     # Arrange
-    expected = load_test_file(filename)
+    expected = load_test_file(filename, rt_unit)
     namespace = argparse.Namespace()
     parser = argparse.ArgumentParser()
     sut = LoadDataAction("", "data")
 
     # Act
-    sut(parser, namespace, expected.filename)
+    extension = get_extension(filename)
+    sut(parser, namespace, [expected.filename, extension, rt_unit])
     actual = namespace.data
 
     # Assert

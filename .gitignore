@@ -50,6 +50,7 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
+xunit-result.xml
 
 # Translations
 *.mo

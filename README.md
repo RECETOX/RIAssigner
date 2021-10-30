@@ -8,7 +8,7 @@ RIAssigner is a python tool for retention index (RI) computation for GC-MS data 
 
 ## Usage
 RIAssigner can be used to read data from `.msp`, `.csv` and `.tsv` files using [matchms](https://github.com/matchms/matchms) and [pandas](https://pandas.pydata.org/) and to compute the retention indices for the data.
-A reference list of retention indexed compounds (traditionally an Alkane series) with retention times is used to compute the RI for a query dataset of retention time values using the [van Den Dool and Kratz](https://www.sciencedirect.com/science/article/abs/pii/S002196730180947X?via%3Dihub) method or by using cubic spline based interpolation.
+A reference list of retention indexed compounds (traditionally an Alkane series) with retention times is used to compute the RI for a query dataset of retention time values using the [van Den Dool and Kratz](https://doi.org/10.1016/S0021-9673(01)80947-X) method or by using [cubic spline based interpolation](https://doi.org/10.1021/ac50035a026).
 ### Example
 ```python
 from RIAssigner.compute import Kovats

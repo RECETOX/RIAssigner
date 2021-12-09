@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 ### Removed
 
+## [0.3.1] - 2021-12-9
+### Changed
+- data/PandasData.py: `_read_into_dataframe()` now deduces a proper delimiter via python's [`csv.Sniffer`](https://docs.python.org/3/library/csv.html#csv.Sniffer) class. [#73](https://github.com/RECETOX/RIAssigner/pull/73)
+
 ## [0.3.0] - 2021-09-03
 ### Added
 - __main__.py + cli/LoadDataAction.py: Added required passing of filetype and rt unit. [#64](https://github.com/RECETOX/RIAssigner/issues/64) [#67](https://github.com/RECETOX/RIAssigner/issues/67) [#68](https://github.com/RECETOX/RIAssigner/pull/68)

@@ -15,8 +15,8 @@ from RIAssigner.compute import Kovats
 from RIAssigner.data import MatchMSData, PandasData
 
 # Load reference & query data
-query = PandasData("../tests/data/csv/aplcms_aligned_peaks.csv")
-reference = MatchMSData("../tests/data/msp/Alkanes_20210325.msp", rt_unit="min")
+query = PandasData("../tests/data/csv/aplcms_aligned_peaks.csv", "csv", rt_unit="seconds")
+reference = MatchMSData("../tests/data/msp/Alkanes_20210325.msp", "msp", rt_unit="min")
 
 # Compute RI and write it back to file
 query.retention_indices = Kovats().compute(query, reference)

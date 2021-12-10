@@ -86,7 +86,9 @@ class MatchMSData(Data):
         """ Set retention indices. """
         if len(values) == len(self._spectra):
             self._retention_indices = values
-            list(map(_assign_ri_value, self._spectra, values))
+            list(
+                map(_assign_ri_value, self._spectra, [self._ri_key] * len(self._spectra), values)
+            )
         else:
             raise ValueError('There is different numbers of computed indices and peaks.')
 
@@ -128,7 +130,7 @@ def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
     return value
 
 
-def _assign_ri_value(spectrum: Spectrum, value: Data.RetentionIndexType):
+def _assign_ri_value(spectrum: Spectrum, key: str, value: Data.RetentionIndexType):
     """Assign RI value to Spectrum object
 
     Args:
@@ -137,4 +139,4 @@ def _assign_ri_value(spectrum: Spectrum, value: Data.RetentionIndexType):
     """
     if value is not None:
         retention_index = ('%f' % float(value)).rstrip('0').rstrip('.')
-        spectrum.set(key='retentionindex', value=retention_index)
+        spectrum.set(key=key, value=retention_index)

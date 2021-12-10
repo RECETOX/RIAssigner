@@ -23,8 +23,7 @@ class PandasData(Data):
     def _read_into_dataframe(self):
         """ Read the data from file into dataframe. """
         if(self._filetype in ['csv', 'tsv']):
-            separator = define_separator(self._filename)
-            self._data = read_csv(self._filename, sep=separator)
+            self._data = read_csv(self._filename, sep=None, engine="python")
         else:
             raise NotImplementedError("File formats different from ['csv', 'tsv'] are not implemented yet.")
 

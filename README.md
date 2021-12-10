@@ -3,6 +3,7 @@
 [![Python Package using Conda](https://github.com/RECETOX/RIAssigner/actions/workflows/python-package-conda.yml/badge.svg?branch=main)](https://github.com/RECETOX/RIAssigner/actions/workflows/python-package-conda.yml)
 [![Anaconda Build](https://github.com/RECETOX/RIAssigner/actions/workflows/anaconda.yml/badge.svg?branch=main)](https://github.com/RECETOX/RIAssigner/actions/workflows/anaconda.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=hechth_RIAssigner&metric=alert_status)](https://sonarcloud.io/dashboard?id=hechth_RIAssigner)
+[![bioconda package](https://img.shields.io/conda/v/bioconda/riassigner)](https://anaconda.org/bioconda/riassigner)
 ## Overview
 RIAssigner is a python tool for retention index (RI) computation for GC-MS data developed at [RECETOX](https://www.recetox.muni.cz/en).
 
@@ -15,8 +16,8 @@ from RIAssigner.compute import Kovats
 from RIAssigner.data import MatchMSData, PandasData
 
 # Load reference & query data
-query = PandasData("../tests/data/csv/aplcms_aligned_peaks.csv")
-reference = MatchMSData("../tests/data/msp/Alkanes_20210325.msp", rt_unit="min")
+query = PandasData("../tests/data/csv/aplcms_aligned_peaks.csv", "csv", rt_unit="seconds")
+reference = MatchMSData("../tests/data/msp/Alkanes_20210325.msp", "msp", rt_unit="min")
 
 # Compute RI and write it back to file
 query.retention_indices = Kovats().compute(query, reference)

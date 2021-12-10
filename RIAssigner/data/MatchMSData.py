@@ -48,15 +48,15 @@ class MatchMSData(Data):
 
     def _read_retention_times(self):
         """ Read retention times from spectrum metadata. """
-        self._retention_times = Data.URegistry.Quantity([safe_read_key(spectrum, 'retentiontime') for spectrum in self._spectra], self._unit)
+        self._retention_times = Data.URegistry.Quantity([safe_read_key(spectrum, self._rt_key) for spectrum in self._spectra], self._unit)
 
     def _read_retention_indices(self):
         """ Read retention indices from spectrum metadata. """
-        self.retention_indices = [safe_read_key(spectrum, 'retentionindex') for spectrum in self._spectra]
+        self.retention_indices = [safe_read_key(spectrum, self._ri_key) for spectrum in self._spectra]
 
     def _sort_spectra_by_rt(self):
         """ Sort objects (peaks) in spectra list by their retention times. """
-        self._spectra.sort(key=lambda spectrum: safe_read_key(spectrum, 'retentiontime'))
+        self._spectra.sort(key=lambda spectrum: safe_read_key(spectrum, self._rt_key))
 
     def __eq__(self, o: object) -> bool:
         if not isinstance(o, MatchMSData):

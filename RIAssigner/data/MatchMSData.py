@@ -2,6 +2,7 @@ from .Data import Data
 from matchms import Spectrum
 from matchms.exporting import save_as_msp
 from matchms.importing import load_from_msp
+from RIAssigner.utils import get_first_common_element
 from typing import Optional, Iterable
 
 
@@ -15,6 +16,8 @@ class MatchMSData(Data):
         """Load data into object and initialize properties.
         """
         self._read_spectra(self._filename, self._filetype)
+        self._get_rt_key()
+        self._get_ri_key()
 
         self._sort_spectra_by_rt()
 
@@ -86,6 +89,14 @@ class MatchMSData(Data):
             list(map(_assign_ri_value, self._spectra, values))
         else:
             raise ValueError('There is different numbers of computed indices and peaks.')
+
+    def _get_rt_key(self):
+        """ Identify retention-time key from spectrum metadata. """
+        self._rt_key = get_first_common_element(self._rt_possible_keys, self._spectra[0].metadata.keys())
+
+    def _get_ri_key(self):
+        """ Identify retention-index key from spectrum metadata. """
+        self._ri_key = get_first_common_element(self._ri_possible_keys, self._spectra[0].metadata.keys())
 
 
 def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:

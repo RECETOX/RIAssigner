@@ -16,8 +16,8 @@ class MatchMSData(Data):
         """Load data into object and initialize properties.
         """
         self._read_spectra(self._filename, self._filetype)
-        self._get_rt_key()
-        self._get_ri_key()
+        self._init_rt_key()
+        self._init_ri_key()
 
         self._sort_spectra_by_rt()
 
@@ -90,13 +90,15 @@ class MatchMSData(Data):
         else:
             raise ValueError('There is different numbers of computed indices and peaks.')
 
-    def _get_rt_key(self):
+    def _init_rt_key(self):
         """ Identify retention-time key from spectrum metadata. """
-        self._rt_key = get_first_common_element(self._rt_possible_keys, self._spectra[0].metadata.keys())
+        rt_key = get_first_common_element(self._rt_possible_keys, self._spectra[0].metadata.keys())
+        self._rt_key = rt_key or 'retentiontime'
 
-    def _get_ri_key(self):
+    def _init_ri_key(self):
         """ Identify retention-index key from spectrum metadata. """
-        self._ri_key = get_first_common_element(self._ri_possible_keys, self._spectra[0].metadata.keys())
+        ri_key = get_first_common_element(self._ri_possible_keys, self._spectra[0].metadata.keys())
+        self._ri_key = ri_key or 'retentionindex'
 
 
 def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:

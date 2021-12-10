@@ -8,8 +8,6 @@ from .Data import Data
 
 class PandasData(Data):
     """ Class to handle data from filetypes which can be imported into a pandas dataframe. """
-    _rt_column_names = set(['RT', 'rt', 'rts', 'retention_times', 'retention_time', 'retention', 'time'])
-    _ri_column_names = set(['RI', 'ri', 'ris', 'retention_indices', 'retention_index', 'kovats', 'retentionindex'])
     _carbon_number_column_names = set(['Carbon_Number'])
 
     def read(self):
@@ -42,12 +40,12 @@ class PandasData(Data):
 
     def _init_rt_column_info(self):
         """ Find key of retention time column and store it. """
-        self._rt_index = get_first_common_element(self._data.columns, self._rt_column_names)
+        self._rt_index = get_first_common_element(self._data.columns, self._rt_possible_keys)
         self._rt_position = self._data.columns.tolist().index(self._rt_index)
 
     def _init_ri_column_info(self):
         """ Initialize retention index column name and set its position next to the retention time column. """
-        self._ri_index = get_first_common_element(self._data.columns, self._ri_column_names)
+        self._ri_index = get_first_common_element(self._data.columns, self._ri_possible_keys)
         if self._ri_index in self._data.columns:
             self._ri_position = self._data.columns.get_loc(self._ri_index)
         else:

@@ -11,6 +11,9 @@ class Data(ABC):
     URegistry = UnitRegistry()
     Unit = build_unit_class(URegistry)
 
+    _rt_possible_keys = set(['RT', 'rt', 'rts', 'retention_times', 'retention_time', 'retention', 'time'])
+    _ri_possible_keys = set(['RI', 'ri', 'ris', 'retention_indices', 'retention_index', 'kovats', 'retentionindex'])
+
     @staticmethod
     def is_valid(rt: RetentionTimeType) -> bool:
         return rt is not None and rt >= 0.0

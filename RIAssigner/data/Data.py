@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional
+from typing import Iterable, Optional, List
 from pint import UnitRegistry
 from pint.unit import build_unit_class
 
@@ -11,12 +11,22 @@ class Data(ABC):
     URegistry = UnitRegistry()
     Unit = build_unit_class(URegistry)
 
-    _rt_possible_keys = {'RT', 'rt', 'rts', 'retention_times', 'retention_time', 'retention', 'time'}
+    _rt_possible_keys = {'RT', 'rt', 'rts', 'retention_times', 'retention_time', 'retention', 'time', 'retentiontime'}
     _ri_possible_keys = {'RI', 'ri', 'ris', 'retention_indices', 'retention_index', 'kovats', 'retentionindex'}
 
     @staticmethod
     def is_valid(rt: RetentionTimeType) -> bool:
         return rt is not None and rt >= 0.0
+
+    @classmethod
+    def update_possible_rt_keys(cls, keys: List[str]):
+        """ A method that adds new identifiers for the retention time information lookup. """
+        cls._rt_possible_keys.update(keys)
+
+    @classmethod
+    def update_possible_ri_keys(cls, keys: List[str]):
+        """ A method that adds new identifiers for the retention index information lookup. """
+        cls._ri_possible_keys.update(keys)
 
     def __init__(self, filename: str, filetype: str, rt_unit: str):
         self._filename = filename

@@ -7,7 +7,6 @@ from RIAssigner.utils import get_extension
 
 from tests.builders import MatchMSDataBuilder, PandasDataBuilder
 
-
 here = os.path.abspath(os.path.dirname(__file__))
 
 
@@ -42,3 +41,17 @@ def test_filetype(filename, filetype, builder, expectation):
 
     with expectation:
         builder.build()
+
+
+def test_update_possible_keys():
+    key = "test-key"
+
+    expected_ri_keys = {'RI', 'ri', 'ris', 'retention_indices', 'retention_index', 'kovats', 'retentionindex', key}
+    expected_rt_keys = {'RT', 'rt', 'rts', 'retention_times', 'retention_time', 'retention', 'time', 'retentiontime',
+                        key}
+
+    Data.update_possible_ri_keys([key])
+    Data.update_possible_rt_keys([key])
+
+    assert Data._ri_possible_keys == expected_ri_keys
+    assert Data._rt_possible_keys == expected_rt_keys

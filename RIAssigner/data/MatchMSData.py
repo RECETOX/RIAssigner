@@ -46,6 +46,16 @@ class MatchMSData(Data):
         else:
             raise NotImplementedError("Currently only supports 'msp'.")
 
+    def _init_rt_key(self):
+        """ Identify retention-time key from spectrum metadata. """
+        rt_key = get_first_common_element(self._rt_possible_keys, self._spectra[0].metadata.keys())
+        self._rt_key = rt_key or 'retentiontime'
+
+    def _init_ri_key(self):
+        """ Identify retention-index key from spectrum metadata. """
+        ri_key = get_first_common_element(self._ri_possible_keys, self._spectra[0].metadata.keys())
+        self._ri_key = ri_key or 'retentionindex'
+
     def _read_retention_times(self):
         """ Read retention times from spectrum metadata. """
         self._retention_times = Data.URegistry.Quantity([safe_read_key(spectrum, self._rt_key) for spectrum in self._spectra], self._unit)
@@ -91,16 +101,6 @@ class MatchMSData(Data):
             )
         else:
             raise ValueError('There is different numbers of computed indices and peaks.')
-
-    def _init_rt_key(self):
-        """ Identify retention-time key from spectrum metadata. """
-        rt_key = get_first_common_element(self._rt_possible_keys, self._spectra[0].metadata.keys())
-        self._rt_key = rt_key or 'retentiontime'
-
-    def _init_ri_key(self):
-        """ Identify retention-index key from spectrum metadata. """
-        ri_key = get_first_common_element(self._ri_possible_keys, self._spectra[0].metadata.keys())
-        self._ri_key = ri_key or 'retentionindex'
 
 
 def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:

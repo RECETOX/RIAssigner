@@ -10,6 +10,12 @@ from tests.builders import MatchMSDataBuilder, PandasDataBuilder
 here = os.path.abspath(os.path.dirname(__file__))
 
 
+def _add_possible_key(keys, new_keys):
+    possible_keys = list(keys)
+    possible_keys += new_keys
+    return set(possible_keys)
+
+
 def test_abc():
     with pytest.raises(TypeError) as exception:
         data = Data(None)
@@ -43,15 +49,13 @@ def test_filetype(filename, filetype, builder, expectation):
         builder.build()
 
 
-def test_update_possible_keys():
-    key = "test-key"
+@pytest.mark.parametrize("keys", [["test-key"], ["first_key", "second_key"]])
+def test_add_possible_keys(keys):
+    expected_ri_keys = _add_possible_key(Data._ri_possible_keys, keys)
+    expected_rt_keys = _add_possible_key(Data._rt_possible_keys, keys)
 
-    expected_ri_keys = {'RI', 'ri', 'ris', 'retention_indices', 'retention_index', 'kovats', 'retentionindex', key}
-    expected_rt_keys = {'RT', 'rt', 'rts', 'retention_times', 'retention_time', 'retention', 'time', 'retentiontime',
-                        key}
-
-    Data.add_possible_ri_keys([key])
-    Data.add_possible_rt_keys([key])
+    Data.add_possible_ri_keys(keys)
+    Data.add_possible_rt_keys(keys)
 
     assert Data._ri_possible_keys == expected_ri_keys
     assert Data._rt_possible_keys == expected_rt_keys

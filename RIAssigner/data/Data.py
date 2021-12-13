@@ -19,12 +19,12 @@ class Data(ABC):
         return rt is not None and rt >= 0.0
 
     @classmethod
-    def update_possible_rt_keys(cls, keys: List[str]):
+    def add_possible_rt_keys(cls, keys: List[str]):
         """ A method that adds new identifiers for the retention time information lookup. """
         cls._rt_possible_keys.update(keys)
 
     @classmethod
-    def update_possible_ri_keys(cls, keys: List[str]):
+    def add_possible_ri_keys(cls, keys: List[str]):
         """ A method that adds new identifiers for the retention index information lookup. """
         cls._ri_possible_keys.update(keys)
 

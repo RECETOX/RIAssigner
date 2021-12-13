@@ -50,8 +50,8 @@ def test_update_possible_keys():
     expected_rt_keys = {'RT', 'rt', 'rts', 'retention_times', 'retention_time', 'retention', 'time', 'retentiontime',
                         key}
 
-    Data.update_possible_ri_keys([key])
-    Data.update_possible_rt_keys([key])
+    Data.add_possible_ri_keys([key])
+    Data.add_possible_rt_keys([key])
 
     assert Data._ri_possible_keys == expected_ri_keys
     assert Data._rt_possible_keys == expected_rt_keys

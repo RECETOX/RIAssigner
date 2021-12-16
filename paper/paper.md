@@ -47,7 +47,7 @@ RIAssigner is a lightweight python package which supports multiple computation m
 It can be used in any identification workflow and can be used as a modular building block due to its file-based input and outputs.
 
 # Author's Contributions
-HH wrote the manuscript and developed the software. MS contributed to the software. EJP provided conceptual oversight. MC contributed via code reviews and implementation guidance.
+HH wrote the manuscript and developed the software. MS contributed to the software. EJP provided conceptual oversight and contributed to the manuscript. MC contributed via code reviews and implementation guidance.
 
 # Acknowledgements
 The work was supported from Operational Programme Research, Development and Innovation - project RECETOX RI - CZ.02.1.01/0.0/0.0/16_013/0001761.

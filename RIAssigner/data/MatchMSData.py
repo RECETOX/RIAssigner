@@ -2,6 +2,7 @@ from .Data import Data
 from matchms import Spectrum
 from matchms.exporting import save_as_msp
 from matchms.importing import load_from_msp
+from RIAssigner.utils import get_first_common_element
 from typing import Optional, Iterable
 
 
@@ -15,6 +16,8 @@ class MatchMSData(Data):
         """Load data into object and initialize properties.
         """
         self._read_spectra(self._filename, self._filetype)
+        self._init_rt_key()
+        self._init_ri_key()
 
         self._sort_spectra_by_rt()
 
@@ -43,17 +46,27 @@ class MatchMSData(Data):
         else:
             raise NotImplementedError("Currently only supports 'msp'.")
 
+    def _init_rt_key(self):
+        """ Identify retention-time key from spectrum metadata. """
+        rt_key = get_first_common_element(self._rt_possible_keys, self._spectra[0].metadata.keys())
+        self._rt_key = rt_key or 'retentiontime'
+
+    def _init_ri_key(self):
+        """ Identify retention-index key from spectrum metadata. """
+        ri_key = get_first_common_element(self._ri_possible_keys, self._spectra[0].metadata.keys())
+        self._ri_key = ri_key or 'retentionindex'
+
     def _read_retention_times(self):
         """ Read retention times from spectrum metadata. """
-        self._retention_times = Data.URegistry.Quantity([safe_read_key(spectrum, 'retentiontime') for spectrum in self._spectra], self._unit)
+        self._retention_times = Data.URegistry.Quantity([safe_read_key(spectrum, self._rt_key) for spectrum in self._spectra], self._unit)
 
     def _read_retention_indices(self):
         """ Read retention indices from spectrum metadata. """
-        self.retention_indices = [safe_read_key(spectrum, 'retentionindex') for spectrum in self._spectra]
+        self.retention_indices = [safe_read_key(spectrum, self._ri_key) for spectrum in self._spectra]
 
     def _sort_spectra_by_rt(self):
         """ Sort objects (peaks) in spectra list by their retention times. """
-        self._spectra.sort(key=lambda spectrum: safe_read_key(spectrum, 'retentiontime'))
+        self._spectra.sort(key=lambda spectrum: safe_read_key(spectrum, self._rt_key))
 
     def __eq__(self, o: object) -> bool:
         if not isinstance(o, MatchMSData):
@@ -83,7 +96,9 @@ class MatchMSData(Data):
         """ Set retention indices. """
         if len(values) == len(self._spectra):
             self._retention_indices = values
-            list(map(_assign_ri_value, self._spectra, values))
+            list(
+                map(_assign_ri_value, self._spectra, [self._ri_key] * len(self._spectra), values)
+            )
         else:
             raise ValueError('There is different numbers of computed indices and peaks.')
 
@@ -115,7 +130,7 @@ def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
     return value
 
 
-def _assign_ri_value(spectrum: Spectrum, value: Data.RetentionIndexType):
+def _assign_ri_value(spectrum: Spectrum, key: str, value: Data.RetentionIndexType):
     """Assign RI value to Spectrum object
 
     Args:
@@ -124,4 +139,4 @@ def _assign_ri_value(spectrum: Spectrum, value: Data.RetentionIndexType):
     """
     if value is not None:
         retention_index = ('%f' % float(value)).rstrip('0').rstrip('.')
-        spectrum.set(key='retentionindex', value=retention_index)
+        spectrum.set(key=key, value=retention_index)

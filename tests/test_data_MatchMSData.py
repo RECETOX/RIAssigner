@@ -6,7 +6,6 @@ from matchms.exporting import save_as_msp
 from matchms.importing import load_from_msp
 
 from tests.builders import MatchMSDataBuilder
-from RIAssigner.utils import get_extension
 here = os.path.abspath(os.path.dirname(__file__))
 testdata_dir = os.path.join(here, 'data', 'msp')
 
@@ -109,5 +108,3 @@ def test_basic_write(filename, tmp_path):
         actual = file.readlines()
 
     assert expected == actual
-
-

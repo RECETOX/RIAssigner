@@ -28,7 +28,7 @@ reference = MatchMSData("../tests/data/msp/Alkanes_20210325.msp", "msp", rt_unit
 query.retention_indices = Kovats().compute(query, reference)
 query.write("peaks_with_rt.csv")
 ```
-For more details check out this [notebook](doc/example_usage.ipynb).
+For more details check out this [notebook](doc/example_usage.ipynb) or try this tool on [Galaxy](https://umsa.cerit-sc.cz/).
 
 ## Developer Documentation
 ### Setup

@@ -32,7 +32,7 @@ bibliography: references.bib
 
 # Summary
 
-RIAssigner is a software package for the computation of gas chromatographic retention indices. The package uses matchms [@Huber2020] and pandas [@reback2020pandas] for data IO and supports `.msp` as well as tabular (`.csv` & `.tsv`) input and output data formats. It supports multiple keywords identifying the retention time and retention index columns and support SI units for retention time. The retention index can be computed using the method by `@VanDenDool1963` or cubic spline interpolation using a reference list containing retention times & indices. The package is hosted via bioconda and is available on Galaxy.
+RIAssigner is a software package for the computation of gas chromatographic retention indices. The package uses matchms [@Huber2020] and pandas [@reback2020pandas] for data IO and supports `.msp` as well as tabular (`.csv` & `.tsv`) input and output data formats. It supports multiple keywords identifying the retention time and retention index columns and support SI units for retention time. The retention index can be computed using the method by `@VanDenDool:1963` or cubic spline interpolation [@Halang1978] using a reference list containing retention times & indices. The package is hosted via bioconda and is available on Galaxy.
 
 # Statement of need
 The retention index is required to compare results from different chromatographic columns.
@@ -47,7 +47,7 @@ RIAssigner is a lightweight python package which supports multiple computation m
 It can be used in any identification workflow and can be used as a modular building block due to its file-based input and outputs.
 
 # Author's Contributions
-HH wrote the manuscript and developed the software. MS contributed to the software. EJP developed the concepts. MC contributed via code reviews and implementation guidance.
+HH wrote the manuscript and developed the software. MS contributed to the software. EJP provided conceptual oversight. MC contributed via code reviews and implementation guidance.
 
 # Acknowledgements
 The work was supported from Operational Programme Research, Development and Innovation - project RECETOX RI - CZ.02.1.01/0.0/0.0/16_013/0001761.

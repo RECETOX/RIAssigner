@@ -33,7 +33,7 @@ The sections below outline the steps in each case.
 1. make sure the existing tests still work by running ``pytest``;
 1. add your own tests (if necessary);
 1. update or expand the documentation;
-1. update the `CHANGELOG.md` file with change;
+1. update the [CHANGELOG](CHANGELOG.md) file with change;
 1. [push](http://rogerdudler.github.io/git-guide/>) your feature branch to (your fork of) the matchms repository on GitHub;
 1. create the pull request, e.g. following the instructions [here](https://help.github.com/articles/creating-a-pull-request/).
 

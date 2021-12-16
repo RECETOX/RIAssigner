@@ -32,7 +32,7 @@ bibliography: references.bib
 
 # Summary
 
-RIAssigner is a software package for the computation of gas chromatographic retention indices. The package uses matchms [@Huber2020] and pandas [@reback2020pandas] for data IO and supports `.msp` as well as tabular (`.csv` & `.tsv`) input and output data formats. It supports multiple keywords identifying the retention time and retention index columns and support SI units for retention time. The retention index can be computed using the method by `@VanDenDool:1963` or cubic spline interpolation [@Halang1978] using a reference list containing retention times & indices. The package is hosted via bioconda and is available on Galaxy.
+RIAssigner is a software package for the computation of gas chromatographic retention indices. The package uses matchms [@Huber2020] and pandas [@reback2020pandas] for data IO and supports `.msp` as well as tabular (`.csv` & `.tsv`) input and output data formats. It supports multiple keywords identifying the retention time and retention index columns and support SI units for retention time. The retention index can be computed using the method by @VanDenDool:1963 or cubic spline interpolation [@Halang1978] using a reference list containing retention times & indices. The package is hosted via bioconda and is available on Galaxy.
 
 # Statement of need
 The retention index is required to compare results from different chromatographic columns.

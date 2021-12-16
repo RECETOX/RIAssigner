@@ -4,8 +4,11 @@
 [![Anaconda Build](https://github.com/RECETOX/RIAssigner/actions/workflows/anaconda.yml/badge.svg?branch=main)](https://github.com/RECETOX/RIAssigner/actions/workflows/anaconda.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=hechth_RIAssigner&metric=alert_status)](https://sonarcloud.io/dashboard?id=hechth_RIAssigner)
 [![bioconda package](https://img.shields.io/conda/v/bioconda/riassigner)](https://anaconda.org/bioconda/riassigner)
+
 ## Overview
 RIAssigner is a python tool for retention index (RI) computation for GC-MS data developed at [RECETOX](https://www.recetox.muni.cz/en).
+
+The [retention index](https://goldbook.iupac.org/terms/view/R05360) is a mapping of retention time, making the retention time of compounds on different columns comparable, i.e to compounds might have different retention times on different columns, but a very similar retention index. To compute this index, a set of reference compounds - often an inert alkane series - is analyzed as part of the batch (on the same column). The retention index of the alkanes are fixed (carbon number x 100) and any query compounds can be assigned a retention index depending on its retention time. This can be done via piecewise linear interpolation or other mathematical methods.
 
 ## Installation
 Installation is currently possible by creating the conda environment with `conda env create -f conda/environment-dev.yml` and then installing the package with `python -m pip install -e .`

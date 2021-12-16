@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [dev] - unreleased
 ### Added
-- data/Data.py: Added `update_possible_rt_keys()` and `update_possible_rt_keys()` methods for `Data` class.
+- data/Data.py: Added `update_possible_rt_keys()` and `update_possible_ri_keys()` methods for `Data` class.
 Now users can supply their own identifiers for RT/RI columns (csv files) and identifiers (msp) in their data.
 ### Changed
 - data/Data.py: Unified default RT/RI column identifiers between `PandasData` and `MatchMSData` classes.

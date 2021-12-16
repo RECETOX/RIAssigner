@@ -7,6 +7,11 @@
 ## Overview
 RIAssigner is a python tool for retention index (RI) computation for GC-MS data developed at [RECETOX](https://www.recetox.muni.cz/en).
 
+## Installation
+Installation is currently possible by creating the conda environment with `conda env create -f conda/environment-dev.yml` and then installing the package with `python -m pip install -e .`
+
+Install via [bioconda](https://anaconda.org/bioconda/riassigner) using `conda install -c bioconda riassigner`
+
 ## Usage
 RIAssigner can be used to read data from `.msp`, `.csv` and `.tsv` files using [matchms](https://github.com/matchms/matchms) and [pandas](https://pandas.pydata.org/) and to compute the retention indices for the data.
 A reference list of retention indexed compounds (traditionally an Alkane series) with retention times is used to compute the RI for a query dataset of retention time values using the [van Den Dool and Kratz](https://doi.org/10.1016/S0021-9673(01)80947-X) method or by using [cubic spline based interpolation](https://doi.org/10.1021/ac50035a026).
@@ -25,10 +30,6 @@ query.write("peaks_with_rt.csv")
 ```
 For more details check out this [notebook](doc/example_usage.ipynb).
 
-## Installation
-Installation is currently possible by creating the conda environment with `conda env create -f conda/environment-dev.yml` and then installing the package with `python -m pip install -e .`
-
-The tool will be published via pypi and bioconda soon!
 ## Developer Documentation
 ### Setup
 Create your development environment using the provided [script](conda/environment-dev.yml) via conda to install all required dependencies, including linter and testing frameworks.

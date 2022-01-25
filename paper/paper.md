@@ -32,22 +32,22 @@ bibliography: references.bib
 
 # Summary
 
-RIAssigner is a software package for the computation of gas chromatographic retention indices. The package uses matchms [@Huber2020] and pandas [@reback2020pandas] for data IO and supports `.msp` as well as tabular (`.csv` & `.tsv`) input and output data formats.
+RIAssigner is a software package for the computation of gas chromatographic retention indices.
+The package uses matchms [@Huber2020] and pandas [@reback2020pandas] for data IO and among others supports `.msp` as well as tabular (`.csv` & `.tsv`) formats.
 It supports multiple keywords identifying the retention time and retention index columns and support SI units for retention time.
 The retention index can be computed using the method by @VanDenDool:1963 or cubic spline interpolation [@Halang1978] using a reference list containing retention times & indices.
-The package is hosted via bioconda and is available on Galaxy.
+The package is hosted via bioconda [@bioconda] and is available on Galaxy [@galaxy].
 
 # Statement of need
-The retention index is required to compare results from different chromatographic columns.
-While the retention times of one compound analyzed on different columns can differ, the retention index is only subject to very small deviations.
-It can therefore be used for identification of unknown target compounds alongside spectral library matching [@Strehmel2008; @Wei2014].
+The retention index is required to compare results from multiple experiments, especially with differing chromatographic columns.
+While the retention times of an analyzed compound can differ across runs, the retention index is only subject to very small deviations.
+It can therefore be used for identification of unknown target compounds alongside spectral similarity in spectral library matching based identification of unknowns[@Strehmel2008; @Wei2014].
 
 # State of the field
 Even though retention index computation is contained in the most widely used GUI applications such as MS-DIAL [@Tsugawa2015] and MZmine2 [@Pluskal2010] and the Galaxy tool metaMS [@Wehrens2014] there is no standalone package which provides support for various computation methods or retention indices, such as the Kovats RI [@Kovats1958], the Fiehn RI [@Kind2009] or the virtual carbon number [@Harangi2003].
-These tools are bound to consume input data in fixed formats or to only allow for RI computation and filtering inside the workflow run within the software.
+Additionally, these tools expect input data in a fixed format and only perform RI computation and filtering inside the workflow run within the software.
 
-RIAssigner is a lightweight python package which supports multiple computation methods and data formats and is built on an expendable architecture.
-It can be used in any identification workflow and can be used as a modular building block due to its file-based input and outputs.
+RIAssigner is a lightweight python package which supports multiple computation methods and data formats and is built on an expendable architecture, closing the gap towards modular annotation workflows as a standalone building block.
 
 # Author's Contributions
 HH wrote the manuscript and developed the software.

@@ -1,7 +1,10 @@
 import numpy
 import pytest
-from tests.fixtures.data import reference_alkanes, queries, indexed_data, non_indexed_data, invalid_rt_data
 from RIAssigner.compute import Kovats
+
+from tests.fixtures.data import (indexed_data, invalid_rt_data,
+                                 non_indexed_data, queries, reference_alkanes)
+from tests.fixtures.mocks.DataStub import DataStub
 
 
 def test_construct():
@@ -54,4 +57,13 @@ def test_ref_queries(reference_alkanes, queries):
 
     data, expected = queries
     actual = method.compute(data, reference_alkanes)
+    numpy.testing.assert_array_almost_equal(actual, expected)
+
+
+def test_missing_alkane():
+    ref = DataStub([5.0, 7.0], [1000, 1200])
+    query = DataStub([6.0], [None])
+    expected = [1100]
+
+    actual = Kovats().compute(query, ref)
     numpy.testing.assert_array_almost_equal(actual, expected)

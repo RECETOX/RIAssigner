@@ -1,13 +1,10 @@
-import csv
 import os
 
 import numpy
-from pandas import read_csv
 import pytest
-from RIAssigner.utils import get_first_common_element
+from pandas import read_csv
 
 from tests.builders import PandasDataBuilder
-
 
 here = os.path.abspath(os.path.dirname(__file__))
 testdata_dir = os.path.join(here, 'data', 'csv')

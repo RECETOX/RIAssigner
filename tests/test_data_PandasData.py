@@ -18,26 +18,6 @@ def filename_csv(request):
     return os.path.join(testdata_dir, request.param)
 
 
-@pytest.fixture
-def csv_content(filename_csv):
-    with open(filename_csv, 'r') as csv_file:
-        reader = csv.DictReader(csv_file)
-        data = list(reader)
-    return data
-
-
-@pytest.fixture
-def retention_times(csv_content):
-    index = get_first_common_element(csv_content[0].keys(), ["RT", "rt"])
-    rts = [float(row[index]) for row in csv_content]
-    rts.sort()
-    return rts
-
-
-def test_none():
-    pass
-
-
 def test_open_csv(filename_csv):
     data = PandasDataBuilder().with_filename(filename_csv).build()
     assert data.filename == filename_csv

@@ -46,14 +46,6 @@ def test_open_msp(filename_msp):
     assert data.filename == filename_msp
 
 
-def test_read_dat():
-    filename = os.path.join(here, 'data', 'dat', 'Alkanes_20210325.dat')
-    builder = MatchMSDataBuilder().with_rt_unit("min").with_filename(filename)
-    data_dat = builder.build()
-    data_msp = builder.with_filename(os.path.join(testdata_dir, "Alkanes_20210325.msp")).build()
-    assert data_dat == data_msp
-
-
 def test_read_rts_v1(filename_msp, retention_times):
     data = MatchMSDataBuilder().with_filename(filename_msp).build()
 

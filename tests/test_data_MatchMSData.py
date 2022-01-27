@@ -62,28 +62,6 @@ def test_read_rts_v1(filename_msp, retention_times):
     numpy.testing.assert_array_equal(actual, expected)
 
 
-@pytest.mark.parametrize("filename, rt_format, expected", [
-    ["Alkanes_20210325.msp", 'min', [124.8, 145.8, 165, 184.8]],
-    ["Alkanes_20210325.msp", 'second', [2.08, 2.43, 2.75, 3.08]]
-])
-def test_read_rts_v2(filename, rt_format, expected):
-    filename = os.path.join(testdata_dir, filename)
-    data = MatchMSDataBuilder().with_filename(filename).with_rt_unit(rt_format).build()
-
-    actual = data.retention_times
-    numpy.testing.assert_array_almost_equal(actual, expected)
-
-
-@pytest.mark.parametrize("filename, expected", [
-    ["recetox_gc-ei_ms_20201028.msp", [2876, 2886.9, 1827.1, 1832.9, 1844.4, 1501, 1528.3, 2102.7, 2154.5, 2207.5]]])
-def test_read_ris(filename, expected):
-    filename = os.path.join(testdata_dir, filename)
-    data = MatchMSDataBuilder().with_filename(filename).build()
-
-    actual = data.retention_indices[:10]
-    numpy.testing.assert_array_almost_equal(actual, expected)
-
-
 def test_equal(filename_msp):
     actual = MatchMSDataBuilder().with_filename(filename_msp).build()
     expected = MatchMSDataBuilder().with_filename(filename_msp).build()

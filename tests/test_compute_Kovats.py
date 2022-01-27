@@ -2,9 +2,9 @@ import numpy
 import pytest
 from RIAssigner.compute import Kovats
 
-from tests.fixtures.data import (indexed_data, invalid_rt_data,
+from tests.fixtures import (indexed_data, invalid_rt_data,
                                  non_indexed_data, queries, reference_alkanes)
-from tests.fixtures.mocks.DataStub import DataStub
+from tests.fixtures.mocks import DataStub
 
 
 def test_construct():

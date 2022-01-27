@@ -28,6 +28,24 @@ class Data(ABC):
         """ A method that adds new identifiers for the retention index information lookup. """
         cls._ri_possible_keys.update(keys)
 
+    @classmethod
+    def get_possible_rt_keys(cls) -> List[str]:
+        """Method to get the supported retention time keys
+
+        Returns:
+            List[str]: List of supported retention time keys.
+        """
+        return cls._rt_possible_keys.copy()
+    
+    @classmethod
+    def get_possible_ri_keys(cls) -> List[str]:
+        """Method to get the supported retention index keys
+
+        Returns:
+            List[str]: List of supported retention index keys.
+        """
+        return cls._ri_possible_keys.copy()
+
     def __init__(self, filename: str, filetype: str, rt_unit: str):
         self._filename = filename
         self._filetype = filetype

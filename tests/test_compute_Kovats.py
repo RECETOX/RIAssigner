@@ -26,6 +26,7 @@ def test_invalid_rt_has_none_ri(invalid_rt_data, indexed_data):
     numpy.testing.assert_array_equal(actual, expected)
 
 
+# Test has to stay and can't be merged with other computation methods due to the mark.
 @pytest.mark.method('kovats')
 def test_ref_queries(reference_alkanes, queries):
     method = Kovats()

@@ -20,6 +20,7 @@ def test_simple_computations(reference_points, query_points, expected):
     numpy.testing.assert_array_almost_equal(actual, expected, 4)
 
 
+# Test has to stay and can't be merged with other computation methods due to the mark.
 @pytest.mark.method('cubicspline')
 def test_detected_features(reference_alkanes, queries):
     method = CubicSpline()

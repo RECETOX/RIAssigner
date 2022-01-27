@@ -1,11 +1,10 @@
 import pytest
-
 from RIAssigner.compute import ComputationMethod
 
 
 def test_abc():
     with pytest.raises(TypeError) as exception:
-        method = ComputationMethod()
+        ComputationMethod()
 
     message = exception.value.args[0]
     assert exception.typename == "TypeError"

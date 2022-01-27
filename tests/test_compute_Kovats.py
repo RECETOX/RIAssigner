@@ -7,31 +7,6 @@ from tests.fixtures import (indexed_data, invalid_rt_data,
 from tests.fixtures.mocks import DataStub
 
 
-def test_construct():
-    compute = Kovats()
-    assert compute is not None
-
-
-def test_exception_reference_none(non_indexed_data):
-    method = Kovats()
-    with pytest.raises(AssertionError) as exception:
-        method.compute(non_indexed_data, None)
-
-    message = exception.value.args[0]
-    assert exception.typename == "AssertionError"
-    assert message == "Reference data is 'None'."
-
-
-def test_exception_query_none(indexed_data):
-    method = Kovats()
-    with pytest.raises(AssertionError) as exception:
-        method.compute(None, indexed_data)
-
-    message = exception.value.args[0]
-    assert exception.typename == "AssertionError"
-    assert message == "Query data is 'None'."
-
-
 def test_compute_ri_basic_case(non_indexed_data, indexed_data):
     method = Kovats()
 

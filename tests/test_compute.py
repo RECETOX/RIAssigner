@@ -56,7 +56,8 @@ def test_exception_query_none(method, indexed_data):
 ])
 def test_computation(reference_alkanes, method, query_file, rt_unit):
     query = load_test_file(query_file, rt_unit)
-    results_path = os.path.join(data_location, type(method).__name__, os.path.splitext(query_file)[0] + ".npy")
+    method_name = str(type(method).__name__).lower()
+    results_path = os.path.join(data_location, method_name, os.path.splitext(query_file)[0] + ".npy")
     expected = numpy.load(results_path)
 
     actual = method.compute(query, reference_alkanes)

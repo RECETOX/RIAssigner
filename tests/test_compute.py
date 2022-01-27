@@ -1,8 +1,8 @@
 import pytest
-
 from RIAssigner.compute import CubicSpline, Kovats
 
 from tests.fixtures import indexed_data, non_indexed_data
+
 
 @pytest.mark.parametrize('this, other, expected', [
     [CubicSpline(), CubicSpline(), True],

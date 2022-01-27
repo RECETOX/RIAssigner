@@ -40,3 +40,7 @@ def test_exception_query_none(method, indexed_data):
     message = exception.value.args[0]
     assert exception.typename == "AssertionError"
     assert message == "Query data is 'None'."
+
+
+# @pytest.mark.parametrize('method, ')
+# def test_computation_results()

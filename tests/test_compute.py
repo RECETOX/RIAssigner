@@ -1,8 +1,14 @@
+import os
+import numpy
 import pytest
 from RIAssigner.compute import CubicSpline, Kovats
 
-from tests.fixtures import indexed_data, non_indexed_data
+from tests.fixtures import indexed_data, non_indexed_data, reference_alkanes
+from tests.fixtures.data import load_test_file
 
+
+here = os.path.abspath(os.path.dirname(__file__))
+data_location = os.path.join(here, "data")
 
 @pytest.mark.parametrize('this, other, expected', [
     [CubicSpline(), CubicSpline(), True],
@@ -40,3 +46,18 @@ def test_exception_query_none(method, indexed_data):
     message = exception.value.args[0]
     assert exception.typename == "AssertionError"
     assert message == "Query data is 'None'."
+
+
+@pytest.mark.parametrize('method', [Kovats(), CubicSpline()])
+@pytest.mark.parametrize('query_file, rt_unit', [
+    ["aplcms_aligned_peaks.csv", "sec"],
+    ["xcms_variable_metadata.csv", "sec"],
+    ["PFAS_added_rt.msp", "sec"]
+])
+def test_computation(reference_alkanes, method, query_file, rt_unit):
+    query = load_test_file(query_file, rt_unit)
+    results_path = os.path.join(data_location, type(method).__name__, os.path.splitext(query_file)[0] + ".npy")
+    expected = numpy.load(results_path)
+
+    actual = method.compute(query, reference_alkanes)
+    numpy.testing.assert_array_almost_equal(actual, expected)

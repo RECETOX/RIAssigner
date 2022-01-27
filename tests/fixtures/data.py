@@ -1,6 +1,5 @@
 import os
 
-import numpy
 import pytest
 from RIAssigner.data import Data
 from RIAssigner.utils import get_extension
@@ -27,24 +26,6 @@ def load_test_file(filename: str, rt_unit: str) -> Data:
 @pytest.fixture
 def reference_alkanes():
     return load_test_file("Alkanes_20210325.csv", "min")
-
-
-@pytest.fixture(params=[
-    ["aplcms_aligned_peaks.csv", "sec"],
-    ["xcms_variable_metadata.csv", "sec"],
-    ["PFAS_added_rt.msp", "sec"],
-])
-def queries(request):
-    filename = request.param[0]
-    rt_unit = request.param[1]
-    basename, _ = os.path.splitext(filename)
-
-    # Get name of method passed to test fixture using @pytest.mark
-    method = request.node.get_closest_marker("method").args[0]
-
-    results_path = os.path.join(data_location, method, basename + ".npy")
-    expected = numpy.load(results_path)
-    return (load_test_file(filename, rt_unit), expected)
 
 
 @pytest.fixture

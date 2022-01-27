@@ -2,7 +2,6 @@ import numpy
 import pytest
 from RIAssigner.compute import CubicSpline
 
-from tests.fixtures import queries, reference_alkanes
 from tests.fixtures.mocks import DataStub
 
 
@@ -18,13 +17,3 @@ def test_simple_computations(reference_points, query_points, expected):
 
     actual = method.compute(query, reference)
     numpy.testing.assert_array_almost_equal(actual, expected, 4)
-
-
-# Test has to stay and can't be merged with other computation methods due to the mark.
-@pytest.mark.method('cubicspline')
-def test_detected_features(reference_alkanes, queries):
-    method = CubicSpline()
-
-    data, expected = queries
-    actual = method.compute(data, reference_alkanes)
-    numpy.testing.assert_array_almost_equal(actual, expected)

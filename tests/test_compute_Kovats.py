@@ -2,8 +2,7 @@ import numpy
 import pytest
 from RIAssigner.compute import Kovats
 
-from tests.fixtures import (indexed_data, invalid_rt_data, non_indexed_data,
-                            queries, reference_alkanes)
+from tests.fixtures import (indexed_data, invalid_rt_data, non_indexed_data)
 from tests.fixtures.mocks import DataStub
 
 
@@ -24,16 +23,6 @@ def test_invalid_rt_has_none_ri(invalid_rt_data, indexed_data):
     actual = method.compute(invalid_rt_data, indexed_data)
 
     numpy.testing.assert_array_equal(actual, expected)
-
-
-# Test has to stay and can't be merged with other computation methods due to the mark.
-@pytest.mark.method('kovats')
-def test_ref_queries(reference_alkanes, queries):
-    method = Kovats()
-
-    data, expected = queries
-    actual = method.compute(data, reference_alkanes)
-    numpy.testing.assert_array_almost_equal(actual, expected)
 
 
 def test_missing_alkane():

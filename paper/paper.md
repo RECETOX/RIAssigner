@@ -41,10 +41,11 @@ The package is hosted via bioconda [@bioconda] and is available on Galaxy [@gala
 # Statement of need
 The RI is required to compare results from multiple experiments, especially with differing analytical methods.
 While the RT of an analyzed compound can differ, the RI is only subject to very small deviations (<100 units on a comparable column), as it is based on a set of standard reference compounds (traditionally an Alkane series) analyzed as part of the experiment.
-![Caption for example figure.\label{fig:main}](images/method_comparison.png)
 An example use case is illustrated in \autoref{fig:main}
 It can therefore be used to improve identification of unknown target compounds when employed alongside spectral similarity in spectral library matching based identification of unknowns[@Strehmel2008; @Wei2014].
 To leverage the RI in open-source identification workflows, a package providing computation methods as well as file handling is crucial.
+
+![Caption for example figure.\label{fig:main}](images/method_comparison.png)
 
 # State of the field
 Even though retention index computation is contained in the most widely used GUI applications such as MS-DIAL [@Tsugawa2015] and MZmine2 [@Pluskal2010], the Galaxy tool metaMS [@Wehrens2014] and the python package CoreMS [@corilo2021], there is no standalone package which provides support for various computation methods, such as the Kovats RI [@Kovats1958], the Fiehn RI [@Kind2009] or the virtual carbon number [@Harangi2003].

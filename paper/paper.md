@@ -32,22 +32,26 @@ bibliography: references.bib
 
 # Summary
 
-RIAssigner is a software package for the computation of gas chromatographic retention indices.
+RIAssigner is a software package for the computation of gas chromatographic (GC) retention indices (RIs).
 The package uses matchms [@Huber2020] and pandas [@reback2020pandas] for data IO and among others supports `.msp` as well as tabular (`.csv` & `.tsv`) formats.
-It supports multiple keywords identifying the retention time and retention index columns and support SI units for retention time.
-The retention index can be computed using the method by @VanDenDool:1963 or cubic spline interpolation [@Halang1978] using a reference list containing retention times & indices.
+It supports multiple keywords identifying the retention time (RT) and RI columns and support SI units for RT.
+The RI can be computed using the method by @VanDenDool:1963 or cubic spline interpolation [@Halang1978] using a reference list containing RT & RI.
 The package is hosted via bioconda [@bioconda] and is available on Galaxy [@galaxy].
 
 # Statement of need
-The retention index is required to compare results from multiple experiments, especially with differing chromatographic columns.
-While the retention times of an analyzed compound can differ across runs, the retention index is only subject to very small deviations.
-It can therefore be used for identification of unknown target compounds alongside spectral similarity in spectral library matching based identification of unknowns[@Strehmel2008; @Wei2014].
+The RI is required to compare results from multiple experiments, especially with differing analytical methods.
+While the RT of an analyzed compound can differ, the RI is only subject to very small deviations (<100 units on a comparable column), as it is based on a set of standard reference compounds (traditionally an Alkane series) analyzed as part of the experiment.
+![Caption for example figure.\label{fig:main}](images/method_comparison.png)
+An example use case is illustrated in \autoref{fig:main}
+It can therefore be used to improve identification of unknown target compounds when employed alongside spectral similarity in spectral library matching based identification of unknowns[@Strehmel2008; @Wei2014].
+To leverage the RI in open-source identification workflows, a package providing computation methods as well as file handling is crucial.
 
 # State of the field
-Even though retention index computation is contained in the most widely used GUI applications such as MS-DIAL [@Tsugawa2015] and MZmine2 [@Pluskal2010] and the Galaxy tool metaMS [@Wehrens2014] there is no standalone package which provides support for various computation methods or retention indices, such as the Kovats RI [@Kovats1958], the Fiehn RI [@Kind2009] or the virtual carbon number [@Harangi2003].
+Even though retention index computation is contained in the most widely used GUI applications such as MS-DIAL [@Tsugawa2015] and MZmine2 [@Pluskal2010], the Galaxy tool metaMS [@Wehrens2014] and the python package CoreMS [@corilo2021], there is no standalone package which provides support for various computation methods, such as the Kovats RI [@Kovats1958], the Fiehn RI [@Kind2009] or the virtual carbon number [@Harangi2003].
 Additionally, these tools expect input data in a fixed format and only perform RI computation and filtering inside the workflow run within the software.
 
-RIAssigner is a lightweight python package which supports multiple computation methods and data formats and is built on an expendable architecture, closing the gap towards modular annotation workflows as a standalone building block.
+RIAssigner is a lightweight python package which supports multiple computation methods and data formats and is built on an expandable architecture, closing the gap towards modular annotation workflows.
+It can be integrated into file-based workflows by supporting various open standards or linked directly via its API into more complex Python applications.
 
 # Author's Contributions
 HH wrote the manuscript and developed the software.

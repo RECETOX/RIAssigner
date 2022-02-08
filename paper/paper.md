@@ -44,6 +44,7 @@ While the RT of an analyzed compound can differ, the RI is only subject to very 
 An example use case is illustrated in \autoref{fig:main}.
 It can therefore be used to improve identification of unknown target compounds when employed alongside spectral similarity in spectral library matching based identification of unknowns[@Strehmel2008; @Wei2014].
 To leverage the RI in open-source identification workflows, a package providing computation methods as well as file handling is crucial.
+
 # State of the field
 Even though retention index computation is contained in the most widely used GUI applications such as MS-DIAL [@Tsugawa2015] and MZmine2 [@Pluskal2010], the Galaxy tool metaMS [@Wehrens2014] and the python package CoreMS [@corilo2021], there is no standalone package which provides support for various computation methods, such as the Kovats RI [@Kovats1958], the Fiehn RI [@Kind2009] or the virtual carbon number [@Harangi2003].
 Additionally, these tools expect input data in a fixed format and only perform RI computation and filtering inside the workflow run within the software.

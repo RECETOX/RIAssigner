@@ -43,13 +43,13 @@ The RI is required to compare results from multiple experiments, especially with
 While the RT of an analyzed compound can differ, the RI is only subject to very small deviations (<100 units on a comparable column), as it is based on a set of standard reference compounds (traditionally an Alkane series) analyzed as part of the experiment.
 An example use case is illustrated in \autoref{fig:main}.
 It can therefore be used to improve identification of unknown target compounds when employed alongside spectral similarity in spectral library matching based identification of unknowns[@Strehmel2008; @Wei2014].
-To leverage the RI in open-source identification workflows, a package providing computation methods as well as file handling is crucial.
+To leverage the RI in open-source identification workflows, a package providing computation methods as well as data handling is crucial.
 
 # State of the field
 Even though retention index computation is contained in the most widely used GUI applications such as MS-DIAL [@Tsugawa2015] and MZmine2 [@Pluskal2010], the Galaxy tool metaMS [@Wehrens2014] and the python package CoreMS [@corilo2021], there is no standalone package which provides support for various computation methods, such as the Kovats RI [@Kovats1958], the Fiehn RI [@Kind2009] or the virtual carbon number [@Harangi2003].
 Additionally, these tools expect input data in a fixed format and only perform RI computation and filtering inside the workflow run within the software.
 
-![Identifications across experiments become comparable when mapping the RT to a RI using a list of reference compounds, e.g an alkane series or FAMEs [@Kind2009]. The markers denote the positions of reference compounds while the arrows indicate the RT and RI values of chemical compounds identified in the spectral library [@rcx_metabolomics] as well as the study conducted in [@Weidt2016].\label{fig:main}](images/method_comparison.png)
+![Identifications across experiments become comparable when mapping the RT to a RI using a list of reference compounds, e.g an alkane series or FAMEs [@Kind2009]. The markers denote the positions of reference compounds while the arrows indicate the RT and RI values of chemical compounds measured as standards in the spectral library [@rcx_metabolomics] and identified in the study conducted in [@Weidt2016].\label{fig:main}](images/method_comparison.png)
 
 RIAssigner is a lightweight python package which supports multiple computation methods and data formats and is built on an expandable architecture, closing the gap towards modular annotation workflows.
 It can be integrated into file-based workflows by supporting various open standards or linked directly via its API into more complex Python applications.

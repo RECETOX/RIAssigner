@@ -20,7 +20,8 @@ setup(
     long_description=readme,
     long_description_content_type="text/markdown",
     author="Helge Hecht, Maksym Skoryk",
-    author_email="helge.hecht@recetox.muni.cz, skoryk@mail.muni.cz",
+    author_email="helge.hecht@recetox.muni.cz, maksym.skoryk@recetox.muni.cz",
+
     maintainer="RECETOX",
     maintainer_email="GalaxyToolsDevelopmentandDeployment@space.muni.cz",
     url="https://github.com/RECETOX/RIAssigner",

@@ -33,13 +33,13 @@ bibliography: references.bib
 # Summary
 
 RIAssigner is a software package for the computation of gas chromatographic (GC) retention indices (RIs).
-The package uses matchms [@Huber2020] and pandas [@reback2020pandas] for data IO and among others supports `.msp` as well as tabular (`.csv` & `.tsv`) formats.
-It supports multiple keywords identifying the retention time (RT) and RI columns and support SI units for RT.
-The RI can be computed using the method by @VanDenDool:1963 or cubic spline interpolation [@Halang1978] using a reference list containing RT & RI.
-The package is hosted via bioconda [@bioconda] and is available on Galaxy [@galaxy].
+The package uses matchms [@Huber2020] and pandas [@reback2020pandas] for data IO and supports `.msp` as well as tabular (`.csv` & `.tsv`) formats, among others.
+It supports multiple keywords identifying the retention time (RT) and RI information and supports handling SI units for RT.
+The RI can be computed using non-isothermal Kováts retention-indexing (from temperature programming, using the definition of @VanDenDool:1963) or cubic spline interpolation [@Halang1978] based on a reference dataset containing RT & RI.
+The package is hosted via bioconda [@bioconda] and is accessible to users through the Galaxy ecosystem [@galaxy; @umsa].
 
 # Statement of need
-The chromatographic properties of capillary columns are very stable, major shifts in retention times are only observed after cutting the column - this is usually done to reduce column bleed in gas chromatography-mass spectrometry (GC-MS)-based experiments.
+The retention behaviour of compounds analyzed on capillary columns is very stable, major shifts in retention times are only observed after cutting the column - this is usually done to reduce column bleed in gas chromatography-mass spectrometry (GC-MS)-based experiments.
 The RI is required to compare the data coming from samples analyzed in experiments using comparable columns of different length or different analytical methods (e.g temperature gradient).
 While the RT of an analyzed compound can differ, the RI is only subject to very small deviations when using a column with similar separation properties, as it is based on a set of standard reference compounds (traditionally an Alkane series) analyzed as part of the experiment.
 An example use case is illustrated in \autoref{fig:main}.
@@ -47,12 +47,13 @@ It can therefore be used to improve identification of unknown target compounds w
 To leverage the RI in open-source identification workflows, a package providing computation methods as well as data handling is crucial.
 
 # State of the field
-Even though retention index computation is contained in the most widely used GUI applications such as MS-DIAL [@Tsugawa2015] and MZmine2 [@Pluskal2010], the Galaxy tool metaMS [@Wehrens2014] and the python package CoreMS [@corilo2021], there is no standalone package which provides support for various computation methods, such as the Kovats RI [@Kovats1958], the Fiehn RI [@Kind2009] or the virtual carbon number [@Harangi2003].
-Additionally, these tools expect input data in a fixed format and only perform RI computation and filtering inside the workflow run within the software.
+RI computation is contained in the most widely used GUI applications such as MS-DIAL [@Tsugawa2015] and MZmine2 [@Pluskal2010], the Galaxy tool metaMS [@Wehrens2014] and the python package CoreMS [@corilo2021].
+However, there is no standalone package which provides support for various computation methods based on homologous series (e.g alkanes [@Kovats1958], fatty acid methyl esters (FAMEs) [@Kind2009]) or the virtual carbon number [@Harangi2003].
+Additionally, existing tools expect input data in a fixed format and only perform RI computation and filtering inside the workflow run within the software.
 
-![Identifications across experiments become comparable when mapping the RT to a RI using a list of reference compounds, e.g an alkane series or fatty acid methyl esters (FAMEs) [@Kind2009]. The markers denote the positions of reference compounds while the arrows indicate the RT and RI values of chemical compounds measured as standards in the spectral library [@rcx_metabolomics] and identified in the study conducted in [@Weidt2016].\label{fig:main}](images/method_comparison.png)
+![Example mapping of RI between two experiments with differing chromatographic setup. The markers denote the positions of reference compounds while the arrows indicate the RT and RI values of chemical compounds measured as standards via [@rcx_metabolomics] and identified in the study conducted in [@Weidt2016].\label{fig:main}](images/method_comparison_v2.png)
 
-RIAssigner is a lightweight python package which supports multiple computation methods and data formats and is built on an expandable architecture, closing the gap towards modular annotation workflows.
+RIAssigner is a lightweight Python package which supports multiple computation methods and data formats and is built on an expandable architecture, closing the gap towards modular annotation workflows.
 It can be integrated into file-based workflows by supporting various open standards or linked directly via its API into more complex Python applications.
 
 # Author's Contributions

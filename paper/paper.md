@@ -32,11 +32,11 @@ bibliography: references.bib
 
 # Summary
 
-RIAssigner is a software package for the computation of gas chromatographic (GC) retention indices (RIs).
-The package uses matchms [@Huber2020] and pandas [@reback2020pandas] for data IO and supports `.msp` as well as tabular (`.csv` & `.tsv`) formats, among others.
+RIAssigner is a software package for the computation of gas chromatographic (GC) retention indices (RI).
+The package uses matchms [@Huber2020] and pandas [@reback2020pandas] for data I/O and supports the `.msp` as well as tabular (`.csv` & `.tsv`) formats, among others.
 It supports multiple keywords identifying the retention time (RT) and RI information and handling SI units for RT.
 The RI can be computed using non-isothermal Kováts retention-indexing (from temperature programming, using the definition of @VanDenDool:1963) or cubic spline interpolation [@Halang1978] based on a reference dataset containing RT & RI.
-The package is hosted via bioconda [@bioconda] and is accessible to users through the Galaxy ecosystem [@galaxy; @umsa].
+The MIT-licensed package is hosted via bioconda [@bioconda] and is also accessible to users as a Galaxy tool [@galaxy; @umsa].
 
 # Statement of need
 Compounds can be characterized by their retention behavior or elution time from a chromatographic column, under specified conditions.
@@ -55,7 +55,7 @@ To leverage the RI in open-source identification workflows, a package providing 
 # State of the field
 RI computation is contained in the most widely used GUI applications such as MS-DIAL [@Tsugawa2015] and MZmine2 [@Pluskal2010], the Galaxy tool metaMS [@Wehrens2014] and the Python package CoreMS [@corilo2021].
 However, there is no standalone package which provides support for various computation methods based on homologous series (e.g., alkanes [@Kovats1958], fatty acid methyl esters (FAMEs) [@Kind2009]) or the virtual carbon number [@Harangi2003].
-Additionally, existing tools expect input data in a fixed format and only perform RI computation and filtering inside the workflow run within the respective software.
+Additionally, existing tools expect input data in a fixed format and only perform RI computation as an intermediate step without reporting the actual values with the output.
 
 To address aforementioned issues, we developed RIAssigner: a lightweight Python package that supports multiple computation methods and data formats and is built on an expandable architecture, consequently closing the gap towards modular annotation workflows.
 It can be integrated into file-based workflows by supporting various open standards or linked directly via its API into more complex Python applications.

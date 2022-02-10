@@ -16,6 +16,14 @@ class Data(ABC):
 
     @staticmethod
     def is_valid(rt: RetentionTimeType) -> bool:
+        """Determine whether a retention time value is valid
+
+        Args:
+            rt (RetentionTimeType): Value to check for validity.
+
+        Returns:
+            bool: State of validity (True/False).
+        """
         return rt is not None and rt >= 0.0
 
     @classmethod
@@ -55,27 +63,54 @@ class Data(ABC):
 
     @abstractmethod
     def read(self):
+        """Method to initialize internal data storage.
+        """
         ...
 
     @abstractmethod
     def write(self, filename):
+        """Store current content to disk.
+
+        Args:
+            filename (str): Path to output filename.
+        """
         ...
 
     @property
-    def filename(self):
+    def filename(self) -> str:
+        """Getter for filename property.
+
+        Returns:
+            str: Filename of originally loaded data.
+        """
         return self._filename
 
     @property
     @abstractmethod
     def retention_times(self) -> Iterable[RetentionTimeType]:
+        """Getter for `retention_times` property.
+
+        Returns:
+            Iterable[RetentionTimeType]: RT values contained in data.
+        """
         ...
 
     @property
     @abstractmethod
     def retention_indices(self) -> Iterable[RetentionIndexType]:
+        """Getter for `retention_indices` property.
+
+        Returns:
+            Iterable[RetentionIndexType]: RI values stored in data.
+        """
         ...
 
     @retention_indices.setter
     @abstractmethod
     def retention_indices(self, value: Iterable[RetentionIndexType]):
+        """Setter for `retention_indices` variable.
+
+        Args:
+            value (Iterable[RetentionIndexType]): Values to assign to property.
+        """
         ...

@@ -69,6 +69,14 @@ class MatchMSData(Data):
         self._spectra.sort(key=lambda spectrum: safe_read_key(spectrum, self._rt_key))
 
     def __eq__(self, o: object) -> bool:
+        """Comparison operator `==`.
+
+        Args:
+            o (object): Object to compare with.
+
+        Returns:
+            bool: State of equality.
+        """
         if not isinstance(o, MatchMSData):
             return False
         other: MatchMSData = o

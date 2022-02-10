@@ -65,13 +65,13 @@ classDiagram
         +read(string filename)
         +write(string filename)
         +retention_times() List~float~
-        +retention_indices() List~int~
+        +retention_indices() List~float~
     }
 
 
     class ComputationMethod{
         <<interface>>
-        +compute(Data query, Data reference) List~int~
+        +compute(Data query, Data reference) List~float~
 
     }
 

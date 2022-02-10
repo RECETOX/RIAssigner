@@ -15,7 +15,7 @@ authors:
   - name: Martin Čech
     orcid: 0000-0002-9318-1781
     affiliation: "1, 3"
-  - name: Elliott James Price
+  - name: Elliott James Price^[corresponding author]
     orcid: 0000-0001-5691-7000
     affiliation: 1
 
@@ -45,7 +45,8 @@ In gas chromatography, the retention index of n-alkanes is solely dependent on n
 
 Therefore, RI is only subject to very small deviations when using a column with similar separation properties. This allows comparison of data coming from samples analyzed under different analytical conditions e.g. columns of different length or different temperature gradient
 An example use case is illustrated in \autoref{fig:main}.
-It can therefore be used to improve identification of unknown target compounds when employed alongside spectral similarity in spectral library matching based identification of unknowns[@Strehmel2008; @Halket1999c].
+It can therefore be used to improve identification of unknown target compounds when employed alongside spectral similarity in spectral library matching based identification of unknowns [@Strehmel2008; @Halket1999c].
+
 To leverage the RI in open-source identification workflows, a package providing computation methods as well as data handling is crucial.
 
 # State of the field

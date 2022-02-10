@@ -14,29 +14,27 @@ authors:
     affiliation: "1, 2"
   - name: Martin Čech
     orcid: 0000-0002-9318-1781
-    affiliation: "1, 3"
+    affiliation: "1"
   - name: Elliott James Price
     orcid: 0000-0001-5691-7000
     affiliation: 1
 
 affiliations:
- - name: RECETOX, Faculty of Science, Masaryk University, Kotlarska 2, Brno 60200, Czech Republic
+ - name: RECETOX, Faculty of Science, Masaryk University, Kotlářská 2, Brno 60200, Czech Republic
    index: 1
  - name: Institute of Computer Science, Masaryk University, Brno, Czech Republic
    index: 2
- - name: Institute of Organic Chemistry and Biochemistry of the CAS, Prague, Czech Republic
-   index: 3
 date: 16 December 2021
 bibliography: references.bib
 ---
 
 # Summary
 
-RIAssigner is a software package for the computation of gas chromatographic (GC) retention indices (RIs).
-The package uses matchms [@Huber2020] and pandas [@reback2020pandas] for data IO and supports `.msp` as well as tabular (`.csv` & `.tsv`) formats, among others.
+RIAssigner is a software package for the computation of gas chromatographic (GC) retention indices (RI).
+The package uses matchms [@Huber2020] and pandas [@reback2020pandas] for data I/O and supports the `.msp` as well as tabular (`.csv` & `.tsv`) formats, among others.
 It supports multiple keywords identifying the retention time (RT) and RI information and supports handling SI units for RT.
 The RI can be computed using non-isothermal Kováts retention-indexing (from temperature programming, using the definition of @VanDenDool:1963) or cubic spline interpolation [@Halang1978] based on a reference dataset containing RT & RI.
-The package is hosted via bioconda [@bioconda] and is accessible to users through the Galaxy ecosystem [@galaxy; @umsa].
+The MIT-licensed package is hosted via bioconda [@bioconda] and is also accessible to users as a Galaxy tool [@galaxy; @umsa].
 
 # Statement of need
 Compounds can be characterized by their retention or elution time from a chromatographic column, under given conditions.
@@ -51,7 +49,7 @@ To leverage the RI in open-source identification workflows, a package providing 
 # State of the field
 RI computation is contained in the most widely used GUI applications such as MS-DIAL [@Tsugawa2015] and MZmine2 [@Pluskal2010], the Galaxy tool metaMS [@Wehrens2014] and the python package CoreMS [@corilo2021].
 However, there is no standalone package which provides support for various computation methods based on homologous series (e.g alkanes [@Kovats1958], fatty acid methyl esters (FAMEs) [@Kind2009]) or the virtual carbon number [@Harangi2003].
-Additionally, existing tools expect input data in a fixed format and only perform RI computation and filtering inside the workflow run within the software.
+Additionally, existing tools expect input data in a fixed format and only perform RI computation and filtering inside the workflow runs within the software.
 
 ![Example mapping of RI between two experiments with differing chromatographic setup. The markers denote the positions of reference compounds while the arrows indicate the RT and RI values of chemical compounds measured as standards via [@rcx_metabolomics] and identified in the study conducted in [@Weidt2016].\label{fig:main}](images/method_comparison_v2.png)
 

@@ -6,14 +6,14 @@
 [![bioconda package](https://img.shields.io/conda/v/bioconda/riassigner)](https://anaconda.org/bioconda/riassigner)
 
 ## Overview
-RIAssigner is a python tool for retention index (RI) computation for GC-MS data developed at [RECETOX](https://www.recetox.muni.cz/en).
+RIAssigner is a python tool for retention index (RI) computation for GC-MS data developed at [RECETOX](https://www.recetox.muni.cz/en) and hosted on [Galaxy](https://umsa.cerit-sc.cz/).
 
-The [retention index](https://goldbook.iupac.org/terms/view/R05360) is a mapping of retention time, making the retention time of compounds on different columns comparable, i.e to compounds might have different retention times on different columns, but a very similar retention index. To compute this index, a set of reference compounds - often an inert alkane series - is analyzed as part of the batch (on the same column). The retention index of the alkanes are fixed (carbon number x 100) and any query compounds can be assigned a retention index depending on its retention time. This can be done via piecewise linear interpolation or other mathematical methods.
+The [retention index](https://goldbook.iupac.org/terms/view/R05360) is a mapping of retention time, making the retention time of compounds on different columns comparable, i.e to compounds might have different retention times on different columns, but a very similar retention index. To compute this index, a set of reference compounds - often an inert alkane series - is analyzed as part of the batch (on the same column). The retention index of the alkanes are fixed (carbon number x 100) and any query compounds can be assigned a retention index depending on its retention time. This can be done via piece wise linear interpolation or other mathematical methods.
 
 ## Installation
-Installation is currently possible by creating the conda environment with `conda env create -f conda/environment-dev.yml` and then installing the package with `python -m pip install -e .`
-
-Install via [bioconda](https://anaconda.org/bioconda/riassigner) using `conda install -c bioconda riassigner`
+Installation is currently possible by 
+(1) creating the conda environment with `conda env create -f conda/environment.yml` and then installing the package with `python -m pip install -e .` or 
+(2) install via [bioconda](https://anaconda.org/bioconda/riassigner) using `conda install -c bioconda riassigner`.
 
 ## Usage
 RIAssigner can be used to read data from `.msp`, `.csv` and `.tsv` files using [matchms](https://github.com/matchms/matchms) and [pandas](https://pandas.pydata.org/) and to compute the retention indices for the data.
@@ -31,11 +31,11 @@ reference = MatchMSData("../tests/data/msp/Alkanes_20210325.msp", "msp", rt_unit
 query.retention_indices = Kovats().compute(query, reference)
 query.write("peaks_with_rt.csv")
 ```
-For more details check out this [notebook](doc/example_usage.ipynb) or try this tool on [Galaxy](https://umsa.cerit-sc.cz/).
+For more details check out this [notebook](doc/example_usage.ipynb).
 
 ## Developer Documentation
 ### Setup
-Create your development environment using the provided [script](conda/environment-dev.yml) via conda to install all required dependencies, including linter and testing frameworks.
+Create your development environment using the provided [script](conda/environment-dev.yml) via `conda env create -f conda/environment-dev.yml` to install all required dependencies, including linter and testing frameworks.
 
 ### Contributing
 We appreciate contributions - feel free to open an issue on our repository, create your own fork, work on the problem and pose a PR.

@@ -6,7 +6,7 @@ tags:
   - retention index
   - analytical chemistry
 authors:
-  - name: Helge Hecht
+  - name: Helge Hecht^[corresponding author]
     orcid: 0000-0001-6744-996X
     affiliation: 1
   - name: Maksym Skoryk
@@ -15,7 +15,7 @@ authors:
   - name: Martin Čech
     orcid: 0000-0002-9318-1781
     affiliation: "1, 3"
-  - name: Elliott James Price^[corresponding author]
+  - name: Elliott James Price
     orcid: 0000-0001-5691-7000
     affiliation: 1
 

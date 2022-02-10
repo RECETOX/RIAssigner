@@ -2,18 +2,20 @@ from typing import Iterable
 from .Data import Data
 import numpy as np
 
-class NumpyData(Data):
+from copy import copy
+
+class SimpleData(Data):
     """Class to handle data from numpy arrays
     """
 
-    def __init__(self, rt: np.ndarray):
+    def __init__(self, retention_times: Iterable[float]):
         """Constructor for `NumpyData` class.
 
         Args:
             rt (np.array): Retention time values
         """
         super().__init__(None, None, "sec")
-        self._retention_times = rt.copy()
+        self._retention_times = copy(retention_times)
     
     def _read(self):
         pass
@@ -27,4 +29,4 @@ class NumpyData(Data):
 
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
-        return self._retention_times.copy()
+        return copy(self._retention_times)

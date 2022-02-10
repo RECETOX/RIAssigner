@@ -39,11 +39,13 @@ The RI can be computed using non-isothermal Kováts retention-indexing (from tem
 The package is hosted via bioconda [@bioconda] and is accessible to users through the Galaxy ecosystem [@galaxy; @umsa].
 
 # Statement of need
-The retention behaviour of compounds analyzed on capillary columns is very stable, major shifts in retention times are only observed after cutting the column - this is usually done to reduce column bleed in gas chromatography-mass spectrometry (GC-MS)-based experiments.
-The RI is required to compare the data coming from samples analyzed in experiments using comparable columns of different length or different analytical methods (e.g temperature gradient).
-While the RT of an analyzed compound can differ, the RI is only subject to very small deviations when using a column with similar separation properties, as it is based on a set of standard reference compounds (traditionally an Alkane series) analyzed as part of the experiment.
+Compounds can be characterized by their retention or elution time from a chromatographic column, under given conditions.
+Analyte retention behavior is a function of physicochemical properties and elution time varies with chromatographic conditions.
+In gas chromatography, the retention index of n-alkanes is solely dependent on number of carbon atoms (similarly, the retention indices for other homologous series can depend solely on number of functional groups) and so unlike retention time, retention index provides a direct relationship to chemical structure [@Peng2010].
+
+Therefore, RI is only subject to very small deviations when using a column with similar separation properties. This allows comparison of data coming from samples analyzed under different analytical conditions e.g. columns of different length or different temperature gradient
 An example use case is illustrated in \autoref{fig:main}.
-It can therefore be used to improve identification of unknown target compounds when employed alongside spectral similarity in spectral library matching based identification of unknowns[@Strehmel2008; @Wei2014].
+It can therefore be used to improve identification of unknown target compounds when employed alongside spectral similarity in spectral library matching based identification of unknowns[@Strehmel2008; @Halket1999c].
 To leverage the RI in open-source identification workflows, a package providing computation methods as well as data handling is crucial.
 
 # State of the field

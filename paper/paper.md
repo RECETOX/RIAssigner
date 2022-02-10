@@ -11,7 +11,7 @@ authors:
     affiliation: 1
   - name: Maksym Skoryk
     orcid: 0000-0003-2056-8018
-    affiliation: 2
+    affiliation: "1, 2"
   - name: Martin Čech
     orcid: 0000-0002-9318-1781
     affiliation: "1, 3"

@@ -6,8 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [dev] - unreleased
 ### Added
+### Changed
+### Removed
+
+
+## [0.3.2] - 2022-02-10
+### Added
 - data/Data.py: Added `update_possible_rt_keys()` and `update_possible_ri_keys()` methods for `Data` class.
 Now users can supply their own identifiers for RT/RI columns (csv files) and identifiers (msp) in their data. [#74](https://github.com/RECETOX/RIAssigner/pull/74)
+- General: Added missing documentation and updated [README](README.md). [#79]
+- setup.py: Added versions for dependencies. [#79]()
 ### Changed
 - data/Data.py: Unified default RT/RI column identifiers between `PandasData` and `MatchMSData` classes. [#74](https://github.com/RECETOX/RIAssigner/pull/74)
 - data/MatchMSData.py: `MatchMSData` class now looks up for RT and RI identifiers from within default identifiers list

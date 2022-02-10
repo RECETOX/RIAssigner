@@ -12,12 +12,10 @@ The [retention index](https://goldbook.iupac.org/terms/view/R05360) is a mapping
 
 ## Installation
 
-(1) From source by cloning the repository, creating the `conda` environment using the provided [file](conda/environment.yml) and then installing the package with `pip`.
+(1) From source by cloning the repository and then installing the package with `pip`.
 ```
 git clone https://github.com/RECETOX/RIAssigner.git
 cd RIAssigner
-conda env create -f conda/environment.yml
-conda activate riassigner
 python -m pip install -e .
 ```
 (2) Install via [bioconda](https://anaconda.org/bioconda/riassigner) in your existing evironment.

@@ -59,10 +59,10 @@ class Data(ABC):
         self._filetype = filetype
         self._rt_unit = rt_unit
         self._unit = Data.Unit(self._rt_unit)
-        self.read()
+        self._read()
 
     @abstractmethod
-    def read(self):
+    def _read(self):
         """Method to initialize internal data storage.
         """
         ...

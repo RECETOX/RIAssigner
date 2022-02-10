@@ -12,7 +12,7 @@ class MatchMSData(Data):
     Currently only supports 'msp'.
     """
 
-    def read(self):
+    def _read(self):
         """Load data into object and initialize properties.
         """
         self._read_spectra(self._filename, self._filetype)

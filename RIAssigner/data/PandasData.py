@@ -10,7 +10,7 @@ class PandasData(Data):
     """ Class to handle data from filetypes which can be imported into a pandas dataframe. """
     _carbon_number_column_names = set(['Carbon_Number'])
 
-    def read(self):
+    def _read(self):
         """ Load content from file into PandasData object. """
         self._read_into_dataframe()
 

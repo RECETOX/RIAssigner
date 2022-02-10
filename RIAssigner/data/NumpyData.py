@@ -14,7 +14,7 @@ class NumpyData(Data):
         """
         super().__init__(None, None, "sec")
     
-    def read(self):
+    def _read(self):
         pass
 
     def write(self):

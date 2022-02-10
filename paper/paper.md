@@ -52,14 +52,14 @@ To leverage the RI in open-source identification workflows, a package providing 
 
 ![Example mapping of RI between two experiments with differing chromatographic setup. The markers denote the positions of reference compounds while the arrows indicate the RT and RI values of chemical compounds measured as standards via @rcx_metabolomics and identified in the study conducted in [@Weidt2016].\label{fig:main}](images/method_comparison_v2.png)
 # State of the field
-RI computation is contained in the most widely used GUI applications such as MS-DIAL [@Tsugawa2015] and MZmine2 [@Pluskal2010], the Galaxy tool metaMS [@Wehrens2014] and the python package CoreMS [@corilo2021].
+RI computation is contained in the most widely used GUI applications such as MS-DIAL [@Tsugawa2015] and MZmine2 [@Pluskal2010], the Galaxy tool metaMS [@Wehrens2014] and the Python package CoreMS [@corilo2021].
 However, there is no standalone package which provides support for various computation methods based on homologous series (e.g., alkanes [@Kovats1958], fatty acid methyl esters (FAMEs) [@Kind2009]) or the virtual carbon number [@Harangi2003].
 Additionally, existing tools expect input data in a fixed format and only perform RI computation and filtering inside the workflow run within the respective software.
 
-RIAssigner is a lightweight Python package which supports multiple computation methods and data formats and is built on an expandable architecture, closing the gap towards modular annotation workflows.
+To address aforementioned issues, we developed RIAssigner: a lightweight Python package that supports multiple computation methods and data formats and is built on an expandable architecture, consequently closing the gap towards modular annotation workflows.
 It can be integrated into file-based workflows by supporting various open standards or linked directly via its API into more complex Python applications.
 
-# Author's Contributions
+# Authors' Contributions
 HH wrote the manuscript and developed the software.
 MS contributed to the software.
 MČ contributed via code reviews and implementation guidance.

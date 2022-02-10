@@ -64,6 +64,14 @@ class PandasData(Data):
         self._data.sort_values(by=self._rt_index, axis=0, inplace=True)
 
     def __eq__(self, o: object) -> bool:
+        """Comparison operator `==`.
+
+        Args:
+            o (object): Object to compare with.
+
+        Returns:
+            bool: State of equality.
+        """
         if not isinstance(o, PandasData):
             return False
         other: PandasData = o
@@ -97,4 +105,9 @@ class PandasData(Data):
 
     @retention_indices.setter
     def retention_indices(self, values: Iterable[int]):
+        """Setter for `retention_indices` property.
+
+        Args:
+            values (Iterable[int]): Values to assign.
+        """
         self._data[self._ri_index] = values

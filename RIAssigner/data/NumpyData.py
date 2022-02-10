@@ -6,13 +6,14 @@ class NumpyData(Data):
     """Class to handle data from numpy arrays
     """
 
-    def __init__(self, rt: np.array):
+    def __init__(self, rt: np.ndarray):
         """Constructor for `NumpyData` class.
 
         Args:
             rt (np.array): Retention time values
         """
         super().__init__(None, None, "sec")
+        self._retention_times = rt.copy()
     
     def _read(self):
         pass
@@ -20,8 +21,10 @@ class NumpyData(Data):
     def write(self):
         pass
 
+    @property
     def retention_indices(self) -> Iterable[Data.RetentionIndexType]:
         return super().retention_indices
 
+    @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
-        return super().retention_times
+        return self._retention_times.copy()

@@ -51,6 +51,7 @@ It can therefore be used to improve identification of unknown target compounds w
 To leverage the RI in open-source identification workflows, a package providing computation methods as well as data handling is crucial.
 
 ![Example mapping of RI between two experiments with differing chromatographic setup. The markers denote the positions of reference compounds while the arrows indicate the RT and RI values of chemical compounds measured as standards via @rcx_metabolomics and identified in the study conducted in [@Weidt2016].\label{fig:main}](images/method_comparison_v2.png)
+
 # State of the field
 RI computation is contained in the most widely used GUI applications such as MS-DIAL [@Tsugawa2015] and MZmine2 [@Pluskal2010], the Galaxy tool metaMS [@Wehrens2014] and the Python package CoreMS [@corilo2021].
 However, there is no standalone package which provides support for various computation methods based on homologous series (e.g., alkanes [@Kovats1958], fatty acid methyl esters (FAMEs) [@Kind2009]) or the virtual carbon number [@Harangi2003].

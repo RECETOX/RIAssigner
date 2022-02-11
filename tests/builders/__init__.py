@@ -3,6 +3,7 @@ from typing import Optional, Union
 
 from .MatchMSDataBuilder import MatchMSDataBuilder
 from .PandasDataBuilder import PandasDataBuilder
+from .SimpleDataBuilder import SimpleDataBuilder
 
 logging.getLogger(__name__).addHandler(logging.NullHandler())
 
@@ -18,4 +19,5 @@ def get_builder(filetype) -> Optional[Union[PandasDataBuilder, MatchMSDataBuilde
 __all__ = [
     "MatchMSDataBuilder",
     "PandasDataBuilder",
+    "SimpleDataBuilder"
 ]

@@ -36,5 +36,4 @@ def test_get_retention_indices():
     builder = SimpleDataBuilder().with_rt([100, 200 ,300]).with_ri(expected).with_rt_unit("sec")
     sut = builder.build()
     actual = sut.retention_indices
-    assert actual == expected
-    
+    assert actual == expected    

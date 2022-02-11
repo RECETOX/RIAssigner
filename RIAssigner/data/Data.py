@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, List
-from pint import UnitRegistry, Quantity
+from typing import Iterable, List, Optional
+
+from pint import Quantity, UnitRegistry
 from pint.unit import build_unit_class
 
 

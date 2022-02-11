@@ -1,9 +1,11 @@
-from .Data import Data
+from typing import Iterable, Optional
+
 from matchms import Spectrum
 from matchms.exporting import save_as_msp
 from matchms.importing import load_from_msp
 from RIAssigner.utils import get_first_common_element
-from typing import Optional, Iterable
+
+from .Data import Data
 
 
 class MatchMSData(Data):

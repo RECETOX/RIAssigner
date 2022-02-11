@@ -19,6 +19,11 @@ class SimpleData(Data):
         super().__init__(None, None, rt_unit)
         assert all(map(Data.is_valid, retention_times)), "Invalid retention time data."
         assert is_sorted(retention_times), "Retention time data has to be sorted."
+
+        if retention_indices is not None:
+            assert len(retention_times) == len(retention_indices), "Retention time and index data are of different length."
+            assert is_sorted(retention_indices), "Retention index data has to be sorted."
+
         self._retention_times = Data.URegistry.Quantity(retention_times, self._unit)
         self._retention_indices = copy(retention_indices)
     
@@ -26,7 +31,7 @@ class SimpleData(Data):
         pass
 
     def write(self):
-        pass
+        raise NotImplementedError("Export of SimpleData is not implemented.")
 
     @property
     def retention_indices(self) -> Iterable[Data.RetentionIndexType]:

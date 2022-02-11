@@ -8,7 +8,7 @@ class DataStub(Data):
         self._retention_times = retention_times
         self._retention_indices = retention_indices
 
-    def read(self):
+    def _read(self):
         pass
 
     def write(self, filename):

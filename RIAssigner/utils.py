@@ -1,6 +1,8 @@
 from os.path import splitext
 from typing import Iterable, TypeVar
 
+import numpy
+
 T = TypeVar('T')
 
 
@@ -32,3 +34,15 @@ def get_extension(filename: str):
         str: Filename extension.
     """
     return splitext(filename)[1][1:]
+
+
+def is_sorted(values) -> bool:
+    """Check if values are sorted in ascending order.
+
+    Args:
+        values (Any): Values to check
+
+    Returns:
+        bool: True if sorted.
+    """
+    return numpy.all(values[:-1] <= values[1:])

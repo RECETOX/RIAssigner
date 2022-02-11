@@ -1,9 +1,11 @@
-from .Data import Data
+from typing import Iterable, Optional
+
 from matchms import Spectrum
 from matchms.exporting import save_as_msp
 from matchms.importing import load_from_msp
 from RIAssigner.utils import get_first_common_element
-from typing import Optional, Iterable
+
+from .Data import Data
 
 
 class MatchMSData(Data):
@@ -12,7 +14,11 @@ class MatchMSData(Data):
     Currently only supports 'msp'.
     """
 
-    def read(self):
+    def __init__(self, filename: str, filetype: str, rt_unit: str):
+        super().__init__(filename, filetype, rt_unit)
+        self._read()
+
+    def _read(self):
         """Load data into object and initialize properties.
         """
         self._read_spectra(self._filename, self._filetype)

@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import Iterable, Optional, List
-from pint import UnitRegistry
+from typing import Iterable, List, Optional
+
+from pint import Quantity, UnitRegistry
 from pint.unit import build_unit_class
 
 
@@ -24,7 +25,14 @@ class Data(ABC):
         Returns:
             bool: State of validity (True/False).
         """
-        return rt is not None and rt >= 0.0
+        result = rt is not None and Data.can_be_float(rt) and rt >= 0.0
+        return result
+
+    @staticmethod
+    def can_be_float(rt):
+        if isinstance(rt, (Quantity, float, int)):
+            return True
+        return False
 
     @classmethod
     def add_possible_rt_keys(cls, keys: List[str]):
@@ -59,13 +67,6 @@ class Data(ABC):
         self._filetype = filetype
         self._rt_unit = rt_unit
         self._unit = Data.Unit(self._rt_unit)
-        self.read()
-
-    @abstractmethod
-    def read(self):
-        """Method to initialize internal data storage.
-        """
-        ...
 
     @abstractmethod
     def write(self, filename):

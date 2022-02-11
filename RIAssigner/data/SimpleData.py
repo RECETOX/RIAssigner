@@ -1,21 +1,26 @@
-from typing import Iterable
-from .Data import Data
-import numpy as np
-
 from copy import copy
+from typing import Iterable
+
+from RIAssigner.utils import is_sorted
+
+from .Data import Data
+
 
 class SimpleData(Data):
     """Class to handle data from numpy arrays
     """
 
-    def __init__(self, retention_times: Iterable[float], rt_unit: str):
+    def __init__(self, retention_times: Iterable[float], rt_unit: str, retention_indices: Iterable[float] = None):
         """Constructor for `NumpyData` class.
 
         Args:
-            rt (np.array): Retention time values
+            retention_times (Iterable[float]): Retention time values
         """
         super().__init__(None, None, rt_unit)
+        assert all(map(Data.is_valid, retention_times)), "Invalid retention time data."
+        assert is_sorted(retention_times), "Retention time data has to be sorted."
         self._retention_times = Data.URegistry.Quantity(retention_times, self._unit)
+        self._retention_indices = copy(retention_indices)
     
     def _read(self):
         pass
@@ -25,7 +30,7 @@ class SimpleData(Data):
 
     @property
     def retention_indices(self) -> Iterable[Data.RetentionIndexType]:
-        return super().retention_indices
+        return copy(self._retention_indices)
 
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:

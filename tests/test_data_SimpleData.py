@@ -34,7 +34,7 @@ def test_get_retention_times(retention_times, rt_unit, expected):
 
 def test_get_retention_indices():
     expected = [134.5, 245.56, 789]
-    builder = SimpleDataBuilder().with_rt([100, 200 ,300]).with_ri(expected).with_rt_unit("sec")
+    builder = SimpleDataBuilder().with_rt([100, 200 ,300]).with_ri(expected)
     sut = builder.build()
     actual = sut.retention_indices
     assert actual == expected    

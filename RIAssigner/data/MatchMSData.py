@@ -12,6 +12,10 @@ class MatchMSData(Data):
     Currently only supports 'msp'.
     """
 
+    def __init__(self, filename: str, filetype: str, rt_unit: str):
+        super().__init__(filename, filetype, rt_unit)
+        self._read()
+
     def _read(self):
         """Load data into object and initialize properties.
         """

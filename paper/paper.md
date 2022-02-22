@@ -24,7 +24,7 @@ affiliations:
    index: 1
  - name: Institute of Computer Science, Masaryk University, Brno, Czech Republic
    index: 2
-date: 16 December 2021
+date: 22 February 2022
 bibliography: references.bib
 ---
 

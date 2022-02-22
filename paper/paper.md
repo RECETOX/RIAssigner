@@ -20,7 +20,7 @@ authors:
     affiliation: 1
 
 affiliations:
- - name: RECETOX, Faculty of Science, Masaryk University, Kotlářská 2, Brno 60200, Czech Republic
+ - name: RECETOX, Faculty of Science, Masaryk University, Kotlářská 2, Brno, Czech Republic
    index: 1
  - name: Institute of Computer Science, Masaryk University, Brno, Czech Republic
    index: 2
@@ -65,8 +65,9 @@ MČ contributed via code reviews and implementation guidance.
 EJP provided conceptual oversight and contributed to the manuscript.
 
 # Acknowledgements
-The work was supported from Operational Programme Research, Development and Innovation - project RECETOX RI - CZ.02.1.01/0.0/0.0/16_013/0001761.
-This project has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 857560.
-This publication/presentation reflects only the author's view and the European Commission is not responsible for any use that may be made of the information it contains.
+Authors thank to Research Infrastructure RECETOX RI (No LM2018121) financed by the Ministry of Education, Youth and Sports, and OP RDE project CETOCOEN EXCELLENCE (No CZ.02.1.01/0.0/0.0/17_043/0009632) for supportive background.
+EJP was supported from OP RD - Project „MSCAfellow4@MUNI“ (No. CZ.02.2.69/0.0/0.0/20_079/0017045). 
+This project was supported from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 857560. This publication reflects only the author’s view and the European Commission is not responsible for any use that may be made of the information it contains
+
 
 # References

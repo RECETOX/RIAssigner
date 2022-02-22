@@ -34,7 +34,7 @@ RIAssigner is a software package for the computation of gas chromatographic (GC)
 The package uses matchms [@Huber2020] and pandas [@reback2020pandas] for data I/O and supports the `.msp` as well as tabular (`.csv` & `.tsv`) formats, among others.
 It supports multiple keywords identifying the retention time (RT) and RI information and handling SI units for RT.
 The RI can be computed using non-isothermal Kováts retention-indexing (from temperature programming, using the definition of @VanDenDool:1963) or cubic spline interpolation [@Halang1978] based on a reference dataset containing RT & RI.
-The MIT-licensed package is hosted via bioconda [@bioconda] and is also accessible to users as a Galaxy [@galaxy] tool maintained by @umsa.
+The MIT-licensed package is hosted via bioconda [@bioconda] and is also accessible to users as a Galaxy tool [@galaxy; @umsa].
 
 # Statement of need
 Compounds can be characterized by their retention behavior or elution time from a chromatographic column, under specified conditions.

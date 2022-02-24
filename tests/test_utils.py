@@ -20,3 +20,12 @@ def test_define_separator(filename, expected):
 def test_get_extension(filename, expected):
     actual = Utils.get_extension(filename)
     assert actual == expected
+
+
+@pytest.mark.parametrize("values, expected", [
+    [[1.2, 4.5, 7.8], True],
+    [[0.5, -1.2, 4.5], False]
+])
+def test_is_sorted(values, expected):
+    actual = Utils.is_sorted(values)
+    assert actual == expected

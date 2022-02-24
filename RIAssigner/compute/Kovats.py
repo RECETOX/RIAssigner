@@ -100,6 +100,7 @@ def _compute_kovats(
     """
     term_a = target_rt - reference_rts[index - 1]
     term_b = reference_rts[index] - reference_rts[index - 1]
+    factor = reference_ris[index] - reference_ris[index - 1]
 
-    ri = 100 * term_a / term_b + reference_ris[index - 1]
+    ri = factor * term_a / term_b + reference_ris[index - 1]
     return float(ri)

@@ -6,12 +6,14 @@ from matchms.exporting import save_as_msp
 from matchms.importing import load_from_msp
 
 from tests.builders import MatchMSDataBuilder
+
 here = os.path.abspath(os.path.dirname(__file__))
 testdata_dir = os.path.join(here, 'data', 'msp')
 
 
 @pytest.fixture(params=[
     "recetox_gc-ei_ms_20201028.msp",
+    "Alkanes_20210325.msp",
     # Currently excluded due to having None RT values
     # "MSMS-Neg-Vaniya-Fiehn_Natural_Products_Library_20200109.msp",
     # "MSMS-Neg-PFAS_20200806.msp",
@@ -52,51 +54,21 @@ def test_read_rts_v1(filename_msp, retention_times):
     numpy.testing.assert_array_equal(actual, expected)
 
 
-@pytest.mark.parametrize("filename, rt_format, expected", [
-    ["Alkanes_20210325.msp", 'min', [124.8, 145.8, 165, 184.8]],
-    ["Alkanes_20210325.msp", 'second', [2.08, 2.43, 2.75, 3.08]]
-])
-def test_read_rts_v2(filename, rt_format, expected):
-    filename = os.path.join(testdata_dir, filename)
-    data = MatchMSDataBuilder().with_filename(filename).with_rt_unit(rt_format).build()
-
-    actual = data.retention_times
-    numpy.testing.assert_array_almost_equal(actual, expected)
-
-
-@pytest.mark.parametrize("filename, expected", [
-    ["recetox_gc-ei_ms_20201028.msp", [2876, 2886.9, 1827.1, 1832.9, 1844.4, 1501, 1528.3, 2102.7, 2154.5, 2207.5]]])
-def test_read_ris(filename, expected):
-    filename = os.path.join(testdata_dir, filename)
-    data = MatchMSDataBuilder().with_filename(filename).build()
-
-    actual = data.retention_indices[:10]
-    numpy.testing.assert_array_almost_equal(actual, expected)
-
-
-@pytest.mark.parametrize("filename", [
-    "recetox_gc-ei_ms_20201028.msp",
-    "Alkanes_20210325.msp",
-    "PFAS_added_rt.msp"
-])
-def test_equal(filename):
-    filename = os.path.join(testdata_dir, filename)
-    actual = MatchMSDataBuilder().with_filename(filename).build()
-    expected = MatchMSDataBuilder().with_filename(filename).build()
+def test_equal(filename_msp):
+    actual = MatchMSDataBuilder().with_filename(filename_msp).build()
+    expected = MatchMSDataBuilder().with_filename(filename_msp).build()
 
     assert expected == actual
 
 
-@pytest.mark.parametrize("filename", ["PFAS_added_rt.msp", "recetox_gc-ei_ms_20201028.msp"])
-def test_basic_write(filename, tmp_path):
+def test_basic_write(filename_msp, tmp_path):
     # TODO: Reafactor with load_test_file
-    filepath = os.path.join(testdata_dir, filename)
-    data = MatchMSDataBuilder().with_filename(filepath).build()
+    data = MatchMSDataBuilder().with_filename(filename_msp).build()
 
     outpath = os.path.join(tmp_path, "riassigner.msp")
     data.write(outpath)
 
-    spectra = list(load_from_msp(filepath))
+    spectra = list(load_from_msp(filename_msp))
     spectra.sort(key=lambda spectrum: float(spectrum.get('retentiontime')))
 
     expected_outpath = os.path.join(tmp_path, "matchms.msp")

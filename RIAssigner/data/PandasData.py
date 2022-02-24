@@ -10,7 +10,11 @@ class PandasData(Data):
     """ Class to handle data from filetypes which can be imported into a pandas dataframe. """
     _carbon_number_column_names = set(['Carbon_Number'])
 
-    def read(self):
+    def __init__(self, filename: str, filetype: str, rt_unit: str):
+        super().__init__(filename, filetype, rt_unit)
+        self._read()
+
+    def _read(self):
         """ Load content from file into PandasData object. """
         self._read_into_dataframe()
 
@@ -29,7 +33,7 @@ class PandasData(Data):
 
     def write(self, filename: str):
         """ Write data on disk. Currently supports 'csv' and 'tsv' formats. """
-        assert filename.endswith((".csv", ".tsv")), "File extention must be 'csv' or 'tsv'."
+        assert filename.endswith((".csv", ".tsv")), "File extension must be 'csv' or 'tsv'."
         separator = define_separator(filename)
         self._data.to_csv(filename, index=False, sep=separator)
 
@@ -64,6 +68,14 @@ class PandasData(Data):
         self._data.sort_values(by=self._rt_index, axis=0, inplace=True)
 
     def __eq__(self, o: object) -> bool:
+        """Comparison operator `==`.
+
+        Args:
+            o (object): Object to compare with.
+
+        Returns:
+            bool: State of equality.
+        """
         if not isinstance(o, PandasData):
             return False
         other: PandasData = o
@@ -97,4 +109,9 @@ class PandasData(Data):
 
     @retention_indices.setter
     def retention_indices(self, values: Iterable[int]):
+        """Setter for `retention_indices` property.
+
+        Args:
+            values (Iterable[int]): Values to assign.
+        """
         self._data[self._ri_index] = values

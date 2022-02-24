@@ -6,13 +6,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [dev] - unreleased
 ### Added
-- data/Data.py: Added `update_possible_rt_keys()` and `update_possible_ri_keys()` methods for `Data` class.
-Now users can supply their own identifiers for RT/RI columns (csv files) and identifiers (msp) in their data.
 ### Changed
-- data/Data.py: Unified default RT/RI column identifiers between `PandasData` and `MatchMSData` classes.
-- data/MatchMSData.py: `MatchMSData` class now looks up for RT and RI identifiers from within default identifiers list
-instead of hardcoded 'retentiontime' & 'retentionindex' keys.
 ### Removed
+
+## [0.3.2] - 2022-02-11
+### Added
+- data/Data.py: Added `update_possible_rt_keys()` and `update_possible_ri_keys()` methods for `Data` class.
+Now users can supply their own identifiers for RT/RI columns (csv files) and identifiers (msp) in their data. [#74](https://github.com/RECETOX/RIAssigner/pull/74)
+- General: Added missing documentation and updated [README](README.md). [#80](https://github.com/RECETOX/RIAssigner/pull/80)
+- setup.py: Added versions for dependencies. [#80](https://github.com/RECETOX/RIAssigner/pull/80)
+- utils.py: Added method to check if array is sorted. [#82](https://github.com/RECETOX/RIAssigner/pull/82)
+- data/SimpleData.py: Added class for in-memory data which is read-only. [#82](https://github.com/RECETOX/RIAssigner/pull/82)
+### Changed
+- data/Data.py: Unified default RT/RI column identifiers between `PandasData` and `MatchMSData` classes. [#74](https://github.com/RECETOX/RIAssigner/pull/74)
+- data/MatchMSData.py: `MatchMSData` class now looks up for RT and RI identifiers from within default identifiers list
+instead of hardcoded 'retentiontime' & 'retentionindex' keys. [#74](https://github.com/RECETOX/RIAssigner/pull/74)
+- compute/Kovats.py: Computation is now real piece-wise linear interpolation and doesn't assume a step width of 100 but interpolates in the actual interval. [#76](https://github.com/RECETOX/RIAssigner/pull/76)
+### Removed
+- data/Data.py: Removed `read` method from class and contructor -> all child classes must now explicitly implement and call the superclass constructor. [#82](https://github.com/RECETOX/RIAssigner/pull/82)
 
 ## [0.3.1] - 2021-12-9
 ### Changed

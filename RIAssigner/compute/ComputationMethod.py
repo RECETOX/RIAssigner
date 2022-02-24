@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List
+
 from RIAssigner.data import Data
 
 
@@ -7,6 +8,15 @@ class ComputationMethod(ABC):
 
     @abstractmethod
     def compute(self, query: Data, reference: Data) -> List[float]:
+        """Abstract method for RI computation
+
+        Args:
+            query (Data): Dataset for which to compute the RI
+            reference (Data): Dataset with retention times & retention index for reference.
+
+        Returns:
+            List[float]: Computed retention indices
+        """
         ...
 
     def _check_data_args(self, query, reference):

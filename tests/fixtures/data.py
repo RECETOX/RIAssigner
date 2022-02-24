@@ -1,55 +1,31 @@
 import os
 
-import numpy
 import pytest
-from RIAssigner.data import Data, MatchMSData, PandasData
+from RIAssigner.data import Data
 from RIAssigner.utils import get_extension
+from tests.builders import MatchMSDataBuilder, PandasDataBuilder
 
 from .mocks.DataStub import DataStub
 
 here = os.path.abspath(os.path.dirname(__file__))
 data_location = os.path.join(here, os.pardir, "data")
 data_type_map = {
-    "msp": MatchMSData,
-    "csv": PandasData,
-    "tsv": PandasData,
+    "msp": MatchMSDataBuilder,
+    "csv": PandasDataBuilder,
+    "tsv": PandasDataBuilder,
 }
 
 
 def load_test_file(filename: str, rt_unit: str) -> Data:
     extension = get_extension(filename)
     filepath = os.path.join(data_location, extension, filename)
-    return _load_data(filepath, extension, rt_unit)
-
-
-def _load_data(filename: str, filetype: str, rt_unit: str) -> Data:
-    return data_type_map[filetype](filename, filetype, rt_unit)
+    builder = data_type_map[extension]().with_filename(filepath).with_filetype(extension).with_rt_unit(rt_unit)
+    return builder.build()
 
 
 @pytest.fixture
 def reference_alkanes():
-    filename = os.path.join(data_location, "csv", "Alkanes_20210325.csv")
-    return PandasData(filename, 'csv', 'min')
-
-
-@pytest.fixture(params=[
-    ["aplcms_aligned_peaks.csv", "sec"],
-    ["xcms_variable_metadata.csv", "sec"],
-    ["PFAS_added_rt.msp", "sec"]
-])
-def queries(request):
-    filename = request.param[0]
-    rt_unit = request.param[1]
-    basename, _ = os.path.splitext(filename)
-    extension = get_extension(filename)
-    filename = os.path.join(data_location, extension, filename)
-
-    # Get name of method passed to test fixture using @pytest.mark
-    method = request.node.get_closest_marker("method").args[0]
-
-    results_path = os.path.join(data_location, method, basename + ".npy")
-    expected = numpy.load(results_path)
-    return (_load_data(filename, extension, rt_unit), expected)
+    return load_test_file("Alkanes_20210325.csv", "min")
 
 
 @pytest.fixture

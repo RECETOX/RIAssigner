@@ -20,7 +20,8 @@ setup(
     long_description=readme,
     long_description_content_type="text/markdown",
     author="Helge Hecht, Maksym Skoryk",
-    author_email="helge.hecht@recetox.muni.cz, 245816@muni.cz",
+    author_email="helge.hecht@recetox.muni.cz, maksym.skoryk@recetox.muni.cz",
+
     maintainer="RECETOX",
     maintainer_email="GalaxyToolsDevelopmentandDeployment@space.muni.cz",
     url="https://github.com/RECETOX/RIAssigner",
@@ -46,10 +47,10 @@ setup(
     test_suite="tests",
     python_requires='>=3.7',
     install_requires=[
-        "matchms",
+        "matchms>=0.9.1",
         "numpy",
         "pandas",
-        "pint",
+        "pint>=0.17",
         "scipy"
     ],
     extras_require={

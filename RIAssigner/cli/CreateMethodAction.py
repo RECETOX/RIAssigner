@@ -1,5 +1,6 @@
 import argparse
-from RIAssigner.compute import Kovats, CubicSpline
+
+from RIAssigner.compute import CubicSpline, Kovats
 
 
 class CreateMethodAction(argparse.Action):

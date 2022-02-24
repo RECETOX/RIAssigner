@@ -1,32 +1,9 @@
 import numpy
 import pytest
-from tests.fixtures.data import reference_alkanes, queries, indexed_data, non_indexed_data, invalid_rt_data
 from RIAssigner.compute import Kovats
 
-
-def test_construct():
-    compute = Kovats()
-    assert compute is not None
-
-
-def test_exception_reference_none(non_indexed_data):
-    method = Kovats()
-    with pytest.raises(AssertionError) as exception:
-        method.compute(non_indexed_data, None)
-
-    message = exception.value.args[0]
-    assert exception.typename == "AssertionError"
-    assert message == "Reference data is 'None'."
-
-
-def test_exception_query_none(indexed_data):
-    method = Kovats()
-    with pytest.raises(AssertionError) as exception:
-        method.compute(None, indexed_data)
-
-    message = exception.value.args[0]
-    assert exception.typename == "AssertionError"
-    assert message == "Query data is 'None'."
+from tests.fixtures import (indexed_data, invalid_rt_data, non_indexed_data)
+from tests.fixtures.mocks import DataStub
 
 
 def test_compute_ri_basic_case(non_indexed_data, indexed_data):
@@ -48,10 +25,10 @@ def test_invalid_rt_has_none_ri(invalid_rt_data, indexed_data):
     numpy.testing.assert_array_equal(actual, expected)
 
 
-@pytest.mark.method('kovats')
-def test_ref_queries(reference_alkanes, queries):
-    method = Kovats()
+def test_missing_alkane():
+    ref = DataStub([5.0, 7.0], [1000, 1200])
+    query = DataStub([6.0], [None])
+    expected = [1100]
 
-    data, expected = queries
-    actual = method.compute(data, reference_alkanes)
+    actual = Kovats().compute(query, ref)
     numpy.testing.assert_array_almost_equal(actual, expected)

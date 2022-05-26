@@ -12,7 +12,7 @@ testdata_dir = os.path.join(here, 'data', 'msp')
 
 
 @pytest.fixture(params=[
-    "recetox_gc-ei_ms_20201028.msp",
+    # "recetox_gc-ei_ms_20201028.msp",
     "Alkanes_20210325.msp",
     # Currently excluded due to having None RT values
     # "MSMS-Neg-Vaniya-Fiehn_Natural_Products_Library_20200109.msp",
@@ -27,7 +27,7 @@ def retention_times(filename_msp):
     library = list(load_from_msp(filename_msp))
     retention_times = []
     for spectrum in library:
-        rt = spectrum.get('retentiontime', None)
+        rt = spectrum.get('retention_time', None)
         if rt == '':
             rt = -0.1
         elif isinstance(rt, str):
@@ -69,14 +69,12 @@ def test_basic_write(filename_msp, tmp_path):
     data.write(outpath)
 
     spectra = list(load_from_msp(filename_msp))
-    spectra.sort(key=lambda spectrum: float(spectrum.get('retentiontime')))
+    spectra.sort(key=lambda spectrum: float(spectrum.get('retention_time')))
 
     expected_outpath = os.path.join(tmp_path, "matchms.msp")
     save_as_msp(spectra, expected_outpath)
 
-    with open(expected_outpath, 'r') as file:
-        expected = file.readlines()
-    with open(outpath, 'r') as file:
-        actual = file.readlines()
+    expected = list(load_from_msp(expected_outpath))
+    actual = list(load_from_msp(outpath))
 
     assert expected == actual

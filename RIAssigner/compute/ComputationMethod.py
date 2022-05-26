@@ -26,8 +26,10 @@ class ComputationMethod(ABC):
             query (Data): Data for which to compute retention indices
             reference (Data): Retention indexed reference data
         """
-        assert query is not None, "Query data is 'None'."
-        assert reference is not None, "Reference data is 'None'."
+        if query is None:
+            raise ValueError("Query data is not defined.")
+        if reference is None:
+            raise ValueError("Reference data is not defined.")
 
     def __eq__(self, o: object) -> bool:
         return type(o) == type(self)

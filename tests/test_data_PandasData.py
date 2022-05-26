@@ -34,7 +34,7 @@ def test_write_new_file(filename_csv, filename, tmp_path):
 def test_filename_extension_assertion(filename_csv, tmp_path):
     filepath = os.path.join(tmp_path, "test_file.abc")
 
-    with pytest.raises(AssertionError) as exception:
+    with pytest.raises(ValueError) as exception:
         PandasDataBuilder().with_filename(filename_csv).build().write(filepath)
 
     message = exception.value.args[0]

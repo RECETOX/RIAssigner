@@ -5,15 +5,15 @@ from tests.builders import SimpleDataBuilder
 
 
 @pytest.mark.parametrize("retention_times, retention_indices, expected", [
-    [[None, 45.9], None,"Invalid retention time data."], # contains None
-    [[-24.9, 100.2], None,"Invalid retention time data."], # contains negative rt
-    [["200.3", 56.7], None,"Invalid retention time data."], # contains string
+    [[None, 45.9], None,"Retention time data is invalid."], # contains None
+    [[-24.9, 100.2], None,"Retention time data is invalid."], # contains negative rt
+    [["200.3", 56.7], None,"Retention time data is invalid."], # contains string
     [[2056.8, 100], None, "Retention time data has to be sorted."], # is not sorted
-    [[12.0, 100.9], [100], "Retention time and index data are of different length."],
-    [[12.0, 100.9], [200, 100], "Retention index data has to be sorted."]
+    [[12.0, 100.9], [100], "Retention times and index data are of different length."],
+    [[12.0, 100.9], [200, 100], "Retention indices data has to be sorted."]
 ])
 def test_constructor_exception(retention_times, retention_indices, expected):
-    with pytest.raises(AssertionError) as exception:
+    with pytest.raises(ValueError) as exception:
         builder = SimpleDataBuilder().with_rt(retention_times).with_ri(retention_indices)
         builder.build()
 

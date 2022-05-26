@@ -52,7 +52,7 @@ class Data(ABC):
             List[str]: List of supported retention time keys.
         """
         return cls._rt_possible_keys.copy()
-    
+
     @classmethod
     def get_possible_ri_keys(cls) -> List[str]:
         """Method to get the supported retention index keys

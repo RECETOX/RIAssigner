@@ -30,22 +30,22 @@ def test_construct(method):
 
 @pytest.mark.parametrize('method', [Kovats(), CubicSpline()])
 def test_exception_reference_none(method, non_indexed_data):
-    with pytest.raises(AssertionError) as exception:
+    with pytest.raises(ValueError) as exception:
         method.compute(non_indexed_data, None)
 
     message = exception.value.args[0]
-    assert exception.typename == "AssertionError"
-    assert message == "Reference data is 'None'."
+    assert exception.typename == "ValueError"
+    assert message == "Reference data is not defined."
 
 
 @pytest.mark.parametrize('method', [Kovats(), CubicSpline()])
 def test_exception_query_none(method, indexed_data):
-    with pytest.raises(AssertionError) as exception:
+    with pytest.raises(ValueError) as exception:
         method.compute(None, indexed_data)
 
     message = exception.value.args[0]
-    assert exception.typename == "AssertionError"
-    assert message == "Query data is 'None'."
+    assert exception.typename == "ValueError"
+    assert message == "Query data is not defined."
 
 
 @pytest.mark.parametrize('method', [Kovats(), CubicSpline()])

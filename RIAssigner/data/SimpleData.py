@@ -32,7 +32,6 @@ class SimpleData(Data):
     def _read(self, retention_times, retention_indices):
         self._retention_times = Data.URegistry.Quantity(retention_times, self._unit)
         self._retention_indices = copy(retention_indices)
-    
 
     def write(self):
         raise NotImplementedError("Export of SimpleData is not implemented.")
@@ -44,8 +43,8 @@ class SimpleData(Data):
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
         return self._retention_times.to('seconds')
-    
+
     @retention_indices.setter
     def retention_indices(self, values: Iterable[Data.RetentionIndexType]):
         raise NotImplementedError()
-    
+

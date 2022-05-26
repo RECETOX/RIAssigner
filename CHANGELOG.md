@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [dev] - unreleased
 ### Added
 ### Changed
+- replaced asserts with `ValueError` as asserts can be disabled. [#91](https://github.com/RECETOX/RIAssigner/pull/91)
+
 ### Removed
 
 ## [0.3.2] - 2022-02-11

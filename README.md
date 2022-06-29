@@ -25,6 +25,10 @@ python -m pip install -e .
 ```
 conda install -c bioconda riassigner
 ```
+(3) Install via [pip](https://pypi.org/project/RIAssigner/) in your existing evironment.
+```
+pip install riassigner
+```
 
 ## Usage
 RIAssigner can be used to read data from `.msp`, `.csv` and `.tsv` files using [matchms](https://github.com/matchms/matchms) and [pandas](https://pandas.pydata.org/) and to compute the retention indices for the data.

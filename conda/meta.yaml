@@ -27,13 +27,13 @@ requirements:
     - python
     - setuptools
   host:
-    - python >=3.7,<3.9
+    - python >=3.7
     - pip
     - pytest-runner
     - setuptools
   run:
     - numpy
-    - matchms >=0.9.1
+    - matchms >=0.14.0
     - pint >=0.17
     - pip
     - pandas

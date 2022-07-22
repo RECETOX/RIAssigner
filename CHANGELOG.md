@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [dev] - unreleased
 ### Added
 ### Changed
+### Removed
+
+## [0.3.3] - 2022-07-22
+### Added
+### Changed
 - replaced asserts with `ValueError` as asserts can be disabled. [#91](https://github.com/RECETOX/RIAssigner/pull/91)
 - updated matchms dependency to `>= 0.14.0`. [#90](https://github.com/RECETOX/RIAssigner/pull/90)
 ### Removed

@@ -4,6 +4,7 @@
 [![Anaconda Build](https://github.com/RECETOX/RIAssigner/actions/workflows/anaconda.yml/badge.svg?branch=main)](https://github.com/RECETOX/RIAssigner/actions/workflows/anaconda.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=hechth_RIAssigner&metric=alert_status)](https://sonarcloud.io/dashboard?id=hechth_RIAssigner)
 [![bioconda package](https://img.shields.io/conda/v/bioconda/riassigner)](https://anaconda.org/bioconda/riassigner)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.04337/status.svg)](https://doi.org/10.21105/joss.04337)
 
 ## Overview
 RIAssigner is a python tool for retention index (RI) computation for GC-MS data developed at [RECETOX](https://www.recetox.muni.cz/en) and hosted on [Galaxy](https://umsa.cerit-sc.cz/).
@@ -12,6 +13,10 @@ The [retention index](https://goldbook.iupac.org/terms/view/R05360) is a mapping
 To compute this index, a set of reference compounds - often an inert alkane series - is analyzed as part of the batch (on the same column).
 The retention index of the alkanes are fixed (carbon number x 100) and any query compounds can be assigned a retention index depending on its retention time.
 This can be done via piece wise linear interpolation or other mathematical methods.
+
+If you use this software, please cite our paper!
+
+Hecht et al., (2022). RIAssigner: A package for gas chromatographic retention index calculation. Journal of Open Source Software, 7(75), 4337, https://doi.org/10.21105/joss.04337
 
 ## Installation
 

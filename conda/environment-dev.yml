@@ -7,7 +7,7 @@ dependencies:
   - autopep8
   - numpy
   - matchms >=0.14.0
-  - pint >= 0.17
+  - pint >=0.17,<0.20
   - pip
   - pandas
   - prospector

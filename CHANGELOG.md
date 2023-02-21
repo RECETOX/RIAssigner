@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 ### Removed
 
+## [0.3.4] - 2023-02-21
+### Changed
+- pinned pint >=0.17,<0.20 and matchms >=0.14.0,<0.18.0 for dependency issues
+
 ## [0.3.3] - 2022-07-22
 ### Added
 ### Changed

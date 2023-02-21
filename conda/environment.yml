@@ -5,7 +5,7 @@ channels:
   - defaults
 dependencies:
   - numpy
-  - matchms >=0.14.0
+  - matchms >=0.14.0,<0.18.0
   - pandas
   - pint >=0.17,<0.20
   - python >=3.7

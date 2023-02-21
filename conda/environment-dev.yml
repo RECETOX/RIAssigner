@@ -6,7 +6,7 @@ channels:
 dependencies:
   - autopep8
   - numpy
-  - matchms >=0.14.0
+  - matchms >=0.14.0,<0.18.0
   - pint >=0.17,<0.20
   - pip
   - pandas

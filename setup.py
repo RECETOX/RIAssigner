@@ -50,7 +50,7 @@ setup(
         "matchms>=0.14.0",
         "numpy",
         "pandas",
-        "pint>=0.17",
+        "pint>=0.17,<0.20",
         "scipy"
     ],
     extras_require={

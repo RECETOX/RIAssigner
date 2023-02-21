@@ -7,6 +7,6 @@ dependencies:
   - numpy
   - matchms >=0.14.0
   - pandas
-  - pint >= 0.17
+  - pint >=0.17,<0.20
   - python >=3.7
   - scipy

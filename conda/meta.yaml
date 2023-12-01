@@ -32,6 +32,7 @@ requirements:
     - pip
     - pytest-runner
     - setuptools
+    - poetry
   run:
     - numpy
     - matchms >=0.14.0

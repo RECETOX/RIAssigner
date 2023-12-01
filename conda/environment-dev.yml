@@ -13,10 +13,11 @@ dependencies:
   - prospector
   - pytest
   - pytest-cov
-  - python >=3.7
+  - python >=3.8
   - rope
   - scipy
   - build
   - twine
+  - poetry
   - pip:
     - -e ..[dev]

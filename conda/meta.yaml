@@ -25,13 +25,11 @@ requirements:
     - conda-verify
     - pytest-runner
     - python
-    - setuptools
     - poetry
   host:
-    - python >=3.8
+    - python >=3.8,<3.9
     - pip
     - pytest-runner
-    - setuptools
     - poetry
   run:
     - numpy

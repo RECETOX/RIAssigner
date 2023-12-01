@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "RIAssigner"
+version = '0.3.3'
+description = "Python library for retention index calculation."
+authors = ["Helge Hecht <helge.hecht@recetox.muni.cz>", "Maksym Skoryk <maksym.skoryk@recetox.muni.cz>"]
+
+license = "MIT License"
+readme = "README.md"
+repository = "https://github.com/RECETOX/RIAssigner"
+keywords=[ 
+    "gas chromatography",
+    "mass spectrometry",
+    "retention index"
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8"
+]
+
+packages = [
+    { include = "RIAssigner" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+matchms = "^0.14.0, <0.18.0"
+numpy = "*"
+pandas = "*"
+pint = "^0.17, <0.20"
+scipy = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+pytest-cov = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry_bumpversion.file."RIAssigner/__version__.py"]

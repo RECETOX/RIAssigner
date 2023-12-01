@@ -1,6 +1,7 @@
 name: riassigner-build
 channels:
   - defaults
+  - conda-forge
 dependencies:
   - anaconda-client
   - conda-build

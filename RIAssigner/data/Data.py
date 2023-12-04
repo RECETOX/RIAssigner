@@ -146,12 +146,7 @@ class Data(ABC):
             RI values as a list.
         """
 
-        comments_series = pd.Series(self.comment)
-        mask = comments_series.str.contains(rf'\b{specific_string}\b', na=False)
-        extracted_values = comments_series.str.extract(rf'\b{specific_string}=(\d+)\b')[0].astype(float)
-        
-        # Fill in NaN values with None or some default value
-        extracted_values = extracted_values.where(mask, None)
-        self.retention_indices = extracted_values.tolist()
-         
+        mask = pd.Series(self.comment).str.contains(rf'\b{specific_string}\b', na=False)
+        extracted_values = pd.Series(self.comment).str.extract(rf'\b{specific_string}=(\d+)\b')[0].astype(float)
+        self.retention_indices = extracted_values.where(mask, None).tolist()
         

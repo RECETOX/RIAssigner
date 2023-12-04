@@ -70,10 +70,6 @@ class MatchMSData(Data):
         """ Read retention indices from spectrum metadata. """
         self.retention_indices = [safe_read_key(spectrum, self._ri_key) for spectrum in self._spectra]
 
-    # def _sort_spectra_by_rt(self): 
-    #     """ Sort objects (peaks) in spectra list by their retention times. """
-    #     self._spectra.sort(key=lambda spectrum: safe_read_key(spectrum, self._rt_key)) 
-
     # temporary adapted in case _rt_key is None. if safe_read_key return None, it is assigned 0 instead. 
     def _sort_spectra_by_rt(self): 
         """ Sort objects (peaks) in spectra list by their retention times. """
@@ -180,7 +176,8 @@ def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
             value = None
     return value
 
-
+# fix the error "ValueError: Key 'retentionindex' will be interpreted as 'retention_index'. But this entry already exists.
+# Please use 'retention_index' if you want to replace the entry.""
 def _assign_ri_value(spectrum: Spectrum, key: str, value: Data.RetentionIndexType):
     """Assign RI value to Spectrum object
 
@@ -190,4 +187,6 @@ def _assign_ri_value(spectrum: Spectrum, key: str, value: Data.RetentionIndexTyp
     """
     if value is not None:
         retention_index = ('%f' % float(value)).rstrip('0').rstrip('.')
+        if key == 'retentionindex':
+            key = 'retention_index'
         spectrum.set(key=key, value=retention_index)

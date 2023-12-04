@@ -24,7 +24,7 @@ Hecht et al., (2022). RIAssigner: A package for gas chromatographic retention in
 ```
 git clone https://github.com/RECETOX/RIAssigner.git
 cd RIAssigner
-python -m pip install -e .
+poetry install
 ```
 (2) Install via [bioconda](https://anaconda.org/bioconda/riassigner) in your existing evironment.
 ```
@@ -115,3 +115,10 @@ classDiagram
 
 ### Testing
 All functionality is tested with the [pytest](https://docs.pytest.org/en/6.2.x/contents.html) framework. Make sure to run your IDE in the `riassigner-dev` conda environment (or make sure to use the respective python interpreter when developing) to follow formatting guidelines and to be able to execute the tests.
+
+For testing, install the package dependencies as follows:
+```
+git clone https://github.com/RECETOX/RIAssigner.git
+cd RIAssigner
+poetry install --no-root
+```

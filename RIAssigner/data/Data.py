@@ -9,6 +9,7 @@ class Data(ABC):
     """ Base class for data managers. """
     RetentionTimeType = Optional[float]
     RetentionIndexType = Optional[float]
+    CommentFieldType = Optional[str]
     URegistry = UnitRegistry()
     Unit = build_unit_class(URegistry)
 
@@ -113,5 +114,15 @@ class Data(ABC):
 
         Args:
             value (Iterable[RetentionIndexType]): Values to assign to property.
+        """
+        ...
+
+    @property
+    @abstractmethod
+    def comment(self) -> Iterable[CommentFieldType]:
+        """Getter for `comment` property.
+
+        Returns:
+            Iterable[CommentFieldType]: Comment field values stored in data.
         """
         ...

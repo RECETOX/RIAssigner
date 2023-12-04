@@ -73,11 +73,6 @@ class PandasData(Data):
             self._ri_position = self._rt_position + 1
             self._data.insert(loc=self._ri_position, column=self._ri_index, value=None)
 
-  
-    # def _sort_by_rt(self):
-    #     """ Sort peaks by their retention times. """
-    #     self._data.sort_values(by=self._rt_index, axis=0, inplace=True)
-
     # temporary adapted in case _rt_index is None
     def _sort_by_rt(self):
         """ Sort peaks by their retention times. """
@@ -140,7 +135,3 @@ class PandasData(Data):
         content = self._data[self._comment_keys].tolist()
         return content
     
-    def ri_from_comment(self, specific_string: str = None): 
-        """ Extract RI from comment field. """
-        comments = self.comment
-        self.retention_indices = super().extract_ri_from_comment(comments, specific_string)

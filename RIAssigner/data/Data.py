@@ -128,7 +128,7 @@ class Data(ABC):
         """
         ...
 
-    def extract_ri_from_comment(self, content_comment, specific_string):
+    def extract_ri_from_comment(self, specific_string):
         """ Extract RI from comment field.
         Extracts the RI from the comment field of the data file. The RI is expected to be
         in the format 'specific_string=RI_value'. The function extracts the RI value and
@@ -146,12 +146,12 @@ class Data(ABC):
             RI values as a list.
         """
 
-        comments_series = pd.Series(content_comment)
+        comments_series = pd.Series(self.comment)
         mask = comments_series.str.contains(rf'\b{specific_string}\b', na=False)
         extracted_values = comments_series.str.extract(rf'\b{specific_string}=(\d+)\b')[0].astype(float)
         
         # Fill in NaN values with None or some default value
         extracted_values = extracted_values.where(mask, None)
-        
-        return extracted_values.tolist()
+        self.retention_indices = extracted_values.tolist()
+         
         

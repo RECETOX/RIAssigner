@@ -128,11 +128,6 @@ class MatchMSData(Data):
         content = [safe_read_comment_key(spectrum, self.comment_keys) for spectrum in self._spectra]
         return content
     
-    def ri_from_comment(self, specific_string: str = None): 
-        """ Extract RI from comment field. """
-        comments = self.comment
-        self.retention_indices = self.extract_ri_from_comment(comments, specific_string)
-
 def safe_read_comment_key(spectrum: Spectrum, key: str) -> Optional[str]:
     """ Read key from spectrum and convert to str or return 'None'.
     Read the given key from the spectrum metadata and convert it to a string.

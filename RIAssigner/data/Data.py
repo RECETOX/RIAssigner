@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Iterable, List, Optional
+import pandas as pd
 
 from pint import Quantity, UnitRegistry
 from pint.unit import build_unit_class
@@ -126,3 +127,31 @@ class Data(ABC):
             Iterable[CommentFieldType]: Comment field values stored in data.
         """
         ...
+
+    def extract_ri_from_comment(self, content_comment, specific_string):
+        """ Extract RI from comment field.
+        Extracts the RI from the comment field of the data file. The RI is expected to be
+        in the format 'specific_string=RI_value'. The function extracts the RI value and
+        returns it as a list.
+
+        Parameters
+        ----------
+        content_comment:
+            Comment field of the data file. 
+        specific_string:
+            String that is expected to be in the comment field before the RI value.
+
+        Returns
+        -------
+            RI values as a list.
+        """
+
+        comments_series = pd.Series(content_comment)
+        mask = comments_series.str.contains(rf'\b{specific_string}\b', na=False)
+        extracted_values = comments_series.str.extract(rf'\b{specific_string}=(\d+)\b')[0].astype(float)
+        
+        # Fill in NaN values with None or some default value
+        extracted_values = extracted_values.where(mask, None)
+        
+        return extracted_values.tolist()
+        

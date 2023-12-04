@@ -140,8 +140,7 @@ class PandasData(Data):
         content = self._data[self._comment_keys].tolist()
         return content
     
-    def extract_ri_from_comment(self, specific_string: str): #  incomplete
-        """ Extract RI from comment field.
-        """
-        extracted_strings = [s[s.find(specific_string):] for s in specific_string if specific_string in s]
-        self._data[self._comment_keys] = extracted_strings
+    def ri_from_comment(self, specific_string: str = None): 
+        """ Extract RI from comment field. """
+        comments = self.comment
+        self.retention_indices = super().extract_ri_from_comment(comments, specific_string)

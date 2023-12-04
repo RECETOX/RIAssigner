@@ -42,10 +42,19 @@ class PandasData(Data):
         """ Find key of carbon number column and store it. """
         self._carbon_number_index = get_first_common_element(self._data.columns, self._carbon_number_column_names)
 
+    # def _init_rt_column_info(self):
+    #     """ Find key of retention time column and store it. """
+    #     self._rt_index = get_first_common_element(self._data.columns, self._rt_possible_keys)
+    #     self._rt_position = self._data.columns.tolist().index(self._rt_index)
+
+    # temporary adapted in case _rt_index is None
     def _init_rt_column_info(self):
         """ Find key of retention time column and store it. """
         self._rt_index = get_first_common_element(self._data.columns, self._rt_possible_keys)
-        self._rt_position = self._data.columns.tolist().index(self._rt_index)
+        if self._rt_index is not None:
+            self._rt_position = self._data.columns.tolist().index(self._rt_index)
+        else:
+            self._rt_position = None
 
     def _init_ri_column_info(self):
         """ Initialize retention index column name and set its position next to the retention time column. """
@@ -64,9 +73,16 @@ class PandasData(Data):
             self._ri_position = self._rt_position + 1
             self._data.insert(loc=self._ri_position, column=self._ri_index, value=None)
 
+  
+    # def _sort_by_rt(self):
+    #     """ Sort peaks by their retention times. """
+    #     self._data.sort_values(by=self._rt_index, axis=0, inplace=True)
+
+    # temporary adapted in case _rt_index is None
     def _sort_by_rt(self):
         """ Sort peaks by their retention times. """
-        self._data.sort_values(by=self._rt_index, axis=0, inplace=True)
+        if self._rt_index is not None:
+            self._data.sort_values(by=self._rt_index, axis=0, inplace=True)
 
     def __eq__(self, o: object) -> bool:
         """Comparison operator `==`.
@@ -116,3 +132,16 @@ class PandasData(Data):
             values (Iterable[int]): Values to assign.
         """
         self._data[self._ri_index] = values
+
+    @property
+    def comment(self) -> Iterable[Data.CommentFieldType]:
+        """ Get comments."""
+        self._comment_keys = "comment"
+        content = self._data[self._comment_keys].tolist()
+        return content
+    
+    def extract_ri_from_comment(self, specific_string: str): #  incomplete
+        """ Extract RI from comment field.
+        """
+        extracted_strings = [s[s.find(specific_string):] for s in specific_string if specific_string in s]
+        self._data[self._comment_keys] = extracted_strings

@@ -42,12 +42,6 @@ class PandasData(Data):
         """ Find key of carbon number column and store it. """
         self._carbon_number_index = get_first_common_element(self._data.columns, self._carbon_number_column_names)
 
-    # def _init_rt_column_info(self):
-    #     """ Find key of retention time column and store it. """
-    #     self._rt_index = get_first_common_element(self._data.columns, self._rt_possible_keys)
-    #     self._rt_position = self._data.columns.tolist().index(self._rt_index)
-
-    # temporary adapted in case _rt_index is None
     def _init_rt_column_info(self):
         """ Find key of retention time column and store it. """
         self._rt_index = get_first_common_element(self._data.columns, self._rt_possible_keys)

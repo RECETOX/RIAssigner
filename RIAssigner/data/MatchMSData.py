@@ -159,7 +159,4 @@ def _assign_ri_value(spectrum: Spectrum, key: str, value: Data.RetentionIndexTyp
     if value is not None:
         retention_index = ('%f' % float(value)).rstrip('0').rstrip('.')
         spectrum.set(key=key, value=retention_index)
-        # retention_index = ('%f' % float(value)).rstrip('0').rstrip('.')
-        # if key == 'retentionindex':
-        #     key = 'retention_index'
-        # spectrum.set(key=key, value=retention_index)
+

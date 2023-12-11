@@ -123,32 +123,6 @@ class MatchMSData(Data):
         content = [spectrum.get(self.comment_keys, default=None) for spectrum in self._spectra]
         return content
     
-# def safe_read_comment_key(spectrum: Spectrum, key: str) -> Optional[str]:
-#     """ Read key from spectrum and convert to str or return 'None'.
-#     Read the given key from the spectrum metadata and convert it to a string.
-#     In case an exception is thrown or the key is not present, returns 'None'.
-
-#     Parameters
-#     ----------
-#     spectrum:
-#         Spectrum from which to read the key.
-#     key:
-#         Key to be read from the spectrum metadata.
-
-#     Returns
-#     -------
-#         The key's value converted to string or 'None'.
-#     """
-
-#     meta_value = spectrum.get(key, default=None)
-#     if meta_value is not None:
-#         try:
-#             meta_value = str(meta_value)
-#         except ValueError:
-#             meta_value = None
-#     return meta_value
-
-
 def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
     """ Read key from spectrum and convert to float or return 'None'.
     Tries to read the given key from the spectrum metadata and convert it to a float.

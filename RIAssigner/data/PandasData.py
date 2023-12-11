@@ -67,7 +67,6 @@ class PandasData(Data):
             self._ri_position = self._rt_position + 1
             self._data.insert(loc=self._ri_position, column=self._ri_index, value=None)
 
-    # temporary adapted in case _rt_index is None
     def _sort_by_rt(self):
         """ Sort peaks by their retention times. """
         if self._rt_index is not None:

@@ -70,9 +70,9 @@ class MatchMSData(Data):
         """ Read retention indices from spectrum metadata. """
         self.retention_indices = [safe_read_key(spectrum, self._ri_key) for spectrum in self._spectra]
 
-    def _sort_spectra_by_rt(self):
+    def _sort_spectra_by_rt(self): 
         """ Sort objects (peaks) in spectra list by their retention times. """
-        self._spectra.sort(key=lambda spectrum: safe_read_key(spectrum, self._rt_key))
+        self._spectra.sort(key=lambda spectrum: safe_read_key(spectrum, self._rt_key) or 0) 
 
     def __eq__(self, o: object) -> bool:
         """Comparison operator `==`.
@@ -116,7 +116,13 @@ class MatchMSData(Data):
         else:
             raise ValueError('There is different numbers of computed indices and peaks.')
 
-
+    @property
+    def comment(self) -> Iterable[Data.CommentFieldType]:
+        """ Get comments."""
+        self.comment_keys = "comment"
+        content = [spectrum.get(self.comment_keys, default=None) for spectrum in self._spectra]
+        return content
+    
 def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
     """ Read key from spectrum and convert to float or return 'None'.
     Tries to read the given key from the spectrum metadata and convert it to a float.
@@ -143,7 +149,6 @@ def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
             value = None
     return value
 
-
 def _assign_ri_value(spectrum: Spectrum, key: str, value: Data.RetentionIndexType):
     """Assign RI value to Spectrum object
 
@@ -154,3 +159,4 @@ def _assign_ri_value(spectrum: Spectrum, key: str, value: Data.RetentionIndexTyp
     if value is not None:
         retention_index = ('%f' % float(value)).rstrip('0').rstrip('.')
         spectrum.set(key=key, value=retention_index)
+

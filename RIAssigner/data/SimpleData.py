@@ -1,5 +1,5 @@
 from copy import copy
-from typing import Iterable
+from typing import Iterable, Optional
 
 from RIAssigner.utils import is_sorted
 
@@ -51,3 +51,6 @@ class SimpleData(Data):
     def retention_indices(self, values: Iterable[Data.RetentionIndexType]):
         raise NotImplementedError()
 
+    @property
+    def comment(self) -> Iterable[Optional[str]]:
+        return None

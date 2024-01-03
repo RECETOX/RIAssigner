@@ -45,7 +45,10 @@ class PandasData(Data):
     def _init_rt_column_info(self):
         """ Find key of retention time column and store it. """
         self._rt_index = get_first_common_element(self._data.columns, self._rt_possible_keys)
-        self._rt_position = self._data.columns.tolist().index(self._rt_index)
+        if self._rt_index is not None:
+            self._rt_position = self._data.columns.tolist().index(self._rt_index)
+        else:
+            self._rt_position = None
 
     def _init_ri_column_info(self):
         """ Initialize retention index column name and set its position next to the retention time column. """
@@ -66,7 +69,8 @@ class PandasData(Data):
 
     def _sort_by_rt(self):
         """ Sort peaks by their retention times. """
-        self._data.sort_values(by=self._rt_index, axis=0, inplace=True)
+        if self._rt_index is not None:
+            self._data.sort_values(by=self._rt_index, axis=0, inplace=True)
 
     def __eq__(self, o: object) -> bool:
         """Comparison operator `==`.
@@ -116,3 +120,11 @@ class PandasData(Data):
             values (Iterable[int]): Values to assign.
         """
         self._data[self._ri_index] = values
+
+    @property
+    def comment(self) -> Iterable[Data.CommentFieldType]:
+        """ Get comments."""
+        self._comment_keys = "comment"
+        content = self._data[self._comment_keys].tolist()
+        return content
+    

@@ -128,11 +128,11 @@ class Data(ABC):
         """
         ...
 
-    def extract_ri_from_comment(self, ri_source: str) -> List[float]:
+    def extract_ri_from_comment(self, ri_source: str):
         """ Extract RI from comment field.
         Extracts the RI from the comment field of the data file. The RI is expected to be
         in the format 'ri_source=RI_value'. The function extracts the RI value and
-        returns it as a list.
+        sets it on the retention_index property.
 
         Parameters
         ----------
@@ -140,11 +140,8 @@ class Data(ABC):
             Comment field of the data file. 
         ri_source:
             String that is expected to be in the comment field before the RI value.
-
-        Returns
-        -------
-            RI values as a list.
         """
+
 
         mask = pd.Series(self.comment).str.contains(rf'\b{ri_source}\b', na=False)
         extracted_values = pd.Series(self.comment).str.extract(rf'\b{ri_source}=(\d+)\b')[0].astype(float)

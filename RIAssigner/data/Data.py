@@ -120,6 +120,51 @@ class Data(ABC):
 
     @property
     @abstractmethod
+    def has_retention_indices(self) -> Iterable[RetentionIndexType]:
+        """Getter for `has_retention_indices` property."""
+        ...
+        
+    def check_ri_values(self) -> bool:
+        """
+        Check if all retention indices in the spectra exist.
+
+        This method iterates over the retention indices in the spectra. If it encounters a value that is None,
+        it immediately returns False. If it iterates over all retention indices without finding a None value,
+        it returns True.
+
+        Returns:
+            bool: True if all retention indices exist, False otherwise.
+        """
+        for value in self.has_retention_indices:
+            if value is None:
+                return False
+        return True
+
+    @property
+    @abstractmethod
+    def has_retention_times(self) -> Iterable[RetentionTimeType]:
+        """Getter for `has_retention_times` property."""
+        ...
+        
+    def check_rt_values(self) -> bool:
+        """
+        Check if all retention times in the spectra exist.
+
+        This method iterates over the retention times in the spectra. If it encounters a value that is None,
+        it immediately returns False. If it iterates over all retention times without finding a None value,
+        it returns True.
+
+        Returns:
+            bool: True if all retention times exist, False otherwise.
+        """
+        for value in self.has_retention_times:
+            if value is None:
+                return False
+        return True
+
+
+    @property
+    @abstractmethod
     def comment(self) -> Iterable[CommentFieldType]:
         """Getter for `comment` property.
 

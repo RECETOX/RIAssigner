@@ -123,6 +123,26 @@ class MatchMSData(Data):
         content = [spectrum.get(self.comment_keys, default=None) for spectrum in self._spectra]
         return content
     
+    @property
+    def has_retention_indices(self) -> Iterable[Data.RetentionIndexType]:
+        """ Check if retention indices exist in spectra."""
+        for spectrum in self._spectra:
+            ri = spectrum.get(self._ri_key, default=None)
+            if ri is None:
+                raise ValueError("Retention index does not exist in spectrum")
+        return self._spectra
+
+    @property
+    def has_retention_times(self) -> Iterable[Data.RetentionTimeType]:
+        """ Check if retention times exist in spectra."""
+        for spectrum in self._spectra:
+            ri = spectrum.get(self._rt_key, default=None)
+            if ri is None:
+                raise ValueError("Retention time does not exist in spectrum")
+        return self._spectra
+
+
+
 def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
     """ Read key from spectrum and convert to float or return 'None'.
     Tries to read the given key from the spectrum metadata and convert it to a float.

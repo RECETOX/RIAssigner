@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Iterable, List, Optional
+from typing import Iterable, List, Optional, Union
 import pandas as pd
 
 from pint import Quantity, UnitRegistry
@@ -18,7 +18,7 @@ class Data(ABC):
     _ri_possible_keys = {'RI', 'ri', 'ris', 'retention_indices', 'retention_index', 'kovats', 'retentionindex'}
 
     @staticmethod
-    def is_valid(rt: RetentionTimeType) -> bool:
+    def is_valid(value: Union[RetentionTimeType, RetentionIndexType]) -> bool:
         """Determine whether a retention time value is valid
 
         Args:
@@ -27,7 +27,7 @@ class Data(ABC):
         Returns:
             bool: State of validity (True/False).
         """
-        result = rt is not None and Data.can_be_float(rt) and rt >= 0.0
+        result = value is not None and Data.can_be_float(value) and value >= 0.0
         return result
 
     @staticmethod
@@ -118,13 +118,7 @@ class Data(ABC):
         """
         ...
 
-    @property
-    @abstractmethod
-    def has_retention_indices(self) -> Iterable[RetentionIndexType]:
-        """Getter for `has_retention_indices` property."""
-        ...
-        
-    def check_ri_values(self) -> bool:
+    def has_retention_indices(self) -> bool:
         """
         Check if all retention indices in the spectra exist.
 
@@ -135,18 +129,9 @@ class Data(ABC):
         Returns:
             bool: True if all retention indices exist, False otherwise.
         """
-        for value in self.has_retention_indices:
-            if value is None:
-                return False
-        return True
-
-    @property
-    @abstractmethod
-    def has_retention_times(self) -> Iterable[RetentionTimeType]:
-        """Getter for `has_retention_times` property."""
-        ...
-        
-    def check_rt_values(self) -> bool:
+        return all([Data.is_valid(rt) for rt in self.retention_indices])
+    
+    def has_retention_times(self) -> bool:
         """
         Check if all retention times in the spectra exist.
 
@@ -157,10 +142,7 @@ class Data(ABC):
         Returns:
             bool: True if all retention times exist, False otherwise.
         """
-        for value in self.has_retention_times:
-            if value is None:
-                return False
-        return True
+        return all([Data.is_valid(rt) for rt in self.retention_times])
 
 
     @property

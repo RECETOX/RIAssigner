@@ -128,15 +128,3 @@ class PandasData(Data):
         self._comment_keys = "comment"
         content = self._data[self._comment_keys].tolist()
         return content   
-
-    @property
-    def has_retention_indices(self) -> Iterable[Data.RetentionIndexType]:
-        pass
-
-    @property
-    def has_retention_times(self) -> Iterable[Data.RetentionTimeType]:
-        """ Check if retention times exist in data."""
-        rt = self._data[self._rt_key].tolist()
-        if rt is None:
-            raise ValueError("Retention time does not exist in data")
-        return self._data

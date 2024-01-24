@@ -1,5 +1,4 @@
 import pytest
-import pandas as pd
 import os
 
 from .builders import SimpleDataBuilder
@@ -12,7 +11,7 @@ testdata_dir_msp = os.path.join(here, 'data', 'msp')
 
 
 @pytest.mark.parametrize("retention_index, expected", [
-    ((1.0, 2.0, 3.0), True),  
+    ((1.0, 2.0, 3.0), True),
     ((1.0, 2.0, None), False)
 ])
 def test_simple_retention_indices(retention_index, expected):
@@ -27,8 +26,8 @@ def test_simple_retention_indices(retention_index, expected):
 def test_pandas_retention_indices(filename_csv, expected):
     data = PandasDataBuilder().with_filename(filename_csv).build()
     assert data.has_retention_indices() == expected
-    
-    
+
+
 @pytest.mark.parametrize("filename_msp, expected", [
     (os.path.join(testdata_dir_msp, "has_retention_indices_t.msp"), True),
     (os.path.join(testdata_dir_msp, "has_retention_indices_f.msp"), False)

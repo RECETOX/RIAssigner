@@ -69,3 +69,10 @@ def test_equal(filename):
     expected = PandasDataBuilder().with_filename(filename).build()
 
     assert expected == actual
+
+
+@pytest.mark.parametrize("filename", ["fake_ri_ms_w4e.csv", "Alkanes_20210325.csv"])
+def test_loaded_retention_indices(filename):
+    filename = os.path.join(testdata_dir, filename)
+    actual = PandasDataBuilder().with_filename(filename).build()
+    assert actual.retention_indices is not None

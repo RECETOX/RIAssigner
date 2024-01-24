@@ -4,19 +4,11 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - autopep8
-  - numpy
+  - python >=3.7
   - matchms >=0.14.0,<0.18.0
   - pint >=0.17,<0.20
-  - pip
   - pandas
+  - scipy
   - prospector
   - pytest
   - pytest-cov
-  - python >=3.7
-  - rope
-  - scipy
-  - build
-  - twine
-  - pip:
-    - -e ..[dev]

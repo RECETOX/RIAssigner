@@ -1,7 +1,6 @@
 from copy import copy
 from typing import Iterable, Optional
 
-from RIAssigner.utils import is_sorted
 
 from .Data import Data
 
@@ -19,7 +18,7 @@ class SimpleData(Data):
         super().__init__(None, None, rt_unit)
 
         self._read(retention_times, retention_indices)
-    
+
     def _read(self, retention_times, retention_indices):
         self._retention_times = Data.URegistry.Quantity(retention_times, self._unit)
         self._retention_indices = copy(retention_indices)

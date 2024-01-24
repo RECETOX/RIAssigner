@@ -1,5 +1,4 @@
-from copy import copy
-from typing import Iterable, Optional
+from typing import Iterable
 
 from RIAssigner.utils import is_sorted
 

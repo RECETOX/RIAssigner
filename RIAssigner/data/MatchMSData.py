@@ -9,7 +9,8 @@ from .Data import Data
 
 
 class MatchMSData(Data):
-    """ Class to handle data from filetypes which can be imported using 'matchMS'.
+    """ Class to handle data from filetypes which can be imported
+        using 'matchMS'.
 
     Currently only supports 'msp'.
     """
@@ -64,15 +65,16 @@ class MatchMSData(Data):
 
     def _read_retention_times(self):
         """ Read retention times from spectrum metadata. """
-        self._retention_times = Data.URegistry.Quantity([safe_read_key(spectrum, self._rt_key) for spectrum in self._spectra], self._unit)
+        magnitude = [safe_read_key(spectrum, self._rt_key) for spectrum in self._spectra]
+        self._retention_times = Data.URegistry.Quantity(magnitude, self._unit)
 
     def _read_retention_indices(self):
         """ Read retention indices from spectrum metadata. """
         self.retention_indices = [safe_read_key(spectrum, self._ri_key) for spectrum in self._spectra]
 
-    def _sort_spectra_by_rt(self): 
+    def _sort_spectra_by_rt(self):
         """ Sort objects (peaks) in spectra list by their retention times. """
-        self._spectra.sort(key=lambda spectrum: safe_read_key(spectrum, self._rt_key) or 0) 
+        self._spectra.sort(key=lambda spectrum: safe_read_key(spectrum, self._rt_key) or 0)
 
     def __eq__(self, o: object) -> bool:
         """Comparison operator `==`.
@@ -122,25 +124,6 @@ class MatchMSData(Data):
         self.comment_keys = "comment"
         content = [spectrum.get(self.comment_keys, default=None) for spectrum in self._spectra]
         return content
-    
-    @property
-    def has_retention_indices(self) -> Iterable[Data.RetentionIndexType]:
-        """ Check if retention indices exist in spectra."""
-        for spectrum in self._spectra:
-            ri = spectrum.get(self._ri_key, default=None)
-            if ri is None:
-                raise ValueError("Retention index does not exist in spectrum")
-        return self._spectra
-
-    @property
-    def has_retention_times(self) -> Iterable[Data.RetentionTimeType]:
-        """ Check if retention times exist in spectra."""
-        for spectrum in self._spectra:
-            ri = spectrum.get(self._rt_key, default=None)
-            if ri is None:
-                raise ValueError("Retention time does not exist in spectrum")
-        return self._spectra
-
 
 
 def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
@@ -179,4 +162,3 @@ def _assign_ri_value(spectrum: Spectrum, key: str, value: Data.RetentionIndexTyp
     if value is not None:
         retention_index = ('%f' % float(value)).rstrip('0').rstrip('.')
         spectrum.set(key=key, value=retention_index)
-

@@ -13,7 +13,7 @@ class ValidateSimpleData(SimpleData):
         Args:
             retention_times (Iterable[float]): Retention time values
         """
-        super().__init__(None, None, rt_unit)
+        super().__init__(retention_times, rt_unit, retention_indices) # changed by me:removed None and sorted positions
         self._validate_input(retention_times, retention_indices)
 
         self._read(retention_times, retention_indices)

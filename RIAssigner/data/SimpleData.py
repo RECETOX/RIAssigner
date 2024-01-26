@@ -17,7 +17,14 @@ class SimpleData(Data):
         """
         super().__init__(None, None, rt_unit)
 
+        self._validate_input_type(retention_times)  # added by me
+
         self._read(retention_times, retention_indices)
+
+    def _validate_input_type(self, retention_times): # added by me
+        if not isinstance(retention_times, list) or None in retention_times:
+            raise TypeError("Retention times must be a list and cannot contain None.")
+
 
     def _read(self, retention_times, retention_indices):
         self._retention_times = Data.URegistry.Quantity(retention_times, self._unit)

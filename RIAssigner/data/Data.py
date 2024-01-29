@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Iterable, List, Optional
+from typing import Iterable, List, Optional, Union
 import pandas as pd
 
 from pint import Quantity, UnitRegistry
@@ -18,7 +18,7 @@ class Data(ABC):
     _ri_possible_keys = {'RI', 'ri', 'ris', 'retention_indices', 'retention_index', 'kovats', 'retentionindex'}
 
     @staticmethod
-    def is_valid(rt: RetentionTimeType) -> bool:
+    def is_valid(value: Union[RetentionTimeType, RetentionIndexType]) -> bool:
         """Determine whether a retention time value is valid
 
         Args:
@@ -27,7 +27,7 @@ class Data(ABC):
         Returns:
             bool: State of validity (True/False).
         """
-        result = rt is not None and Data.can_be_float(rt) and rt >= 0.0
+        result = value is not None and Data.can_be_float(value) and value >= 0.0
         return result
 
     @staticmethod
@@ -117,6 +117,33 @@ class Data(ABC):
             value (Iterable[RetentionIndexType]): Values to assign to property.
         """
         ...
+
+    def has_retention_indices(self) -> bool:
+        """
+        Check if all retention indices in the spectra exist.
+
+        This method iterates over the retention indices in the spectra. If it encounters a value that is None,
+        it immediately returns False. If it iterates over all retention indices without finding a None value,
+        it returns True.
+
+        Returns:
+            bool: True if all retention indices exist, False otherwise.
+        """
+        return all([Data.is_valid(rt) for rt in self.retention_indices])
+    
+    def has_retention_times(self) -> bool:
+        """
+        Check if all retention times in the spectra exist.
+
+        This method iterates over the retention times in the spectra. If it encounters a value that is None,
+        it immediately returns False. If it iterates over all retention times without finding a None value,
+        it returns True.
+
+        Returns:
+            bool: True if all retention times exist, False otherwise.
+        """
+        return all([Data.is_valid(rt) for rt in self.retention_times])
+
 
     @property
     @abstractmethod

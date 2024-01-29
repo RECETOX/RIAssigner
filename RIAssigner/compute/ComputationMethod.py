@@ -7,7 +7,7 @@ from RIAssigner.data import Data
 class ComputationMethod(ABC):
 
     @abstractmethod
-    def compute(self, query: Data, reference: Data) -> List[float]:
+    def compute(self, query: Data, reference: Data) -> List[Data.RetentionIndexType]:
         """Abstract method for RI computation
 
         Args:
@@ -19,7 +19,7 @@ class ComputationMethod(ABC):
         """
         ...
 
-    def _check_data_args(self, query, reference):
+    def _check_data_args(self, query: Data, reference: Data):
         """Checks query and reference data for 'None'.
 
         Args:

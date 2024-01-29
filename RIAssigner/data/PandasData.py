@@ -13,6 +13,7 @@ class PandasData(Data):
     def __init__(self, filename: str, filetype: str, rt_unit: str):
         super().__init__(filename, filetype, rt_unit)
         self._read()
+        self._rt_key = 'rt'
 
     def _read(self):
         """ Load content from file into PandasData object. """
@@ -126,5 +127,4 @@ class PandasData(Data):
         """ Get comments."""
         self._comment_keys = "comment"
         content = self._data[self._comment_keys].tolist()
-        return content
-    
+        return content   

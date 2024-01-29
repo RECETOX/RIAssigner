@@ -38,4 +38,4 @@ def test_matchms_retention_times(filename_msp, expected):
             MatchMSDataBuilder().with_filename(filename_msp).build()
     else:
         data = MatchMSDataBuilder().with_filename(filename_msp).build()
-        assert data is not None  
+        assert data is not None

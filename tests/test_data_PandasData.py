@@ -24,6 +24,13 @@ def test_open_csv(filename_csv):
     data = PandasDataBuilder().with_filename(filename_csv).build()
     assert data.filename == filename_csv
 
+def test_open_parquet():
+    filename = os.path.join(here, "data", "parquet", "10_qc_16x_dil_milliq.parquet")
+    data = PandasDataBuilder().with_filename(filename).with_filetype('parquet').build()
+    assert data.filename == filename
+    assert len(data.retention_times) == 8482
+    assert numpy.isclose(numpy.mean(data.retention_times).magnitude, 342.9571167006089, rtol=1e-09, atol=1e-09)
+
 
 # tmp_path from https://docs.pytest.org/en/6.2.x/tmpdir.html#the-tmp-path-fixture
 @pytest.mark.parametrize("filename", ["test_file.csv, test_file.tsv"])

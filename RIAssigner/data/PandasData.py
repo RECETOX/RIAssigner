@@ -1,6 +1,6 @@
 from typing import Iterable
 
-from pandas import read_csv
+from pandas import read_csv, read_parquet
 from RIAssigner.utils import define_separator, get_first_common_element
 
 from .Data import Data
@@ -31,6 +31,8 @@ class PandasData(Data):
         """ Read the data from file into dataframe. """
         if(self._filetype in ['csv', 'tsv']):
             self._data = read_csv(self._filename, sep=None, engine="python")
+        elif self._filetype == 'parquet':
+            self._data = read_parquet(self._filename)
         else:
             raise NotImplementedError("File formats different from ['csv', 'tsv'] are not implemented yet.")
 

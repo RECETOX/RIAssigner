@@ -118,10 +118,10 @@ class MatchMSData(Data):
         return get_metadata_as_array(self._spectra)
 
 
-def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
-    """ Read key from spectrum and convert to float or return 'None'.
+def safe_read_key(spectrum: Spectrum, key: str) -> float:
+    """ Read key from spectrum and convert to float or return 0.0.
     Tries to read the given key from the spectrum metadata and convert it to a float.
-    In case an exception is thrown or the key is not present, returns 'None'.
+    In case an exception is thrown or the key is not present, returns 0.0.
 
     Parameters
     ----------
@@ -132,16 +132,18 @@ def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
 
     Returns
     -------
-        Either the key's value converted to float or 'None'.
+        Either the key's value converted to float or 0.0.
     """
 
-    value = spectrum.get(key, default=None)
-    if value is not None:
+    value = spectrum.get(key, default=0.0)
+    if isinstance(value, str):
         try:
             value = float(value)
         except ValueError:
             # RT is in format that can't be converted to float -> set rt to None
-            value = None
+            value = 0.0
+    if not Data.can_be_float(value):
+        value = 0.0
     return value
 
 def _assign_ri_value(spectrum: Spectrum, key: str, value: Data.RetentionIndexType):

@@ -1,8 +1,8 @@
 from typing import Iterable, Optional
 
 from matchms import Spectrum
-from matchms.exporting import save_as_msp
-from matchms.importing import load_from_msp
+from matchms.exporting import save_spectra
+from matchms.importing import load_spectra
 from RIAssigner.utils import get_first_common_element
 
 from .Data import Data
@@ -22,7 +22,7 @@ class MatchMSData(Data):
     def _read(self):
         """Load data into object and initialize properties.
         """
-        self._read_spectra(self._filename, self._filetype)
+        self._spectra = load_spectra(self._filename, True, self._filetype)
         self._init_rt_key()
         self._init_ri_key()
 
@@ -32,26 +32,12 @@ class MatchMSData(Data):
         self._read_retention_indices()
 
     def write(self, filename: str):
-        """Write data to back to 'msp' file
+        """Write data to back to the spectra file
 
         Args:
             filename (str): Path to filename under which to store the data.
         """
-        save_as_msp(self._spectra, filename)
-
-    def _read_spectra(self, filename: str, filetype: str):
-        """Read spectra from 'msp' file into data.
-
-        Args:
-            filename (str): Path to filename from which to load the data.
-
-        Raises:
-            NotImplementedError: For filetypes other than 'msp'.
-        """
-        if filetype == 'msp':
-            self._spectra = list(load_from_msp(filename))
-        else:
-            raise NotImplementedError("Currently only supports 'msp'.")
+        save_spectra(self._spectra, filename)
 
     def _init_rt_key(self):
         """ Identify retention-time key from spectrum metadata. """

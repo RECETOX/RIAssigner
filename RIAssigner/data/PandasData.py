@@ -105,9 +105,7 @@ class PandasData(Data):
         """ Get retention indices from data or computed from carbon numbers. """
         if self._carbon_number_index is not None:
             return self._ri_from_carbon_numbers()
-        if not self._data[self._ri_index].isnull().all():
-            return self._data[self._ri_index]
-        raise KeyError("Dataset does not contain retention indices!")
+        return self._data[self._ri_index]
 
     def _ri_from_carbon_numbers(self):
         """ Returns the RI of compound based on carbon number. """

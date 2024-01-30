@@ -10,7 +10,12 @@ here = os.path.abspath(os.path.dirname(__file__))
 testdata_dir = os.path.join(here, 'data', 'csv')
 
 
-@pytest.fixture(params=["Alkanes_20210325.csv", "aplcms_aligned_peaks.csv", "xcms_variable_metadata.csv"])
+@pytest.fixture(params=[
+    "Alkanes_20210325.csv",
+    "aplcms_aligned_peaks.csv",
+    "xcms_variable_metadata.csv",
+    "has_retention_times_t.csv",
+    "has_retention_times_f.csv"])
 def filename_csv(request):
     return os.path.join(testdata_dir, request.param)
 
@@ -69,3 +74,29 @@ def test_equal(filename):
     expected = PandasDataBuilder().with_filename(filename).build()
 
     assert expected == actual
+
+
+@pytest.mark.parametrize("filename, expected", [
+    ["Alkanes_20210325.csv", True],
+    ["aplcms_aligned_peaks.csv", True],
+    ["xcms_variable_metadata.csv", True],
+    ["has_retention_times_t.csv", True],
+    ["has_retention_times_f.csv", False]
+])
+def test_has_retention_times(filename, expected):
+    filepath = os.path.join(testdata_dir, filename)
+    data = PandasDataBuilder().with_filename(filepath).build()
+    assert data.has_retention_times() == expected
+
+
+@pytest.mark.parametrize("filename, expected", [
+    ["Alkanes_20210325.csv", True],
+    ["aplcms_aligned_peaks.csv", False],
+    ["xcms_variable_metadata.csv", False],
+    ["has_retention_indices_t.csv", True],
+    ["has_retention_indices_f.csv", False],
+])
+def test_has_retention_indices(filename, expected):
+    filepath = os.path.join(testdata_dir, filename)
+    data = PandasDataBuilder().with_filename(filepath).build()
+    assert data.has_retention_indices() == expected

@@ -1,7 +1,9 @@
-from typing import Iterable, Optional
+from typing import Iterable, List, Optional, Tuple
+import numpy as np
 
 from matchms import Spectrum
 from matchms.exporting import save_spectra
+from matchms.exporting.metadata_export import get_metadata_as_array
 from matchms.importing import load_spectra
 from RIAssigner.utils import get_first_common_element
 
@@ -11,8 +13,6 @@ from .Data import Data
 class MatchMSData(Data):
     """ Class to handle data from filetypes which can be imported
         using 'matchms'.
-
-    Currently only supports 'msp'.
     """
 
     def __init__(self, filename: str, filetype: str, rt_unit: str):
@@ -23,6 +23,8 @@ class MatchMSData(Data):
         """Load data into object and initialize properties.
         """
         self._spectra = list(load_spectra(self._filename, True, self._filetype))
+        _, self._keys = get_metadata_as_array(self._spectra)
+        
         self._init_rt_key()
         self._init_ri_key()
 
@@ -41,12 +43,12 @@ class MatchMSData(Data):
 
     def _init_rt_key(self):
         """ Identify retention-time key from spectrum metadata. """
-        rt_key = get_first_common_element(self._rt_possible_keys, self._spectra[0].metadata.keys())
+        rt_key = get_first_common_element(self._rt_possible_keys, self._keys)
         self._rt_key = rt_key or 'retentiontime'
 
     def _init_ri_key(self):
         """ Identify retention-index key from spectrum metadata. """
-        ri_key = get_first_common_element(self._ri_possible_keys, self._spectra[0].metadata.keys())
+        ri_key = get_first_common_element(self._ri_possible_keys, self._keys)
         self._ri_key = ri_key or 'retentionindex'
 
     def _read_retention_times(self):
@@ -110,6 +112,10 @@ class MatchMSData(Data):
         self.comment_keys = "comment"
         content = [spectrum.get(self.comment_keys, default=None) for spectrum in self._spectra]
         return content
+
+    @property
+    def spectra_metadata(self) -> Tuple[np.array, List[str]]:
+        return get_metadata_as_array(self._spectra)
 
 
 def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:

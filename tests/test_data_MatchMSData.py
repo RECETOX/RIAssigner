@@ -12,11 +12,10 @@ testdata_dir = os.path.join(here, 'data', 'msp')
 
 
 @pytest.fixture(params=[
-    # "recetox_gc-ei_ms_20201028.msp",
+    "recetox_gc-ei_ms_20201028.msp",
     "Alkanes_20210325.msp",
-    # Currently excluded due to having None RT values
-    # "MSMS-Neg-Vaniya-Fiehn_Natural_Products_Library_20200109.msp",
-    # "MSMS-Neg-PFAS_20200806.msp",
+    "MSMS-Neg-Vaniya-Fiehn_Natural_Products_Library_20200109.msp",
+    "MSMS-Neg-PFAS_20200806.msp",
     "PFAS_added_rt.msp"])
 def filename_msp(request):
     return os.path.join(testdata_dir, request.param)
@@ -27,10 +26,8 @@ def retention_times(filename_msp):
     library = list(load_from_msp(filename_msp))
     retention_times = []
     for spectrum in library:
-        rt = spectrum.get('retention_time', None)
-        if rt == '':
-            rt = -0.1
-        elif isinstance(rt, str):
+        rt = spectrum.get('retention_time', -0.1)
+        if isinstance(rt, str):
             try:
                 rt = float(rt)
             except ValueError:
@@ -78,3 +75,29 @@ def test_basic_write(filename_msp, tmp_path):
     actual = list(load_from_msp(outpath))
 
     assert expected == actual
+
+
+@pytest.mark.parametrize("filename, expected", [
+    ["recetox_gc-ei_ms_20201028.msp", False],
+    ["Alkanes_20210325.msp", True],
+    ["MSMS-Neg-Vaniya-Fiehn_Natural_Products_Library_20200109.msp", False],
+    ["MSMS-Neg-PFAS_20200806.msp", False],
+    ["PFAS_added_rt.msp", True],
+])
+def test_has_retention_times(filename, expected):
+    filepath = os.path.join(testdata_dir, filename)
+    data = MatchMSDataBuilder().with_filename(filepath).build()
+    assert data.has_retention_times() == expected
+
+
+@pytest.mark.parametrize("filename, expected", [
+    ["recetox_gc-ei_ms_20201028.msp", True],
+    ["Alkanes_20210325.msp", True],
+    ["MSMS-Neg-Vaniya-Fiehn_Natural_Products_Library_20200109.msp", False],
+    ["MSMS-Neg-PFAS_20200806.msp", False],
+    ["PFAS_added_rt.msp", False],
+])
+def test_has_retention_indices(filename, expected):
+    filepath = os.path.join(testdata_dir, filename)
+    data = MatchMSDataBuilder().with_filename(filepath).build()
+    assert data.has_retention_indices() == expected

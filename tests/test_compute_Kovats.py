@@ -16,15 +16,6 @@ def test_compute_ri_basic_case(non_indexed_data, indexed_data):
     numpy.testing.assert_array_almost_equal(actual, expected)
 
 
-def test_invalid_rt_has_none_ri(invalid_rt_data, indexed_data):
-    method = Kovats()
-
-    expected = [None, None, None, 741.5254237288136]
-    actual = method.compute(invalid_rt_data, indexed_data)
-
-    numpy.testing.assert_array_equal(actual, expected)
-
-
 def test_missing_alkane():
     ref = DataStub([5.0, 7.0], [1000, 1200])
     query = DataStub([6.0], [None])

@@ -1,7 +1,8 @@
 import os
 import numpy
 import pytest
-from RIAssigner.compute import CubicSpline, Kovats
+from RIAssigner.compute import ComputationMethod, CubicSpline, Kovats
+from RIAssigner.data import Data, SimpleData
 
 from tests.fixtures import indexed_data, non_indexed_data, reference_alkanes
 from tests.fixtures.data import load_test_file
@@ -46,6 +47,19 @@ def test_exception_query_none(method, indexed_data):
     message = exception.value.args[0]
     assert exception.typename == "ValueError"
     assert message == "Query data is not defined."
+
+@pytest.mark.parametrize('method', [Kovats(), CubicSpline()])
+@pytest.mark.parametrize("query, reference, message", [
+    [SimpleData([10], "seconds", [100]), None, "Reference data is not defined."],
+    [None, SimpleData([10], "seconds", [100]), "Query data is not defined."],
+    [SimpleData([], "seconds", [100]), SimpleData([10], "seconds", [100]), "Query data has no retention times."],
+])
+def test_compute_exceptions(method: ComputationMethod, query: Data, reference: Data, message: str):
+    with pytest.raises(ValueError) as exception:
+        method.compute(query, reference)
+
+    assert exception.typename == "ValueError"
+    assert exception.value.args[0] == message
 
 
 @pytest.mark.parametrize('method', [Kovats(), CubicSpline()])

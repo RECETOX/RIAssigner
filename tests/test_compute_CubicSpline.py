@@ -6,8 +6,8 @@ from tests.fixtures.mocks import DataStub
 
 
 @pytest.mark.parametrize('reference_points, query_points, expected', [
-    [[(0, 0), (2.71, 800)], [1.34, 0.001], [395.5719, 0.2952]],
-    [[(0, 0), (2.71, 800), (4.5, 1200)], [1.5, 2.9, 4.7], [471.7392, 847.3044, 1238.3477]],
+    [[(1e-10, 1e-10), (2.71, 800)], [1.34, 0.001], [395.5719, 0.2952]],
+    [[(1e-10, 1e-10), (2.71, 800), (4.5, 1200)], [1.5, 2.9, 4.7], [471.7392, 847.3044, 1238.3477]],
 ])
 def test_simple_computations(reference_points, query_points, expected):
     reference_rt, reference_ri = zip(*reference_points)

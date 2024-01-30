@@ -32,6 +32,8 @@ def retention_times(filename_msp):
                 rt = float(rt)
             except ValueError:
                 rt = 0
+        if rt is None:
+            rt = 0
         retention_times.append(rt)
     retention_times.sort()
     return retention_times
@@ -58,14 +60,13 @@ def test_equal(filename_msp):
 
 
 def test_basic_write(filename_msp, tmp_path):
-    # TODO: Reafactor with load_test_file
     data = MatchMSDataBuilder().with_filename(filename_msp).build()
 
     outpath = os.path.join(tmp_path, "riassigner.msp")
     data.write(outpath)
 
     spectra = list(load_from_msp(filename_msp))
-    spectra.sort(key=lambda spectrum: float(spectrum.get('retention_time')))
+    spectra.sort(key=lambda spectrum: float(spectrum.get('retention_time', 0)))
 
     expected_outpath = os.path.join(tmp_path, "matchms.msp")
     save_as_msp(spectra, expected_outpath)

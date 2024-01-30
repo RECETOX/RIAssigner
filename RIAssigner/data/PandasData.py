@@ -23,7 +23,9 @@ class PandasData(Data):
         self._init_rt_column_info()
         self._init_ri_column_info()
         self._init_ri_indices()
+        
         self._sort_by_rt()
+        self._replace_nans_with_0s()
 
     def _read_into_dataframe(self):
         """ Read the data from file into dataframe. """
@@ -72,6 +74,13 @@ class PandasData(Data):
         """ Sort peaks by their retention times. """
         if self._rt_index is not None:
             self._data.sort_values(by=self._rt_index, axis=0, inplace=True)
+    
+    def _replace_nans_with_0s(self):
+        """ Replace NaN values with 0s. """
+        if self._rt_index is not None:
+            self._data[self._rt_index].fillna(0, inplace=True)
+        if self._ri_index is not None:
+            self._data[self._ri_index].fillna(0, inplace=True)
 
     def __eq__(self, o: object) -> bool:
         """Comparison operator `==`.

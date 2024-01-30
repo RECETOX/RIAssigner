@@ -7,8 +7,8 @@ from pint import Quantity, UnitRegistry
 
 class Data(ABC):
     """ Base class for data managers. """
-    RetentionTimeType = Optional[float]
-    RetentionIndexType = Optional[float]
+    RetentionTimeType = float
+    RetentionIndexType = float
     CommentFieldType = Optional[str]
     URegistry = UnitRegistry()
 
@@ -25,7 +25,7 @@ class Data(ABC):
         Returns:
             bool: State of validity (True/False).
         """
-        result = value is not None and Data.can_be_float(value) and value >= 0.0
+        result = value is not None and Data.can_be_float(value) and value > 0
         return result
 
     @staticmethod

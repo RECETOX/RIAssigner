@@ -127,7 +127,7 @@ class Data(ABC):
         Returns:
             bool: True if all retention indices exist, False otherwise.
         """
-        return all([Data.is_valid(rt) for rt in self.retention_indices])
+        return len(self.retention_indices) > 0 and all([Data.is_valid(rt) for rt in self.retention_indices])
     
     def has_retention_times(self) -> bool:
         """
@@ -140,7 +140,7 @@ class Data(ABC):
         Returns:
             bool: True if all retention times exist, False otherwise.
         """
-        return all([Data.is_valid(rt) for rt in self.retention_times])
+        return len(self.retention_times) > 0 and all([Data.is_valid(rt) for rt in self.retention_times])
 
 
     @property

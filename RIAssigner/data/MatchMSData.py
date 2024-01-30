@@ -22,7 +22,7 @@ class MatchMSData(Data):
     def _read(self):
         """Load data into object and initialize properties.
         """
-        self._spectra = load_spectra(self._filename, True, self._filetype)
+        self._spectra = list(load_spectra(self._filename, True, self._filetype))
         self._init_rt_key()
         self._init_ri_key()
 

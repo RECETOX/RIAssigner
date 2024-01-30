@@ -39,6 +39,7 @@ class MatchMSData(Data):
         Args:
             filename (str): Path to filename under which to store the data.
         """
+        list(map(_assign_ri_value, self._spectra, [self._ri_key] * len(self._spectra), self._retention_indices))
         save_spectra(self._spectra, filename)
 
     def _init_rt_key(self):
@@ -100,9 +101,6 @@ class MatchMSData(Data):
         """ Set retention indices. """
         if len(values) == len(self._spectra):
             self._retention_indices = values
-            list(
-                map(_assign_ri_value, self._spectra, [self._ri_key] * len(self._spectra), values)
-            )
         else:
             raise ValueError('There is different numbers of computed indices and peaks.')
 
@@ -153,6 +151,6 @@ def _assign_ri_value(spectrum: Spectrum, key: str, value: Data.RetentionIndexTyp
         spectrum (Spectrum): Spectrum to add RI to
         value (Data.RetentionIndexType): RI to be added to Spectrum
     """
-    if value is not None:
+    if value > 0:
         retention_index = ('%f' % float(value)).rstrip('0').rstrip('.')
         spectrum.set(key=key, value=retention_index)

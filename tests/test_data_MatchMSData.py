@@ -10,6 +10,16 @@ from tests.builders import MatchMSDataBuilder
 here = os.path.abspath(os.path.dirname(__file__))
 testdata_dir = os.path.join(here, 'data', 'msp')
 
+def rt_or_0(spectrum):
+    rt = spectrum.get('retention_time', 0)
+    if isinstance(rt, str):
+        try:
+            rt = float(rt)
+        except ValueError:
+            rt = 0
+    if rt is None:
+        rt = 0
+    return rt
 
 @pytest.fixture(params=[
     "recetox_gc-ei_ms_20201028.msp",
@@ -26,14 +36,7 @@ def retention_times(filename_msp):
     library = list(load_from_msp(filename_msp))
     retention_times = []
     for spectrum in library:
-        rt = spectrum.get('retention_time', 0)
-        if isinstance(rt, str):
-            try:
-                rt = float(rt)
-            except ValueError:
-                rt = 0
-        if rt is None:
-            rt = 0
+        rt = rt_or_0(spectrum)
         retention_times.append(rt)
     retention_times.sort()
     return retention_times
@@ -66,7 +69,8 @@ def test_basic_write(filename_msp, tmp_path):
     data.write(outpath)
 
     spectra = list(load_from_msp(filename_msp))
-    spectra.sort(key=lambda spectrum: float(spectrum.get('retention_time', 0)))
+
+    spectra.sort(key=rt_or_0)
 
     expected_outpath = os.path.join(tmp_path, "matchms.msp")
     save_as_msp(spectra, expected_outpath)

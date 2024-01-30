@@ -30,29 +30,12 @@ def test_construct(method):
 
 
 @pytest.mark.parametrize('method', [Kovats(), CubicSpline()])
-def test_exception_reference_none(method, non_indexed_data):
-    with pytest.raises(ValueError) as exception:
-        method.compute(non_indexed_data, None)
-
-    message = exception.value.args[0]
-    assert exception.typename == "ValueError"
-    assert message == "Reference data is not defined."
-
-
-@pytest.mark.parametrize('method', [Kovats(), CubicSpline()])
-def test_exception_query_none(method, indexed_data):
-    with pytest.raises(ValueError) as exception:
-        method.compute(None, indexed_data)
-
-    message = exception.value.args[0]
-    assert exception.typename == "ValueError"
-    assert message == "Query data is not defined."
-
-@pytest.mark.parametrize('method', [Kovats(), CubicSpline()])
 @pytest.mark.parametrize("query, reference, message", [
     [SimpleData([10], "seconds", [100]), None, "Reference data is not defined."],
     [None, SimpleData([10], "seconds", [100]), "Query data is not defined."],
     [SimpleData([], "seconds", [100]), SimpleData([10], "seconds", [100]), "Query data has no retention times."],
+    [SimpleData([10], "seconds", [100]), SimpleData([10], "seconds", []), "Reference data has no retention indices."],
+    [SimpleData([10], "seconds", [100]), SimpleData([], "seconds", [10]), "Reference data has no retention times."],
 ])
 def test_compute_exceptions(method: ComputationMethod, query: Data, reference: Data, message: str):
     with pytest.raises(ValueError) as exception:

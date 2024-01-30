@@ -10,7 +10,7 @@ from .Data import Data
 
 class MatchMSData(Data):
     """ Class to handle data from filetypes which can be imported
-        using 'matchMS'.
+        using 'matchms'.
 
     Currently only supports 'msp'.
     """
@@ -46,7 +46,7 @@ class MatchMSData(Data):
             filename (str): Path to filename from which to load the data.
 
         Raises:
-            NotImplementedError: For filetypes other tahn 'msp'.
+            NotImplementedError: For filetypes other than 'msp'.
         """
         if filetype == 'msp':
             self._spectra = list(load_from_msp(filename))

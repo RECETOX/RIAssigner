@@ -3,7 +3,6 @@ from typing import Iterable, List, Optional, Union
 import pandas as pd
 
 from pint import Quantity, UnitRegistry
-from pint.unit import build_unit_class
 
 
 class Data(ABC):
@@ -12,7 +11,6 @@ class Data(ABC):
     RetentionIndexType = Optional[float]
     CommentFieldType = Optional[str]
     URegistry = UnitRegistry()
-    Unit = build_unit_class(URegistry)
 
     _rt_possible_keys = {'RT', 'rt', 'rts', 'retention_times', 'retention_time', 'retention', 'time', 'retentiontime'}
     _ri_possible_keys = {'RI', 'ri', 'ris', 'retention_indices', 'retention_index', 'kovats', 'retentionindex'}
@@ -68,7 +66,7 @@ class Data(ABC):
         self._filename = filename
         self._filetype = filetype
         self._rt_unit = rt_unit
-        self._unit = Data.Unit(self._rt_unit)
+        self._unit = Data.URegistry(self._rt_unit)
 
     @abstractmethod
     def write(self, filename):
@@ -155,7 +153,7 @@ class Data(ABC):
         """
         ...
 
-    def extract_ri_from_comment(self, ri_source: str):
+    def init_ri_from_comment(self, ri_source: str):
         """ Extract RI from comment field.
         Extracts the RI from the comment field of the data file. The RI is expected to be
         in the format 'ri_source=RI_value'. The function extracts the RI value and
@@ -168,8 +166,6 @@ class Data(ABC):
         ri_source:
             String that is expected to be in the comment field before the RI value.
         """
-
-
         mask = pd.Series(self.comment).str.contains(rf'\b{ri_source}\b', na=False)
         extracted_values = pd.Series(self.comment).str.extract(rf'\b{ri_source}=(\d+)\b')[0].astype(float)
         self.retention_indices = extracted_values.where(mask, None).tolist()

@@ -19,9 +19,7 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8"
+    "Programming Language :: Python :: 3.10",
 ]
 
 packages = [
@@ -29,12 +27,13 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.8"
-matchms = "^0.14.0, <0.18.0"
+python = "^3.10, <3.13"
+matchms = "^0.24.1"
 numpy = "*"
 pandas = "*"
-pint = "^0.17, <0.20"
+pint = "^0.23"
 scipy = "*"
+urllib3 = "1.26.15"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "*"

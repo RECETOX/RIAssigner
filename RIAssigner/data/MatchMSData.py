@@ -143,7 +143,7 @@ def safe_read_key(spectrum: Spectrum, key: str) -> float:
         try:
             value = float(value)
         except ValueError:
-            # RT is in format that can't be converted to float -> set rt to None
+            # RT is in format that can't be converted to float -> set rt to 0.0
             value = 0.0
     if not Data.can_be_float(value):
         value = 0.0

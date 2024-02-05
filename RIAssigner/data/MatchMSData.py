@@ -39,8 +39,13 @@ class MatchMSData(Data):
         Args:
             filename (str): Path to filename under which to store the data.
         """
-        list(map(_assign_ri_value, self._spectra, [self._ri_key] * len(self._spectra), self._retention_indices))
+        self._write_RIs_to_spectra()
         save_spectra(self._spectra, filename)
+
+    def _write_RIs_to_spectra(self):
+        """Write the RI values stored in the object to the spectra metadata.
+        """
+        list(map(_assign_ri_value, self._spectra, [self._ri_key] * len(self._spectra), self._retention_indices))
 
     def _init_rt_key(self):
         """ Identify retention-time key from spectrum metadata. """

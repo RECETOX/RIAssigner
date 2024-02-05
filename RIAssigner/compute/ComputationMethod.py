@@ -30,6 +30,12 @@ class ComputationMethod(ABC):
             raise ValueError("Query data is not defined.")
         if reference is None:
             raise ValueError("Reference data is not defined.")
+        if not query.has_retention_times():
+            raise ValueError("Query data has no retention times.")
+        if not reference.has_retention_times():
+            raise ValueError("Reference data has no retention times.")
+        if not reference.has_retention_indices():
+            raise ValueError("Reference data has no retention indices.")
 
     def __eq__(self, o: object) -> bool:
         return type(o) == type(self)

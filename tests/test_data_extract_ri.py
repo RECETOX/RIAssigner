@@ -16,7 +16,7 @@ def reference_data_csv(request):
 @pytest.mark.parametrize("reference_data_csv, comment_string", [("SemiStdNP", "SemiStdNP"), ("StdNP", "StdNP"), ("StdPolar", "StdPolar")], indirect=["reference_data_csv"])
 def test_extract_ri_from_csv_comment(reference_data_csv, comment_string):
     query = PandasData(os.path.join(testdata_dir, 'nist_to_ri_2mols.csv'), "csv", rt_unit="seconds")
-    query.extract_ri_from_comment(comment_string)
+    query.init_ri_from_comment(comment_string)
     assert query.retention_indices.tolist() == reference_data_csv
 
 @pytest.fixture
@@ -31,5 +31,5 @@ def reference_data_msp(request):
 @pytest.mark.parametrize("reference_data_msp, comment_string", [("SemiStdNP", "SemiStdNP"), ("StdNP", "StdNP"), ("StdPolar", "StdPolar")], indirect=["reference_data_msp"])
 def test_extract_ri_from_msp_comment(reference_data_msp, comment_string):
     query = MatchMSData(os.path.join(testdata_dir, 'NIST_EI_MS_2mols.msp'), "msp", rt_unit="min")
-    query.extract_ri_from_comment(comment_string)
+    query.init_ri_from_comment(comment_string)
     assert query.retention_indices == reference_data_msp

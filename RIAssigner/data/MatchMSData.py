@@ -1,8 +1,10 @@
-from typing import Iterable, Optional
+from typing import Iterable, List, Optional, Tuple
+import numpy as np
 
 from matchms import Spectrum
-from matchms.exporting import save_as_msp
-from matchms.importing import load_from_msp
+from matchms.exporting import save_spectra
+from matchms.exporting.metadata_export import get_metadata_as_array
+from matchms.importing import load_spectra
 from RIAssigner.utils import get_first_common_element
 
 from .Data import Data
@@ -10,9 +12,7 @@ from .Data import Data
 
 class MatchMSData(Data):
     """ Class to handle data from filetypes which can be imported
-        using 'matchMS'.
-
-    Currently only supports 'msp'.
+        using 'matchms'.
     """
 
     def __init__(self, filename: str, filetype: str, rt_unit: str):
@@ -22,7 +22,9 @@ class MatchMSData(Data):
     def _read(self):
         """Load data into object and initialize properties.
         """
-        self._read_spectra(self._filename, self._filetype)
+        self._spectra = list(load_spectra(self._filename, True, self._filetype))
+        _, self._keys = get_metadata_as_array(self._spectra)
+        
         self._init_rt_key()
         self._init_ri_key()
 
@@ -32,35 +34,27 @@ class MatchMSData(Data):
         self._read_retention_indices()
 
     def write(self, filename: str):
-        """Write data to back to 'msp' file
+        """Write data to back to the spectra file
 
         Args:
             filename (str): Path to filename under which to store the data.
         """
-        save_as_msp(self._spectra, filename)
+        self._write_RIs_to_spectra()
+        save_spectra(self._spectra, filename)
 
-    def _read_spectra(self, filename: str, filetype: str):
-        """Read spectra from 'msp' file into data.
-
-        Args:
-            filename (str): Path to filename from which to load the data.
-
-        Raises:
-            NotImplementedError: For filetypes other tahn 'msp'.
+    def _write_RIs_to_spectra(self):
+        """Write the RI values stored in the object to the spectra metadata.
         """
-        if filetype == 'msp':
-            self._spectra = list(load_from_msp(filename))
-        else:
-            raise NotImplementedError("Currently only supports 'msp'.")
+        list(map(_assign_ri_value, self._spectra, [self._ri_key] * len(self._spectra), self._retention_indices))
 
     def _init_rt_key(self):
         """ Identify retention-time key from spectrum metadata. """
-        rt_key = get_first_common_element(self._rt_possible_keys, self._spectra[0].metadata.keys())
+        rt_key = get_first_common_element(self._rt_possible_keys, self._keys)
         self._rt_key = rt_key or 'retentiontime'
 
     def _init_ri_key(self):
         """ Identify retention-index key from spectrum metadata. """
-        ri_key = get_first_common_element(self._ri_possible_keys, self._spectra[0].metadata.keys())
+        ri_key = get_first_common_element(self._ri_possible_keys, self._keys)
         self._ri_key = ri_key or 'retentionindex'
 
     def _read_retention_times(self):
@@ -112,9 +106,6 @@ class MatchMSData(Data):
         """ Set retention indices. """
         if len(values) == len(self._spectra):
             self._retention_indices = values
-            list(
-                map(_assign_ri_value, self._spectra, [self._ri_key] * len(self._spectra), values)
-            )
         else:
             raise ValueError('There is different numbers of computed indices and peaks.')
 
@@ -125,11 +116,15 @@ class MatchMSData(Data):
         content = [spectrum.get(self.comment_keys, default=None) for spectrum in self._spectra]
         return content
 
+    @property
+    def spectra_metadata(self) -> Tuple[np.array, List[str]]:
+        return get_metadata_as_array(self._spectra)
 
-def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
-    """ Read key from spectrum and convert to float or return 'None'.
+
+def safe_read_key(spectrum: Spectrum, key: str) -> float:
+    """ Read key from spectrum and convert to float or return 0.0.
     Tries to read the given key from the spectrum metadata and convert it to a float.
-    In case an exception is thrown or the key is not present, returns 'None'.
+    In case an exception is thrown or the key is not present, returns 0.0.
 
     Parameters
     ----------
@@ -140,16 +135,18 @@ def safe_read_key(spectrum: Spectrum, key: str) -> Optional[float]:
 
     Returns
     -------
-        Either the key's value converted to float or 'None'.
+        Either the key's value converted to float or 0.0.
     """
 
-    value = spectrum.get(key, default=None)
-    if value is not None:
+    value = spectrum.get(key, default=0.0)
+    if isinstance(value, str):
         try:
             value = float(value)
         except ValueError:
-            # RT is in format that can't be converted to float -> set rt to None
-            value = None
+            # RT is in format that can't be converted to float -> set rt to 0.0
+            value = 0.0
+    if not Data.can_be_float(value):
+        value = 0.0
     return value
 
 def _assign_ri_value(spectrum: Spectrum, key: str, value: Data.RetentionIndexType):
@@ -159,6 +156,6 @@ def _assign_ri_value(spectrum: Spectrum, key: str, value: Data.RetentionIndexTyp
         spectrum (Spectrum): Spectrum to add RI to
         value (Data.RetentionIndexType): RI to be added to Spectrum
     """
-    if value is not None:
+    if value > 0:
         retention_index = ('%f' % float(value)).rstrip('0').rstrip('.')
         spectrum.set(key=key, value=retention_index)

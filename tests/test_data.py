@@ -25,7 +25,7 @@ def _add_possible_key(keys, new_keys):
 
 @pytest.mark.parametrize("filename, filetype, builder, expectation", [
     ["Alkanes_20210325.msp", "msp", MatchMSDataBuilder, does_not_raise()],
-    ["Alkanes_20210325.msp", "csv", MatchMSDataBuilder, pytest.raises(NotImplementedError)],
+    ["Alkanes_20210325.msp", "csv", MatchMSDataBuilder, pytest.raises(TypeError)],
     ["Alkanes_20210325.dat", "msp", MatchMSDataBuilder, does_not_raise()],
     ["Alkanes_20210325.csv", "msp", MatchMSDataBuilder, pytest.raises(Exception)],
     ["Alkanes_20210325.csv", "csv", PandasDataBuilder, does_not_raise()],

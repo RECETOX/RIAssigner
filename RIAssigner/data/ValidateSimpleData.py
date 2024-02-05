@@ -19,6 +19,8 @@ class ValidateSimpleData(SimpleData):
         self._read(retention_times, retention_indices)
 
     def _validate_input(self, retention_times, retention_indices):
+        if not isinstance(retention_times, list) or None in retention_times:
+            raise TypeError("Retention times must be a list and cannot contain None.")
         if not all(map(Data.is_valid, retention_times)):
             raise ValueError("Retention time data is invalid.")
         if not is_sorted(retention_times):

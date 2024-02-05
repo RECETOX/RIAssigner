@@ -1,6 +1,6 @@
 from typing import Iterable
 
-from pandas import read_csv
+from pandas import read_csv, read_parquet
 from RIAssigner.utils import define_separator, get_first_common_element
 
 from .Data import Data
@@ -23,12 +23,16 @@ class PandasData(Data):
         self._init_rt_column_info()
         self._init_ri_column_info()
         self._init_ri_indices()
+        
         self._sort_by_rt()
+        self._replace_nans_with_0s()
 
     def _read_into_dataframe(self):
         """ Read the data from file into dataframe. """
         if(self._filetype in ['csv', 'tsv']):
             self._data = read_csv(self._filename, sep=None, engine="python")
+        elif self._filetype == 'parquet':
+            self._data = read_parquet(self._filename)
         else:
             raise NotImplementedError("File formats different from ['csv', 'tsv'] are not implemented yet.")
 
@@ -72,6 +76,13 @@ class PandasData(Data):
         """ Sort peaks by their retention times. """
         if self._rt_index is not None:
             self._data.sort_values(by=self._rt_index, axis=0, inplace=True)
+    
+    def _replace_nans_with_0s(self):
+        """ Replace NaN values with 0s. """
+        if self._rt_index is not None:
+            self._data[self._rt_index].fillna(0, inplace=True)
+        if self._ri_index is not None:
+            self._data[self._ri_index].fillna(0, inplace=True)
 
     def __eq__(self, o: object) -> bool:
         """Comparison operator `==`.
@@ -105,9 +116,7 @@ class PandasData(Data):
         """ Get retention indices from data or computed from carbon numbers. """
         if self._carbon_number_index is not None:
             return self._ri_from_carbon_numbers()
-        if not self._data[self._ri_index].isnull().all():
-            return self._data[self._ri_index]
-        raise KeyError("Dataset does not contain retention indices!")
+        return self._data[self._ri_index]
 
     def _ri_from_carbon_numbers(self):
         """ Returns the RI of compound based on carbon number. """

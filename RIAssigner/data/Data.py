@@ -12,9 +12,6 @@ class Data(ABC):
     RetentionIndexType = float
     CommentFieldType = Optional[str]
     URegistry = UnitRegistry()
-
-    #_rt_possible_keys = {'RT', 'rt', 'rts', 'retention_times', 'retention_time', 'retention', 'time', 'retentiontime'}
-    _ri_possible_keys = {'RI', 'ri', 'ris', 'retention_indices', 'retention_index', 'kovats', 'retentionindex'}
     
     @staticmethod
     def is_valid(value: Union[RetentionTimeType, RetentionIndexType]) -> bool:
@@ -44,37 +41,16 @@ class Data(ABC):
     def add_possible_ri_keys(cls, keys: List[str]):
         """ A method that adds new identifiers for the retention index information lookup. """
         cls._ri_possible_keys.update(keys)
-
-    # @classmethod
-    # def get_possible_rt_keys(cls) -> List[str]:
-    #     """Method to get the supported retention time keys
-
-    #     Returns:
-    #         List[str]: List of supported retention time keys.
-    #     """
-    #     return cls._rt_possible_keys.copy()
-    
-
     
     def get_possible_rt_keys():
         keys_conversions = load_known_key_conversions()
         rt_key_converted = {key: value for key, value in keys_conversions.items() if "retention_time" == value}
         return rt_key_converted
 
-
     def get_possible_ri_keys():
         keys_conversions = load_known_key_conversions()
         ri_key_converted = {key: value for key, value in keys_conversions.items() if "retention_index" == value}
         return ri_key_converted
-
-    # @classmethod
-    # def get_possible_ri_keys(cls) -> List[str]:
-    #     """Method to get the supported retention index keys
-
-    #     Returns:
-    #         List[str]: List of supported retention index keys.
-    #     """
-    #     return cls._ri_possible_keys.copy()
 
     def __init__(self, filename: str, filetype: str, rt_unit: str):
         self._filename = filename

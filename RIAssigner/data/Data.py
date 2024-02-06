@@ -3,6 +3,7 @@ from typing import Iterable, List, Optional, Union
 import pandas as pd
 
 from pint import Quantity, UnitRegistry
+from matchms.utils import load_known_key_conversions
 
 
 class Data(ABC):
@@ -12,9 +13,9 @@ class Data(ABC):
     CommentFieldType = Optional[str]
     URegistry = UnitRegistry()
 
-    _rt_possible_keys = {'RT', 'rt', 'rts', 'retention_times', 'retention_time', 'retention', 'time', 'retentiontime'}
+    #_rt_possible_keys = {'RT', 'rt', 'rts', 'retention_times', 'retention_time', 'retention', 'time', 'retentiontime'}
     _ri_possible_keys = {'RI', 'ri', 'ris', 'retention_indices', 'retention_index', 'kovats', 'retentionindex'}
-
+    
     @staticmethod
     def is_valid(value: Union[RetentionTimeType, RetentionIndexType]) -> bool:
         """Determine whether a retention time value is valid
@@ -44,23 +45,36 @@ class Data(ABC):
         """ A method that adds new identifiers for the retention index information lookup. """
         cls._ri_possible_keys.update(keys)
 
-    @classmethod
-    def get_possible_rt_keys(cls) -> List[str]:
-        """Method to get the supported retention time keys
+    # @classmethod
+    # def get_possible_rt_keys(cls) -> List[str]:
+    #     """Method to get the supported retention time keys
 
-        Returns:
-            List[str]: List of supported retention time keys.
-        """
-        return cls._rt_possible_keys.copy()
+    #     Returns:
+    #         List[str]: List of supported retention time keys.
+    #     """
+    #     return cls._rt_possible_keys.copy()
+    
 
-    @classmethod
-    def get_possible_ri_keys(cls) -> List[str]:
-        """Method to get the supported retention index keys
+    
+    def get_possible_rt_keys():
+        keys_conversions = load_known_key_conversions()
+        rt_key_converted = {key: value for key, value in keys_conversions.items() if "retention_time" == value}
+        return rt_key_converted
 
-        Returns:
-            List[str]: List of supported retention index keys.
-        """
-        return cls._ri_possible_keys.copy()
+
+    def get_possible_ri_keys():
+        keys_conversions = load_known_key_conversions()
+        ri_key_converted = {key: value for key, value in keys_conversions.items() if "retention_index" == value}
+        return ri_key_converted
+
+    # @classmethod
+    # def get_possible_ri_keys(cls) -> List[str]:
+    #     """Method to get the supported retention index keys
+
+    #     Returns:
+    #         List[str]: List of supported retention index keys.
+    #     """
+    #     return cls._ri_possible_keys.copy()
 
     def __init__(self, filename: str, filetype: str, rt_unit: str):
         self._filename = filename

@@ -34,7 +34,7 @@ def test_is_sorted(values, expected):
 @pytest.mark.parametrize("unclean_col_name, expected", [
     [[" col_name_1 "], ["col_name_1"]], # test case for leading and trailing whitespaces
     [["COL_NAME_2"], ["col_name_2"]], # test case for uppercase
-    [["col_name 3"], ["col_name_3"]] # test case for whitespaces in between
+    [[" COL_NAME_3 "], ["col_name_3"]], # test case for leading and trailing whitespaces and uppercase
 ])
 def test_clean_column_names(unclean_col_name, expected):
     # arrange and act

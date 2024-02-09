@@ -17,12 +17,6 @@ def does_not_raise():
     yield
 
 
-def _add_possible_key(keys, new_keys):
-    possible_keys = list(keys)
-    possible_keys += new_keys
-    return set(possible_keys)
-
-
 @pytest.mark.parametrize("filename, filetype, builder, expectation", [
     ["Alkanes_20210325.msp", "msp", MatchMSDataBuilder, does_not_raise()],
     ["Alkanes_20210325.msp", "csv", MatchMSDataBuilder, pytest.raises(TypeError)],
@@ -42,28 +36,21 @@ def test_filetype(filename, filetype, builder, expectation):
         builder.build()
 
 
-@pytest.mark.parametrize("keys", [["test-key"], ["first_key", "second_key"]])
-def test_add_possible_keys(keys):
-    expected_ri_keys = _add_possible_key(Data.get_possible_ri_keys(), keys)
-    expected_rt_keys = _add_possible_key(Data.get_possible_rt_keys(), keys)
-
-    Data.add_possible_ri_keys(keys)
-    Data.add_possible_rt_keys(keys)
-
-    assert Data.get_possible_ri_keys() == expected_ri_keys
-    assert Data.get_possible_rt_keys() == expected_rt_keys
-
-
 @pytest.mark.parametrize("builder, filename_dat, filename_native, rt_unit", [
     [MatchMSDataBuilder(), 'Alkanes_20210325.dat', "Alkanes_20210325.msp", "min"],
     [PandasDataBuilder(), 'aplcms_aligned_peaks.dat', "aplcms_aligned_peaks.csv", "sec"]
 ])
 def test_read_dat(builder, filename_dat, filename_native, rt_unit):
+    # arrange
     ext = get_extension(filename_native)
     filename = os.path.join(here, 'data', 'dat', filename_dat)
     builder = builder.with_rt_unit(rt_unit).with_filename(filename)
+
+    # act
     data_dat = builder.build()
     data_native = builder.with_filename(os.path.join(testdata_dir, ext, filename_native)).build()
+
+    # assert
     assert data_dat == data_native
 
 

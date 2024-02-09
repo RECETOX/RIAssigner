@@ -59,8 +59,7 @@ def is_sorted(values) -> bool:
     return numpy.all(values[:-1] <= values[1:])
 
 def clean_column_names(column_names: List[str]) -> List[str]:
-    """ Clean column names by removing leading and trailing whitespaces, converting to lowercase,
-    and replacing spaces with underscores.
+    """ Clean column names by removing leading and trailing whitespaces, converting to lowercase.
     
     Args:
         column_names (List[str]): List of column names to clean.
@@ -68,4 +67,4 @@ def clean_column_names(column_names: List[str]) -> List[str]:
     Returns:
         List[str]: List of cleaned column names.
     """
-    return [name.strip().lower().replace(' ', '_') for name in column_names]
+    return [name.strip().lower() for name in column_names]

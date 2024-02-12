@@ -62,7 +62,7 @@ def test_uregistry_with_none(value, unit):
         assert ureg.magnitude == value
     if None in (value if isinstance(value, (list, tuple)) else [value]):
         with pytest.raises(TypeError):
-            ureg + ureg
+            eval(ureg.__add__)
 
 
 def test_get_possible_rt_keys_is_list():

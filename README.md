@@ -58,7 +58,9 @@ For more details check out this [notebook](doc/example_usage.ipynb).
 ### Setup
 Create your development conda environment using the provided [file](conda/environment-dev.yml) to install all required dependencies, including linter and testing frameworks.
 ```
-conda env create -f conda/environment-dev.yml
+conda env create -n riassigner-dev python=3.10 poetry
+conda activate riassigner-dev
+poetry install --no-root
 ```
 
 ### Contributing

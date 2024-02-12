@@ -14,6 +14,7 @@ class Data(ABC):
     URegistry = UnitRegistry()
     _keys_conversions = load_known_key_conversions()
     _rt_possible_keys = [ key for key , value in _keys_conversions.items() if "retention_time" == value] + ["retention_time"]
+    _ri_possible_keys = [ key for key , value in _keys_conversions.items() if "retention_index" == value] + ["retention_index"]
 
     @staticmethod
     def is_valid(value: Union[RetentionTimeType, RetentionIndexType]) -> bool:
@@ -77,17 +78,14 @@ class Data(ABC):
             List[str]:  A list of possible keys to get retention times.
         """
         return cls._rt_possible_keys
-
-    def get_possible_ri_keys() -> List[str]:
+    @classmethod
+    def get_possible_ri_keys(cls) -> List[str]:
         """ A method that returns the possible keys to get retention indices.
 
         Returns:
             List[str]:  A list of possible keys to get retention indices.
         """
-        keys_conversions = load_known_key_conversions()
-        ri_key_converted = [ key for key, value in keys_conversions.items() if "retention_index" == value]
-        ri_key_converted.append("retention_index")
-        return ri_key_converted
+        return cls._ri_possible_keys
 
     def __init__(self, filename: str, filetype: str, rt_unit: str):
         self._filename = filename

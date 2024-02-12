@@ -78,6 +78,7 @@ class Data(ABC):
             List[str]:  A list of possible keys to get retention times.
         """
         return cls._rt_possible_keys
+    
     @classmethod
     def get_possible_ri_keys(cls) -> List[str]:
         """ A method that returns the possible keys to get retention indices.

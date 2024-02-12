@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [dev] - unreleased
 ### Added
+- reading RI values from the comments field [#112](https://github.com/RECETOX/RIAssigner/pull/109)
+- column name sanitizing and mapping using matchms [#118](https://github.com/RECETOX/RIAssigner/pull/118)
+- support for parquet and mgf formats [#116](https://github.com/RECETOX/RIAssigner/pull/116)
+- functions to check whether RI and RT are present [#115](https://github.com/RECETOX/RIAssigner/pull/115)
 ### Changed
+- updated dependencies to newest versions [#116](https://github.com/RECETOX/RIAssigner/pull/116)
+- changed build system to use poetry [#109](https://github.com/RECETOX/RIAssigner/pull/109)
 ### Removed
 
 ## [0.3.4] - 2023-02-21

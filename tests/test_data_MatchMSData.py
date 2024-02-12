@@ -63,21 +63,20 @@ def test_equal(filename_msp):
 
 
 def test_basic_write(filename_msp, tmp_path):
+    # load into MatchMSData and write back
     data = MatchMSDataBuilder().with_filename(filename_msp).build()
-
     outpath = os.path.join(tmp_path, "riassigner.msp")
     data.write(outpath)
 
+    # load spectra with matchms, sort by rt and write back
     spectra = list(load_from_msp(filename_msp))
-
     spectra.sort(key=rt_or_0)
-
     expected_outpath = os.path.join(tmp_path, "matchms.msp")
     save_as_msp(spectra, expected_outpath)
 
+    #check if they match after loading with matchms
     expected = list(load_from_msp(expected_outpath))
     actual = list(load_from_msp(outpath))
-
     assert expected == actual
 
 

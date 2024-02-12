@@ -107,3 +107,13 @@ def test_has_retention_indices(filename, expected):
     filepath = os.path.join(testdata_dir, filename)
     data = PandasDataBuilder().with_filename(filepath).build()
     assert data.has_retention_indices() == expected
+
+def test_clean_pandas_column_names():
+    #arrange
+    expected = ["rt"]
+    builder = PandasDataBuilder().with_filename(os.path.join(testdata_dir, "minimal_unclean_colnames.csv"))
+    #act
+    actual = list(builder.build()._data.columns)
+    #assert
+    assert set(expected) <= set(actual)
+    

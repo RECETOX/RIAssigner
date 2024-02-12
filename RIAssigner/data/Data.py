@@ -3,6 +3,7 @@ from typing import Iterable, List, Optional, Union
 import pandas as pd
 
 from pint import Quantity, UnitRegistry
+from matchms.utils import load_known_key_conversions
 
 
 class Data(ABC):
@@ -11,9 +12,9 @@ class Data(ABC):
     RetentionIndexType = float
     CommentFieldType = Optional[str]
     URegistry = UnitRegistry()
-
-    _rt_possible_keys = {'RT', 'rt', 'rts', 'retention_times', 'retention_time', 'retention', 'time', 'retentiontime'}
-    _ri_possible_keys = {'RI', 'ri', 'ris', 'retention_indices', 'retention_index', 'kovats', 'retentionindex'}
+    _keys_conversions = load_known_key_conversions()
+    _rt_possible_keys = [ key for key , value in _keys_conversions.items() if "retention_time" == value] + ["retention_time"]
+    _ri_possible_keys = [ key for key , value in _keys_conversions.items() if "retention_index" == value] + ["retention_index"]
 
     @staticmethod
     def is_valid(value: Union[RetentionTimeType, RetentionIndexType]) -> bool:
@@ -29,38 +30,63 @@ class Data(ABC):
         return result
 
     @staticmethod
-    def can_be_float(rt):
+    def can_be_float(rt: Union[Quantity, float, int]) -> bool:
+        """Determine whether a value can be converted to a float.
+
+        This function checks if the provided input is an instance of either
+        Quantity, float, or int.
+
+        Args:
+            rt (Union[Quantity, float, int]): Value to check for float conversion.
+
+        Returns:
+            bool: True if the input is an instance of Quantity, float, or int, False otherwise.
+        """
         if isinstance(rt, (Quantity, float, int)):
             return True
         return False
 
     @classmethod
-    def add_possible_rt_keys(cls, keys: List[str]):
-        """ A method that adds new identifiers for the retention time information lookup. """
-        cls._rt_possible_keys.update(keys)
+    def add_possible_rt_keys(cls, keys: List[str]) -> None:
+        """ A method that adds new identifiers to get retention time information.
+
+        Args:
+            keys (List[str]): A list of new identifiers (keys) to be added to the `_rt_possible_keys`.
+
+        Returns:
+            None
+        """
+        cls._rt_possible_keys.append(keys)
 
     @classmethod
-    def add_possible_ri_keys(cls, keys: List[str]):
-        """ A method that adds new identifiers for the retention index information lookup. """
-        cls._ri_possible_keys.update(keys)
+    def add_possible_ri_keys(cls, keys: List[str]) -> None:
+        """ A method that adds new identifiers to get retention index information. 
 
+        Args:
+            keys (List[str]): A list of new identifiers (keys) to be added to the `_ri_possible_keys`.
+
+        Returns:
+            None
+        """
+        cls._ri_possible_keys.append(keys)
+    
     @classmethod
     def get_possible_rt_keys(cls) -> List[str]:
-        """Method to get the supported retention time keys
-
+        """ A method that returns the possible keys to get retention times.
+        
         Returns:
-            List[str]: List of supported retention time keys.
+            List[str]:  A list of possible keys to get retention times.
         """
-        return cls._rt_possible_keys.copy()
-
+        return cls._rt_possible_keys
+    
     @classmethod
     def get_possible_ri_keys(cls) -> List[str]:
-        """Method to get the supported retention index keys
+        """ A method that returns the possible keys to get retention indices.
 
         Returns:
-            List[str]: List of supported retention index keys.
+            List[str]:  A list of possible keys to get retention indices.
         """
-        return cls._ri_possible_keys.copy()
+        return cls._ri_possible_keys
 
     def __init__(self, filename: str, filetype: str, rt_unit: str):
         self._filename = filename
@@ -69,7 +95,7 @@ class Data(ABC):
         self._unit = Data.URegistry(self._rt_unit)
 
     @abstractmethod
-    def write(self, filename):
+    def write(self, filename: str) -> None:
         """Store current content to disk.
 
         Args:
@@ -108,7 +134,7 @@ class Data(ABC):
 
     @retention_indices.setter
     @abstractmethod
-    def retention_indices(self, value: Iterable[RetentionIndexType]):
+    def retention_indices(self, value: Iterable[RetentionIndexType]) -> None:
         """Setter for `retention_indices` variable.
 
         Args:
@@ -153,7 +179,7 @@ class Data(ABC):
         """
         ...
 
-    def init_ri_from_comment(self, ri_source: str):
+    def init_ri_from_comment(self, ri_source: str) -> None:
         """ Extract RI from comment field.
         Extracts the RI from the comment field of the data file. The RI is expected to be
         in the format 'ri_source=RI_value'. The function extracts the RI value and

@@ -2,7 +2,6 @@
 [![Python package](https://github.com/RECETOX/RIAssigner/actions/workflows/python-package.yml/badge.svg)](https://github.com/RECETOX/RIAssigner/actions/workflows/python-package.yml)
 [![Python Package using Conda](https://github.com/RECETOX/RIAssigner/actions/workflows/python-package-conda.yml/badge.svg?branch=main)](https://github.com/RECETOX/RIAssigner/actions/workflows/python-package-conda.yml)
 [![Anaconda Build](https://github.com/RECETOX/RIAssigner/actions/workflows/anaconda.yml/badge.svg?branch=main)](https://github.com/RECETOX/RIAssigner/actions/workflows/anaconda.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=hechth_RIAssigner&metric=alert_status)](https://sonarcloud.io/dashboard?id=hechth_RIAssigner)
 [![bioconda package](https://img.shields.io/conda/v/bioconda/riassigner)](https://anaconda.org/bioconda/riassigner)
 [![PyPI - Python Version](https://img.shields.io/pypi/v/RIAssigner)](https://pypi.org/project/RIAssigner/)
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.04337/status.svg)](https://doi.org/10.21105/joss.04337)

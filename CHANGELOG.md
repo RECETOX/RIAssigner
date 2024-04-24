@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - updated dependencies to newest versions [#116](https://github.com/RECETOX/RIAssigner/pull/116)
 - changed build system to use poetry [#109](https://github.com/RECETOX/RIAssigner/pull/109)
+- updated _assign_ri_value function to delete the RI key if the value is not greater than 0 [#122](https://github.com/RECETOX/RIAssigner/pull/122)
 ### Removed
 
 ## [0.3.4] - 2023-02-21

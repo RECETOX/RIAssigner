@@ -1,3 +1,5 @@
+import numpy as np
+from matchms.importing import load_from_msp
 import pytest
 import pandas as pd
 from RIAssigner.data import PandasData, MatchMSData
@@ -33,3 +35,16 @@ def test_extract_ri_from_msp_comment(reference_data_msp, comment_string):
     query = MatchMSData(os.path.join(testdata_dir, 'NIST_EI_MS_2mols.msp'), "msp", rt_unit="min")
     query.init_ri_from_comment(comment_string)
     assert query.retention_indices == reference_data_msp
+
+def test_extract_ri_from_msp_comment_write(tmp_path):
+    query = MatchMSData(os.path.join(testdata_dir, 'nist_ei_ms_3mols_input.msp'), "msp", rt_unit="min")
+
+    query.init_ri_from_comment("SemiStdNP")
+
+    outpath = os.path.join(tmp_path, "riassigner_ri_from_comment.msp")
+    query.write(outpath)
+
+    expected = list(load_from_msp(os.path.join(testdata_dir, "riassigner_ri_from_comment_out.msp")))
+    actual = list(load_from_msp(outpath))
+
+    assert expected == actual

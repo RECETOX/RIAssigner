@@ -147,3 +147,9 @@ def _assign_ri_value(spectrum: Spectrum, key: str, value: Data.RetentionIndexTyp
     if value > 0:
         retention_index = ('%f' % float(value)).rstrip('0').rstrip('.')
         spectrum.set(key=key, value=retention_index)
+    else:
+        if spectrum.get(key):
+            metadata = spectrum.metadata
+            del metadata[key]
+            spectrum.metadata = metadata
+        

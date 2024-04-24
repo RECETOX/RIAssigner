@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [dev] - unreleased
+
+## [0.4.1] - 2024-04-24
+### Changed
+- updated _assign_ri_value function to delete the RI key if the value is not greater than 0 [#122](https://github.com/RECETOX/RIAssigner/pull/122)
+
+## [0.4.0] - 2024-02-13
 ### Added
 - reading RI values from the comments field [#112](https://github.com/RECETOX/RIAssigner/pull/109)
 - column name sanitizing and mapping using matchms [#118](https://github.com/RECETOX/RIAssigner/pull/118)
@@ -13,7 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - updated dependencies to newest versions [#116](https://github.com/RECETOX/RIAssigner/pull/116)
 - changed build system to use poetry [#109](https://github.com/RECETOX/RIAssigner/pull/109)
-- updated _assign_ri_value function to delete the RI key if the value is not greater than 0 [#122](https://github.com/RECETOX/RIAssigner/pull/122)
 ### Removed
 
 ## [0.3.4] - 2023-02-21

@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for reading parquet files in CLI
 - Support for writing data to parquet files in PandasData.write method
 - Updated tests to verify parquet file output
+- treating .tabular files as TSV (in both read and write paths)
 
 ### Changed
 

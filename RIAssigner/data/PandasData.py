@@ -1,6 +1,6 @@
 from typing import Iterable
 
-from pandas import read_csv, read_parquet
+from pandas import read_csv, read_parquet, to_numeric
 from RIAssigner.utils import define_separator, get_first_common_element
 from RIAssigner.utils import clean_column_names
 
@@ -24,7 +24,7 @@ class PandasData(Data):
         self._init_rt_column_info()
         self._init_ri_column_info()
         self._init_ri_indices()
-        
+
         self._sort_by_rt()
         self._replace_nans_with_0s()
 
@@ -39,11 +39,14 @@ class PandasData(Data):
         self._data.columns = clean_column_names(self._data.columns)
 
     def write(self, filename: str) -> None:
-        """ Write data on disk. Currently supports 'csv' and 'tsv' formats. """
-        if not filename.endswith((".csv", ".tsv")):
-            raise ValueError("File extension must be 'csv' or 'tsv'.")
-        separator = define_separator(filename)
-        self._data.to_csv(filename, index=False, sep=separator)
+        """ Write data on disk. Supports 'csv', 'tsv', and 'parquet' formats. """
+        if filename.endswith(".parquet"):
+            self._data.to_parquet(filename, index=False)
+        elif filename.endswith((".csv", ".tsv")):
+            separator = define_separator(filename)
+            self._data.to_csv(filename, index=False, sep=separator)
+        else:
+            raise ValueError("File extension must be 'csv', 'tsv', or 'parquet'.")
 
     def _init_carbon_number_index(self) -> None:
         """ Find key of carbon number column and store it. """
@@ -78,13 +81,14 @@ class PandasData(Data):
         """ Sort peaks by their retention times. """
         if self._rt_index is not None:
             self._data.sort_values(by=self._rt_index, axis=0, inplace=True)
-    
+
     def _replace_nans_with_0s(self) -> None:
-        """ Replace NaN values with 0s. """
+        """ Replace NaN values (including blank strings and invalid values) with 0s. """
         if self._rt_index is not None:
-            self._data[self._rt_index].fillna(0, inplace=True)
+            self._data[self._rt_index] = to_numeric(self._data[self._rt_index], errors='coerce').fillna(0)
         if self._ri_index is not None:
-            self._data[self._ri_index].fillna(0, inplace=True)
+            self._data[self._ri_index] = to_numeric(self._data[self._ri_index], errors='coerce').fillna(0)
+
 
     def __eq__(self, o: object) -> bool:
         """Comparison operator `==`.
@@ -136,10 +140,10 @@ class PandasData(Data):
     @property
     def comment(self) -> Iterable[Data.CommentFieldType]:
         """ Get comments.
-        
+
         Returns:
             Iterable[Data.CommentFieldType]: Comments.
         """
         self._comment_keys = "comment"
         content = self._data[self._comment_keys].tolist()
-        return content   
+        return content

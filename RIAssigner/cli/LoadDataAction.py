@@ -30,7 +30,8 @@ class LoadDataAction(argparse.Action):
         rt_unit = values[2]
         if filetype == 'msp':
             data = MatchMSData(filename, filetype, rt_unit)
-        elif filetype in ['csv', 'tsv']:
+        elif filetype in ['csv', 'tsv', 'parquet']:
             data = PandasData(filename, filetype, rt_unit)
-
+        else:
+            raise ValueError(f"Unsupported file type: {filetype}. Supported types are 'msp', 'csv', 'tsv', and 'parquet'.")
         setattr(namespace, self.dest, data)

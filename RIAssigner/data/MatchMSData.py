@@ -1,7 +1,7 @@
-from typing import Iterable, List, Optional, Tuple
+from typing import Iterable, List, Tuple
 import numpy as np
 
-from matchms import Spectrum, Metadata
+from matchms import Spectrum
 from matchms.exporting import save_spectra
 from matchms.exporting.metadata_export import get_metadata_as_array
 from matchms.importing import load_spectra
@@ -23,7 +23,7 @@ class MatchMSData(Data):
         """
         self._spectra = list(load_spectra(self._filename, True, self._filetype))
         _, self._keys = get_metadata_as_array(self._spectra)
-        
+
         self._rt_key = "retention_time"
         self._ri_key = "retention_index"
 
@@ -108,7 +108,7 @@ class MatchMSData(Data):
     @property
     def spectra_metadata(self) -> Tuple[np.array, List[str]]:
         return get_metadata_as_array(self._spectra)
-    
+
 def safe_read_key(spectrum: Spectrum, key: str) -> float:
     """ Read key from spectrum and convert to float or return 0.0.
     Tries to read the given key from the spectrum metadata and convert it to a float.
@@ -152,4 +152,3 @@ def _assign_ri_value(spectrum: Spectrum, key: str, value: Data.RetentionIndexTyp
             metadata = spectrum.metadata
             del metadata[key]
             spectrum.metadata = metadata
-        

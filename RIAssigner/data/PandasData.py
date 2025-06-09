@@ -46,7 +46,7 @@ class PandasData(Data):
             separator = define_separator(filename)
             self._data.to_csv(filename, index=False, sep=separator)
         else:
-            raise ValueError("File extension must be 'csv', 'tsv', or 'parquet'.")
+            raise ValueError("File extension must be 'csv', 'tsv', 'tabular', or 'parquet'.")
 
     def _init_carbon_number_index(self) -> None:
         """ Find key of carbon number column and store it. """

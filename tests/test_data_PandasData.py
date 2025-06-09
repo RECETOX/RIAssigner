@@ -52,7 +52,7 @@ def test_filename_extension_assertion(filename_csv, tmp_path):
         PandasDataBuilder().with_filename(filename_csv).build().write(filepath)
 
     message = exception.value.args[0]
-    assert message == "File extension must be 'csv', 'tsv', or 'parquet'."
+    assert message == "File extension must be 'csv', 'tsv', 'tabular', or 'parquet'."
 
 
 def test_assert_written_content(filename_csv, tmp_path):

@@ -76,7 +76,7 @@ def test_assert_written_content(filename_csv, tmp_path):
     expected = expected.reindex(sorted(expected.columns), axis=1)
     actual = actual.reindex(sorted(actual.columns), axis=1)
 
-    assert_frame_equal(actual, expected, check_dtype=False, check_like=True)
+    assert_frame_equal(actual, expected, check_dtype=True, check_like=True)
 
 
 @pytest.mark.parametrize("filename", ["aplcms_aligned_peaks.csv"])

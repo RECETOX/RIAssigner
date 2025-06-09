@@ -34,7 +34,7 @@ def test_integration(tmp_path, reference):
     expected_path = os.path.join(testdata_dir, 'integration', out_filename)
     expected = read_csv(expected_path)
 
-    assert_frame_equal(actual, expected, check_dtype=False, check_like=True)
+    assert_frame_equal(actual, expected, check_dtype=True, check_like=True)
 
 
 def test_simple_data(tmp_path, reference):

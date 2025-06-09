@@ -30,19 +30,19 @@ class PandasData(Data):
 
     def _read_into_dataframe(self)  -> None:
         """ Read the data from file into dataframe. """
-        if(self._filetype in ['csv', 'tsv']):
+        if(self._filetype in ['csv', 'tsv', 'tabular']):
             self._data = read_csv(self._filename, sep=None, engine="python")
         elif self._filetype == 'parquet':
             self._data = read_parquet(self._filename)
         else:
-            raise NotImplementedError("File formats different from ['csv', 'tsv'] are not implemented yet.")
+            raise NotImplementedError("File formats different from ['csv', 'tsv', 'tabular', 'parquet'] are not implemented yet.")
         self._data.columns = clean_column_names(self._data.columns)
 
     def write(self, filename: str) -> None:
-        """ Write data on disk. Supports 'csv', 'tsv', and 'parquet' formats. """
+        """ Write data on disk. Supports 'csv', 'tsv', 'tabular' and 'parquet' formats. """
         if filename.endswith(".parquet"):
             self._data.to_parquet(filename, index=False)
-        elif filename.endswith((".csv", ".tsv")):
+        elif filename.endswith((".csv", ".tsv", ".tabular")):
             separator = define_separator(filename)
             self._data.to_csv(filename, index=False, sep=separator)
         else:

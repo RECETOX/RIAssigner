@@ -9,14 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Support for reading parquet files in CLI
-- Support for writing data to parquet files in PandasData.write method
-- Updated tests to verify parquet file output
-- treating .tabular files as TSV (in both read and write paths)
+- Support for reading parquet files in CLI [#128](https://github.com/RECETOX/RIAssigner/pull/128)
+- Support for writing data to parquet files in PandasData.write method [#128](https://github.com/RECETOX/RIAssigner/pull/128)
+- Updated tests to verify parquet file output [#128](https://github.com/RECETOX/RIAssigner/pull/128)
+- treating .tabular files as TSV (in both read and write paths) [#128](https://github.com/RECETOX/RIAssigner/pull/128)
 
 ### Changed
 
-- Improved DataFrame comparison in tests for robustness to column order and invisible characters
+- Improved DataFrame comparison in tests for robustness to column order and invisible characters [#128](https://github.com/RECETOX/RIAssigner/pull/128)
 
 ## [dev] - unreleased
 
@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- updated \_assign_ri_value function to delete the RI key if the value is not greater than 0 [#122](https://github.com/RECETOX/RIAssigner/pull/122)
+- updated _assign_ri_value function to delete the RI key if the value is not greater than 0 [#122](https://github.com/RECETOX/RIAssigner/pull/122)
 
 ## [0.4.0] - 2024-02-13
 

@@ -30,13 +30,13 @@ cd RIAssigner
 poetry install
 ```
 
-(2) Install via [bioconda](https://anaconda.org/bioconda/riassigner) in your existing evironment.
+(2) Install via [bioconda](https://anaconda.org/bioconda/riassigner) in your existing environment.
 
 ```
 conda install -c bioconda riassigner
 ```
 
-(3) Install via [pip](https://pypi.org/project/RIAssigner/) in your existing evironment.
+(3) Install via [pip](https://pypi.org/project/RIAssigner/) in your existing environment.
 
 ```
 pip install riassigner

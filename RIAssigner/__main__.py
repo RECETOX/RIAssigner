@@ -17,7 +17,8 @@ def create_parser():
                           action=LoadDataAction,
                           nargs=3,
                           help="""Reference dataset containing retention times and indices.
-                          Path to msp, csv, tsv/tabular or parquet filetype and retention time unit.""")
+                          Path to msp, csv, tsv/tabular or parquet file, filetype and retention time unit.""")
+
     required.add_argument("--query",
                           required=True,
                           type=str,

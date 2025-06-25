@@ -2,6 +2,7 @@ import os
 
 import pytest
 from pandas import read_csv
+from pandas.testing import assert_frame_equal
 from RIAssigner.compute import Kovats
 
 from tests.builders import MatchMSDataBuilder, PandasDataBuilder, SimpleDataBuilder
@@ -33,7 +34,7 @@ def test_integration(tmp_path, reference):
     expected_path = os.path.join(testdata_dir, 'integration', out_filename)
     expected = read_csv(expected_path)
 
-    assert actual.equals(expected)
+    assert_frame_equal(actual, expected, check_dtype=True, check_like=True)
 
 
 def test_simple_data(tmp_path, reference):

@@ -1,76 +1,120 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2025-06-09
+
+### Added
+
+- Support for reading parquet files in CLI [#128](https://github.com/RECETOX/RIAssigner/pull/128)
+- Support for writing data to parquet files in PandasData.write method [#128](https://github.com/RECETOX/RIAssigner/pull/128)
+- Updated tests to verify parquet file output [#128](https://github.com/RECETOX/RIAssigner/pull/128)
+- treating .tabular files as TSV (in both read and write paths) [#128](https://github.com/RECETOX/RIAssigner/pull/128)
+
+### Changed
+
+- Improved DataFrame comparison in tests for robustness to column order and invisible characters [#128](https://github.com/RECETOX/RIAssigner/pull/128)
+
 ## [dev] - unreleased
 
 ## [0.4.1] - 2024-04-24
+
 ### Changed
+
 - updated _assign_ri_value function to delete the RI key if the value is not greater than 0 [#122](https://github.com/RECETOX/RIAssigner/pull/122)
 
 ## [0.4.0] - 2024-02-13
+
 ### Added
+
 - reading RI values from the comments field [#112](https://github.com/RECETOX/RIAssigner/pull/109)
 - column name sanitizing and mapping using matchms [#118](https://github.com/RECETOX/RIAssigner/pull/118)
 - support for parquet and mgf formats [#116](https://github.com/RECETOX/RIAssigner/pull/116)
 - functions to check whether RI and RT are present [#115](https://github.com/RECETOX/RIAssigner/pull/115)
+
 ### Changed
+
 - updated dependencies to newest versions [#116](https://github.com/RECETOX/RIAssigner/pull/116)
 - changed build system to use poetry [#109](https://github.com/RECETOX/RIAssigner/pull/109)
+
 ### Removed
 
 ## [0.3.4] - 2023-02-21
+
 ### Changed
+
 - pinned pint >=0.17,<0.20 and matchms >=0.14.0,<0.18.0 for dependency issues
 
 ## [0.3.3] - 2022-07-22
+
 ### Added
+
 ### Changed
+
 - replaced asserts with `ValueError` as asserts can be disabled. [#91](https://github.com/RECETOX/RIAssigner/pull/91)
 - updated matchms dependency to `>= 0.14.0`. [#90](https://github.com/RECETOX/RIAssigner/pull/90)
+
 ### Removed
+
 - removed test cases which include data that has `None` retention times. [#90](https://github.com/RECETOX/RIAssigner/pull/90)
 
 ## [0.3.2] - 2022-02-11
+
 ### Added
+
 - data/Data.py: Added `update_possible_rt_keys()` and `update_possible_ri_keys()` methods for `Data` class.
-Now users can supply their own identifiers for RT/RI columns (csv files) and identifiers (msp) in their data. [#74](https://github.com/RECETOX/RIAssigner/pull/74)
+  Now users can supply their own identifiers for RT/RI columns (csv files) and identifiers (msp) in their data. [#74](https://github.com/RECETOX/RIAssigner/pull/74)
 - General: Added missing documentation and updated [README](README.md). [#80](https://github.com/RECETOX/RIAssigner/pull/80)
 - setup.py: Added versions for dependencies. [#80](https://github.com/RECETOX/RIAssigner/pull/80)
 - utils.py: Added method to check if array is sorted. [#82](https://github.com/RECETOX/RIAssigner/pull/82)
 - data/SimpleData.py: Added class for in-memory data which is read-only. [#82](https://github.com/RECETOX/RIAssigner/pull/82)
+
 ### Changed
+
 - data/Data.py: Unified default RT/RI column identifiers between `PandasData` and `MatchMSData` classes. [#74](https://github.com/RECETOX/RIAssigner/pull/74)
 - data/MatchMSData.py: `MatchMSData` class now looks up for RT and RI identifiers from within default identifiers list
-instead of hardcoded 'retentiontime' & 'retentionindex' keys. [#74](https://github.com/RECETOX/RIAssigner/pull/74)
+  instead of hardcoded 'retentiontime' & 'retentionindex' keys. [#74](https://github.com/RECETOX/RIAssigner/pull/74)
 - compute/Kovats.py: Computation is now real piece-wise linear interpolation and doesn't assume a step width of 100 but interpolates in the actual interval. [#76](https://github.com/RECETOX/RIAssigner/pull/76)
+
 ### Removed
+
 - data/Data.py: Removed `read` method from class and contructor -> all child classes must now explicitly implement and call the superclass constructor. [#82](https://github.com/RECETOX/RIAssigner/pull/82)
 
 ## [0.3.1] - 2021-12-9
+
 ### Changed
+
 - data/PandasData.py: `_read_into_dataframe()` now deduces a proper delimiter via Python's [`csv.Sniffer`](https://docs.python.org/3/library/csv.html#csv.Sniffer) class. [#73](https://github.com/RECETOX/RIAssigner/pull/73)
 
 ## [0.3.0] - 2021-09-03
+
 ### Added
-- __main__.py + cli/LoadDataAction.py: Added required passing of filetype and rt unit. [#64](https://github.com/RECETOX/RIAssigner/issues/64) [#67](https://github.com/RECETOX/RIAssigner/issues/67) [#68](https://github.com/RECETOX/RIAssigner/pull/68)
+
+- **main**.py + cli/LoadDataAction.py: Added required passing of filetype and rt unit. [#64](https://github.com/RECETOX/RIAssigner/issues/64) [#67](https://github.com/RECETOX/RIAssigner/issues/67) [#68](https://github.com/RECETOX/RIAssigner/pull/68)
+
 ### Changed
+
 - utils.py: `get_extension` function now returns extension without `.` [#68](https://github.com/RECETOX/RIAssigner/pull/68)
 - data/Data.py: Added `filetype` to constructor and made `rt_unit` non-optional. [#67](https://github.com/RECETOX/RIAssigner/issues/67) [#68](https://github.com/RECETOX/RIAssigner/pull/68)
 - data/MatchMSData.py: Added `filetype` to constructor and made `rt_unit` non-optional. [#67](https://github.com/RECETOX/RIAssigner/issues/67) [#68](https://github.com/RECETOX/RIAssigner/pull/68)
 - data/PandasData.py: Added `filetype` to constructor and made `rt_unit` non-optional. [#67](https://github.com/RECETOX/RIAssigner/issues/67) [#68](https://github.com/RECETOX/RIAssigner/pull/68)
 
 ## [0.2.0] - 2021-08-18
+
 ### Added
+
 - Added `__eq__` to `PandasData` and `MatchMSData` [#51](https://github.com/RECETOX/RIAssigner/pull/51)
 - Added `__eq__` to `ComputationMethod` class and subclasses [#52](https://github.com/RECETOX/RIAssigner/pull/52)
 - data/PandasData.py: Added reading `tsv` files. [#49](https://github.com/RECETOX/RIAssigner/pull/49)
 - Command line interface functionality [#29](https://github.com/RECETOX/RIAssigner/pull/55)
   - utils.py: `get_extension` function
   - tests/fixtures/data.py: Added `load_test_file` function
+
 ### Changed
+
 - data/MatchMSData.py: `_assign_ri_value` now converts all values to float and stores them as string in metadata field
 - data/MatchMSData.py `_read_retention_indices` now calls retention_indices property setter to store values
 - tests/fixtures/data.py: Changed loading of test data
@@ -78,7 +122,9 @@ instead of hardcoded 'retentiontime' & 'retentionindex' keys. [#74](https://gith
 - compute/Kovats.py: `compute` now returns a list of floats [#61](https://github.com/RECETOX/RIAssigner/pull/61)
 
 ## [0.1.0] - 2021-07-12
+
 ### Added
+
 - Reading data from `CSV` and `MSP` files [#8](https://github.com/RECETOX/RIAssigner/pull/8)[#15](https://github.com/RECETOX/RIAssigner/pull/15)[#36](https://github.com/RECETOX/RIAssigner/pull/36)
 - Computing Kovats retention index [#25](https://github.com/RECETOX/RIAssigner/pull/25)
 - Computing RI based on cubic splines [#33](https://github.com/RECETOX/RIAssigner/pull/33)

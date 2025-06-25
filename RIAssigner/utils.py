@@ -13,7 +13,7 @@ def get_first_common_element(first: Iterable[T], second: Iterable[T]) -> T:
         first (Iterable[T]): First list.
         second (Iterable[T]): Second list.
 
-    Returns:    
+    Returns:
         T: First common element or None if no common element is found.
     """
     return next((item for item in first if item in second), None)
@@ -24,11 +24,12 @@ def define_separator(filename: str) -> str:
 
     Args:
         filename (str): Filename for which to get the separator.
-    
+
     Returns:
         str: Separator for data values.
     """
-    if filename.endswith(".tsv"):
+    if filename.endswith((".tsv", ".tabular")):
+        # Use tab as separator for TSV and tabular files
         separator = "\t"
     else:
         separator = ","
@@ -60,7 +61,7 @@ def is_sorted(values) -> bool:
 
 def clean_column_names(column_names: List[str]) -> List[str]:
     """ Clean column names by removing leading and trailing whitespaces, converting to lowercase.
-    
+
     Args:
         column_names (List[str]): List of column names to clean.
 

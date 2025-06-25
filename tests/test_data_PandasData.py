@@ -2,7 +2,8 @@ import os
 
 import numpy
 import pytest
-from pandas import read_csv
+from pandas import read_csv, read_parquet
+from pandas.testing import assert_frame_equal
 
 from tests.builders import PandasDataBuilder
 
@@ -24,6 +25,7 @@ def test_open_csv(filename_csv):
     data = PandasDataBuilder().with_filename(filename_csv).build()
     assert data.filename == filename_csv
 
+
 def test_open_parquet():
     filename = os.path.join(here, "data", "parquet", "10_qc_16x_dil_milliq.parquet")
     data = PandasDataBuilder().with_filename(filename).with_filetype('parquet').build()
@@ -33,7 +35,7 @@ def test_open_parquet():
 
 
 # tmp_path from https://docs.pytest.org/en/6.2.x/tmpdir.html#the-tmp-path-fixture
-@pytest.mark.parametrize("filename", ["test_file.csv, test_file.tsv"])
+@pytest.mark.parametrize("filename", ["test_file.csv", "test_file.tsv", "test_file.parquet"])
 def test_write_new_file(filename_csv, filename, tmp_path):
     filepath = os.path.join(tmp_path, filename)
 
@@ -50,7 +52,7 @@ def test_filename_extension_assertion(filename_csv, tmp_path):
         PandasDataBuilder().with_filename(filename_csv).build().write(filepath)
 
     message = exception.value.args[0]
-    assert message == "File extension must be 'csv' or 'tsv'."
+    assert message == "File extension must be 'csv', 'tsv', 'tabular', or 'parquet'."
 
 
 def test_assert_written_content(filename_csv, tmp_path):
@@ -60,10 +62,21 @@ def test_assert_written_content(filename_csv, tmp_path):
     filepath = os.path.join(tmp_path, filename)
     data.write(filepath)
 
-    expected = data._data
-    actual = read_csv(filepath)
+    expected = data._data.reset_index(drop=True)
+    if filepath.endswith('.parquet'):
+        actual = read_parquet(filepath).reset_index(drop=True)
+    else:
+        actual = read_csv(filepath).reset_index(drop=True)
 
-    numpy.array_equal(actual.values, expected.values)
+    # Clean column names: strip whitespace and invisible characters
+    expected.columns = expected.columns.str.strip().str.replace('\ufeff', '')
+    actual.columns = actual.columns.str.strip().str.replace('\ufeff', '')
+
+    # Sort columns for comparison
+    expected = expected.reindex(sorted(expected.columns), axis=1)
+    actual = actual.reindex(sorted(actual.columns), axis=1)
+
+    assert_frame_equal(actual, expected, check_dtype=True, check_like=True)
 
 
 @pytest.mark.parametrize("filename", ["aplcms_aligned_peaks.csv"])
@@ -108,6 +121,7 @@ def test_has_retention_indices(filename, expected):
     data = PandasDataBuilder().with_filename(filepath).build()
     assert data.has_retention_indices() == expected
 
+
 def test_clean_pandas_column_names():
     #arrange
     expected = ["rt"]
@@ -116,4 +130,3 @@ def test_clean_pandas_column_names():
     actual = list(builder.build()._data.columns)
     #assert
     assert set(expected) <= set(actual)
-    

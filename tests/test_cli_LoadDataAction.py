@@ -1,16 +1,9 @@
-import argparse
-
 import numpy
 import pytest
-from RIAssigner.cli import LoadDataAction
+from RIAssigner.cli import load_data
 from RIAssigner.utils import get_extension
 
 from tests.fixtures.data import load_test_file
-
-
-def test_create():
-    sut = LoadDataAction("", "")
-    assert sut is not None
 
 
 @pytest.mark.parametrize("filename, rt_unit", [
@@ -21,16 +14,17 @@ def test_create():
 def test_load_data(filename, rt_unit):
     # Arrange
     expected = load_test_file(filename, rt_unit)
-    namespace = argparse.Namespace()
-    parser = argparse.ArgumentParser()
-    sut = LoadDataAction("", "data")
+    extension = get_extension(filename)
 
     # Act
-    extension = get_extension(filename)
-    sut(parser, namespace, [expected.filename, extension, rt_unit])
-    actual = namespace.data
+    actual = load_data(expected.filename, extension, rt_unit)
 
     # Assert
     # TODO: Replace with proper comparison operator once implemented
     numpy.testing.assert_array_almost_equal(actual.retention_times, expected.retention_times)
     numpy.testing.assert_array_almost_equal(actual.retention_indices, expected.retention_indices)
+
+
+def test_load_data_unsupported_filetype():
+    with pytest.raises(ValueError, match="Unsupported file type"):
+        load_data("somefile.xyz", "xyz", "min")

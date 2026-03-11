@@ -3,9 +3,9 @@ import numpy
 import pytest
 from RIAssigner.compute import ComputationMethod, CubicSpline, Kovats
 from RIAssigner.data import Data, SimpleData
-from pint.testing import assert_allclose
+from numpy.testing import assert_allclose
 
-from tests.fixtures.data import load_test_file
+from tests.conftest import load_test_file
 
 
 here = os.path.abspath(os.path.dirname(__file__))

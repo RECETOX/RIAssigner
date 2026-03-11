@@ -1,17 +1,16 @@
 import os
 from contextlib import contextmanager
 
+import numpy
 import pytest
 from RIAssigner.utils import get_extension
 from pint.testing import assert_allclose
-from RIAssigner.data import Data
 
 from tests.builders import MatchMSDataBuilder, PandasDataBuilder
+from tests.conftest import Q_
 
 here = os.path.abspath(os.path.dirname(__file__))
 testdata_dir = os.path.join(here, "data")
-
-Q_ = Data.URegistry.Quantity
 
 
 @contextmanager
@@ -144,4 +143,4 @@ def test_read_ris(builder, filename, expected):
     data = builder.with_filename(filepath).build()
 
     actual = data.retention_indices
-    assert_allclose(actual, expected)
+    numpy.testing.assert_array_equal(actual, expected)

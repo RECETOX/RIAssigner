@@ -73,7 +73,7 @@ def test_uregistry_with_none(value, unit):
 
 def test_get_possible_rt_keys_is_list():
     actual = Data.get_possible_rt_keys()
-    assert type(actual) == list
+    assert isinstance(actual, list)
 
 
 @pytest.mark.parametrize("expected", ["retention_time", "rt"])
@@ -107,7 +107,7 @@ def test_add_possible_rt_keys(keys):
 
 def test_get_possible_ri_keys_is_list():
     actual = Data.get_possible_ri_keys()
-    assert type(actual) == list
+    assert isinstance(actual, list)
 
 
 @pytest.mark.parametrize("expected", ["retention_index", "ri"])

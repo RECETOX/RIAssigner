@@ -1,9 +1,10 @@
+import numpy
 import pytest
 from RIAssigner.cli import load_data
 from RIAssigner.utils import get_extension
 from pint.testing import assert_allclose
 
-from tests.fixtures.data import load_test_file
+from tests.conftest import load_test_file
 
 
 @pytest.mark.parametrize(
@@ -25,7 +26,7 @@ def test_load_data(filename, rt_unit):
     # Assert
     # TODO: Replace with proper comparison operator once implemented
     assert_allclose(actual.retention_times, expected.retention_times)
-    assert_allclose(actual.retention_indices, expected.retention_indices)
+    numpy.testing.assert_allclose(actual.retention_indices, expected.retention_indices)
 
 
 def test_load_data_unsupported_filetype():

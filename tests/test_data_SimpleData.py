@@ -1,19 +1,20 @@
 import numpy as np
+from pint.testing import assert_equal
 import pytest
 
 from tests.builders import SimpleDataBuilder
+from tests.conftest import Q_
 
 
 @pytest.mark.parametrize(
     "retention_times, rt_unit, expected",
-    [[[0, 12.0], "sec", [0, 12.0]], [[0, 0.5], "min", [0, 30.0]]],
+    [[[0, 12.0], "sec", Q_([0, 12.0], "second")], [[0, 0.5], "min", Q_([0, 30.0], "second")]],
 )
 def test_get_retention_times(retention_times, rt_unit, expected):
     builder = SimpleDataBuilder().with_rt(retention_times).with_rt_unit(rt_unit)
     sut = builder.build()
     actual = sut.retention_times
-
-    np.testing.assert_array_equal(actual, expected)
+    assert_equal(actual, expected)
 
 
 def test_get_retention_indices():
@@ -21,7 +22,7 @@ def test_get_retention_indices():
     builder = SimpleDataBuilder().with_rt([100, 200, 300]).with_ri(expected)
     sut = builder.build()
     actual = sut.retention_indices
-    assert actual == expected
+    np.testing.assert_allclose(actual, expected)
 
 
 @pytest.mark.parametrize("retention_times, expected", [([1.0, 2.0, 3.0], True), ([1.0, 2.0, -1], False)])

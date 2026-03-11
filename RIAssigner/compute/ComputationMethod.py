@@ -37,4 +37,4 @@ class ComputationMethod(ABC):
             raise ValueError("Reference data has no retention indices.")
 
     def __eq__(self, o: object) -> bool:
-        return type(o) == type(self)
+        return type(o).__name__ == type(self).__name__

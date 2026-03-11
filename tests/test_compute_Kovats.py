@@ -1,5 +1,5 @@
 from RIAssigner.compute import Kovats
-from pint.testing import assert_allclose
+from numpy.testing import assert_allclose
 
 from tests.fixtures.mocks import DataStub
 

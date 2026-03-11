@@ -1,11 +1,12 @@
 import os
 
-import numpy
 import pytest
 from matchms.exporting import save_as_msp
 from matchms.importing import load_from_msp
+from pint.testing import assert_equal
 
 from tests.builders import MatchMSDataBuilder
+from tests.conftest import Q_
 
 here = os.path.abspath(os.path.dirname(__file__))
 testdata_dir = os.path.join(here, "data", "msp")
@@ -44,7 +45,7 @@ def retention_times(filename_msp):
         rt = rt_or_0(spectrum)
         retention_times.append(rt)
     retention_times.sort()
-    return retention_times
+    return Q_(retention_times, "second")
 
 
 def test_open_msp(filename_msp):
@@ -57,7 +58,7 @@ def test_read_rts_v1(filename_msp, retention_times):
 
     actual = data.retention_times
     expected = retention_times
-    numpy.testing.assert_array_equal(actual, expected)
+    assert_equal(actual, expected)
 
 
 def test_equal(filename_msp):

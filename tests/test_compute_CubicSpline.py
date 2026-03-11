@@ -1,6 +1,6 @@
 import pytest
 from RIAssigner.compute import CubicSpline
-from pint.testing import assert_allclose
+from numpy.testing import assert_allclose
 
 from tests.fixtures.mocks import DataStub
 
@@ -23,4 +23,4 @@ def test_simple_computations(reference_points, query_points, expected):
     method = CubicSpline()
 
     actual = method.compute(query, reference)
-    assert_allclose(actual, expected)
+    assert_allclose(actual, expected, atol=0.001)

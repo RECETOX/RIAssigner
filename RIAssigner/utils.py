@@ -3,11 +3,11 @@ from typing import Iterable, TypeVar, List
 
 import numpy
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 def get_first_common_element(first: Iterable[T], second: Iterable[T]) -> T:
-    """ Get first common element from two lists.
+    """Get first common element from two lists.
 
     Args:
         first (Iterable[T]): First list.
@@ -20,7 +20,7 @@ def get_first_common_element(first: Iterable[T], second: Iterable[T]) -> T:
 
 
 def define_separator(filename: str) -> str:
-    """ Select separator for data values based on filename extension.
+    """Select separator for data values based on filename extension.
 
     Args:
         filename (str): Filename for which to get the separator.
@@ -59,8 +59,9 @@ def is_sorted(values) -> bool:
     """
     return numpy.all(values[:-1] <= values[1:])
 
+
 def clean_column_names(column_names: List[str]) -> List[str]:
-    """ Clean column names by removing leading and trailing whitespaces, converting to lowercase.
+    """Clean column names by removing leading and trailing whitespaces, converting to lowercase.
 
     Args:
         column_names (List[str]): List of column names to clean.

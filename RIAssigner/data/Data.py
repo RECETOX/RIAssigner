@@ -7,14 +7,19 @@ from matchms.utils import load_known_key_conversions
 
 
 class Data(ABC):
-    """ Base class for data managers. """
+    """Base class for data managers."""
+
     RetentionTimeType = float
     RetentionIndexType = float
     CommentFieldType = Optional[str]
     URegistry = UnitRegistry()
     _keys_conversions = load_known_key_conversions()
-    _rt_possible_keys = [ key for key , value in _keys_conversions.items() if "retention_time" == value] + ["retention_time"]
-    _ri_possible_keys = [ key for key , value in _keys_conversions.items() if "retention_index" == value] + ["retention_index"]
+    _rt_possible_keys = [
+        key for key, value in _keys_conversions.items() if "retention_time" == value
+    ] + ["retention_time"]
+    _ri_possible_keys = [
+        key for key, value in _keys_conversions.items() if "retention_index" == value
+    ] + ["retention_index"]
 
     @staticmethod
     def is_valid(value: Union[RetentionTimeType, RetentionIndexType]) -> bool:
@@ -48,7 +53,7 @@ class Data(ABC):
 
     @classmethod
     def add_possible_rt_keys(cls, keys: List[str]) -> None:
-        """ A method that adds new identifiers to get retention time information.
+        """A method that adds new identifiers to get retention time information.
 
         Args:
             keys (List[str]): A list of new identifiers (keys) to be added to the `_rt_possible_keys`.
@@ -60,7 +65,7 @@ class Data(ABC):
 
     @classmethod
     def add_possible_ri_keys(cls, keys: List[str]) -> None:
-        """ A method that adds new identifiers to get retention index information. 
+        """A method that adds new identifiers to get retention index information.
 
         Args:
             keys (List[str]): A list of new identifiers (keys) to be added to the `_ri_possible_keys`.
@@ -69,19 +74,19 @@ class Data(ABC):
             None
         """
         cls._ri_possible_keys.append(keys)
-    
+
     @classmethod
     def get_possible_rt_keys(cls) -> List[str]:
-        """ A method that returns the possible keys to get retention times.
-        
+        """A method that returns the possible keys to get retention times.
+
         Returns:
             List[str]:  A list of possible keys to get retention times.
         """
         return cls._rt_possible_keys
-    
+
     @classmethod
     def get_possible_ri_keys(cls) -> List[str]:
-        """ A method that returns the possible keys to get retention indices.
+        """A method that returns the possible keys to get retention indices.
 
         Returns:
             List[str]:  A list of possible keys to get retention indices.
@@ -153,8 +158,10 @@ class Data(ABC):
         Returns:
             bool: True if all retention indices exist, False otherwise.
         """
-        return len(self.retention_indices) > 0 and all([Data.is_valid(rt) for rt in self.retention_indices])
-    
+        return len(self.retention_indices) > 0 and all(
+            [Data.is_valid(rt) for rt in self.retention_indices]
+        )
+
     def has_retention_times(self) -> bool:
         """
         Check if all retention times in the spectra exist.
@@ -166,8 +173,9 @@ class Data(ABC):
         Returns:
             bool: True if all retention times exist, False otherwise.
         """
-        return len(self.retention_times) > 0 and all([Data.is_valid(rt) for rt in self.retention_times])
-
+        return len(self.retention_times) > 0 and all(
+            [Data.is_valid(rt) for rt in self.retention_times]
+        )
 
     @property
     @abstractmethod
@@ -180,7 +188,7 @@ class Data(ABC):
         ...
 
     def init_ri_from_comment(self, ri_source: str) -> None:
-        """ Extract RI from comment field.
+        """Extract RI from comment field.
         Extracts the RI from the comment field of the data file. The RI is expected to be
         in the format 'ri_source=RI_value'. The function extracts the RI value and
         sets it on the retention_index property.
@@ -188,11 +196,14 @@ class Data(ABC):
         Parameters
         ----------
         content_comment:
-            Comment field of the data file. 
+            Comment field of the data file.
         ri_source:
             String that is expected to be in the comment field before the RI value.
         """
-        mask = pd.Series(self.comment).str.contains(rf'\b{ri_source}\b', na=False)
-        extracted_values = pd.Series(self.comment).str.extract(rf'\b{ri_source}=(\d+)\b')[0].astype(float)
+        mask = pd.Series(self.comment).str.contains(rf"\b{ri_source}\b", na=False)
+        extracted_values = (
+            pd.Series(self.comment)
+            .str.extract(rf"\b{ri_source}=(\d+)\b")[0]
+            .astype(float)
+        )
         self.retention_indices = extracted_values.where(mask, None).tolist()
-        

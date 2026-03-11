@@ -5,7 +5,6 @@ from RIAssigner.data import Data
 
 
 class ComputationMethod(ABC):
-
     @abstractmethod
     def compute(self, query: Data, reference: Data) -> List[Data.RetentionIndexType]:
         """Abstract method for RI computation

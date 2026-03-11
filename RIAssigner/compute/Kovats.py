@@ -4,10 +4,10 @@ from .ComputationMethod import ComputationMethod
 
 
 class Kovats(ComputationMethod):
-    """ Class to compute the Kovats retention index. """
+    """Class to compute the Kovats retention index."""
 
     def compute(self, query: Data, reference: Data) -> List[Data.RetentionIndexType]:
-        """ Compute non-isothermal Kovats retention index.
+        """Compute non-isothermal Kovats retention index.
         For details see https://webbook.nist.gov/chemistry/gc-ri/.
 
         Parameters
@@ -38,11 +38,13 @@ class Kovats(ComputationMethod):
 
         return retention_indices
 
-    def _compute_ri(self,
-                    target_rt: Data.RetentionTimeType,
-                    reference_rts: Iterable[Data.RetentionTimeType],
-                    reference_ris: Iterable[Data.RetentionTimeType],
-                    index: int) -> Data.RetentionIndexType:
+    def _compute_ri(
+        self,
+        target_rt: Data.RetentionTimeType,
+        reference_rts: Iterable[Data.RetentionTimeType],
+        reference_ris: Iterable[Data.RetentionTimeType],
+        index: int,
+    ) -> Data.RetentionIndexType:
         """Compute retention index for target retention time.
 
         Args:
@@ -58,13 +60,14 @@ class Kovats(ComputationMethod):
         ri = None
         if Data.is_valid(target_rt):
             index = _update_index(target_rt, reference_rts, index)
-            ri = _compute_kovats(target_rt, reference_rts,
-                                 reference_ris, index)
+            ri = _compute_kovats(target_rt, reference_rts, reference_ris, index)
         return ri
 
 
-def _update_index(target_rt: float, reference_rts: Iterable[Data.RetentionTimeType], index: int):
-    """ Get the indices of previosly eluting and next eluting reference compounds.
+def _update_index(
+    target_rt: float, reference_rts: Iterable[Data.RetentionTimeType], index: int
+):
+    """Get the indices of previosly eluting and next eluting reference compounds.
     Retention times in 'Data' objects are sorted in ascending order, so this method assumes
     that 'reference_rt' is sorted in ascending order.
 
@@ -83,10 +86,11 @@ def _update_index(target_rt: float, reference_rts: Iterable[Data.RetentionTimeTy
 
 
 def _compute_kovats(
-        target_rt: float,
-        reference_rts: Iterable[Data.RetentionTimeType],
-        reference_ris: Iterable[Data.RetentionIndexType],
-        index: int) -> float:
+    target_rt: float,
+    reference_rts: Iterable[Data.RetentionTimeType],
+    reference_ris: Iterable[Data.RetentionIndexType],
+    index: int,
+) -> float:
     """Compute retention index according to Van den Dool (see https://webbook.nist.gov/chemistry/gc-ri/)
 
     Args:

@@ -3,12 +3,15 @@ from RIAssigner.data.Data import Data
 
 
 class DataStub(Data):
-    """ Mock class for data. """
-    def __init__(self, retention_times: Iterable[float], retention_indices: Iterable[float]):
+    """Mock class for data."""
+
+    def __init__(
+        self, retention_times: Iterable[float], retention_indices: Iterable[float]
+    ):
         self._retention_times = retention_times
         self._retention_indices = retention_indices
         self._comment = []
-        
+
     def _read(self):
         pass
 

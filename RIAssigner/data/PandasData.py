@@ -8,16 +8,17 @@ from .Data import Data
 
 
 class PandasData(Data):
-    """ Class to handle data from filetypes which can be imported into a pandas dataframe. """
-    _carbon_number_column_names = set(['carbon_number'])
+    """Class to handle data from filetypes which can be imported into a pandas dataframe."""
+
+    _carbon_number_column_names = set(["carbon_number"])
 
     def __init__(self, filename: str, filetype: str, rt_unit: str):
         super().__init__(filename, filetype, rt_unit)
         self._read()
-        self._rt_key = 'rt'
+        self._rt_key = "rt"
 
     def _read(self):
-        """ Load content from file into PandasData object. """
+        """Load content from file into PandasData object."""
         self._read_into_dataframe()
 
         self._init_carbon_number_index()
@@ -28,49 +29,59 @@ class PandasData(Data):
         self._sort_by_rt()
         self._replace_nans_with_0s()
 
-    def _read_into_dataframe(self)  -> None:
-        """ Read the data from file into dataframe. """
-        if(self._filetype in ['csv', 'tsv', 'tabular']):
+    def _read_into_dataframe(self) -> None:
+        """Read the data from file into dataframe."""
+        if self._filetype in ["csv", "tsv", "tabular"]:
             self._data = read_csv(self._filename, sep=None, engine="python")
-        elif self._filetype == 'parquet':
+        elif self._filetype == "parquet":
             self._data = read_parquet(self._filename)
         else:
-            raise NotImplementedError("File formats different from ['csv', 'tsv', 'tabular', 'parquet'] are not implemented yet.")
+            raise NotImplementedError(
+                "File formats different from ['csv', 'tsv', 'tabular', 'parquet'] are not implemented yet."
+            )
         self._data.columns = clean_column_names(self._data.columns)
 
     def write(self, filename: str) -> None:
-        """ Write data on disk. Supports 'csv', 'tsv', 'tabular' and 'parquet' formats. """
+        """Write data on disk. Supports 'csv', 'tsv', 'tabular' and 'parquet' formats."""
         if filename.endswith(".parquet"):
             self._data.to_parquet(filename, index=False)
         elif filename.endswith((".csv", ".tsv", ".tabular")):
             separator = define_separator(filename)
             self._data.to_csv(filename, index=False, sep=separator)
         else:
-            raise ValueError("File extension must be 'csv', 'tsv', 'tabular', or 'parquet'.")
+            raise ValueError(
+                "File extension must be 'csv', 'tsv', 'tabular', or 'parquet'."
+            )
 
     def _init_carbon_number_index(self) -> None:
-        """ Find key of carbon number column and store it. """
-        self._carbon_number_index = get_first_common_element(self._data.columns, self._carbon_number_column_names)
+        """Find key of carbon number column and store it."""
+        self._carbon_number_index = get_first_common_element(
+            self._data.columns, self._carbon_number_column_names
+        )
 
     def _init_rt_column_info(self) -> None:
-        """ Find key of retention time column and store it. """
-        self._rt_index = get_first_common_element(self._data.columns, Data.get_possible_rt_keys())
+        """Find key of retention time column and store it."""
+        self._rt_index = get_first_common_element(
+            self._data.columns, Data.get_possible_rt_keys()
+        )
         if self._rt_index is not None:
             self._rt_position = self._data.columns.tolist().index(self._rt_index)
         else:
             self._rt_position = None
 
     def _init_ri_column_info(self) -> None:
-        """ Initialize retention index column name and set its position next to the retention time column. """
-        self._ri_index = get_first_common_element(self._data.columns, Data.get_possible_ri_keys())
+        """Initialize retention index column name and set its position next to the retention time column."""
+        self._ri_index = get_first_common_element(
+            self._data.columns, Data.get_possible_ri_keys()
+        )
         if self._ri_index in self._data.columns:
             self._ri_position = self._data.columns.get_loc(self._ri_index)
         else:
-            self._ri_index = 'retention_index'
+            self._ri_index = "retention_index"
             self._ri_position = None
 
     def _init_ri_indices(self) -> None:
-        """ Initialize retention indices to a factor of 100 of carbon numbers or None if carbon numbers are not present. """
+        """Initialize retention indices to a factor of 100 of carbon numbers or None if carbon numbers are not present."""
         if self._carbon_number_index is not None:
             self._data[self._ri_index] = self._data[self._carbon_number_index] * 100
         elif self._ri_position is None:
@@ -78,17 +89,20 @@ class PandasData(Data):
             self._data.insert(loc=self._ri_position, column=self._ri_index, value=None)
 
     def _sort_by_rt(self) -> None:
-        """ Sort peaks by their retention times. """
+        """Sort peaks by their retention times."""
         if self._rt_index is not None:
             self._data.sort_values(by=self._rt_index, axis=0, inplace=True)
 
     def _replace_nans_with_0s(self) -> None:
-        """ Replace NaN values (including blank strings and invalid values) with 0s. """
+        """Replace NaN values (including blank strings and invalid values) with 0s."""
         if self._rt_index is not None:
-            self._data[self._rt_index] = to_numeric(self._data[self._rt_index], errors='coerce').fillna(0)
+            self._data[self._rt_index] = to_numeric(
+                self._data[self._rt_index], errors="coerce"
+            ).fillna(0)
         if self._ri_index is not None:
-            self._data[self._ri_index] = to_numeric(self._data[self._ri_index], errors='coerce').fillna(0)
-
+            self._data[self._ri_index] = to_numeric(
+                self._data[self._ri_index], errors="coerce"
+            ).fillna(0)
 
     def __eq__(self, o: object) -> bool:
         """Comparison operator `==`.
@@ -113,19 +127,19 @@ class PandasData(Data):
 
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
-        """ Get retention times in seconds."""
+        """Get retention times in seconds."""
         values = self._data[self._rt_index].to_numpy()
-        return (values * self._unit).to('seconds')
+        return (values * self._unit).to("seconds")
 
     @property
     def retention_indices(self) -> Iterable[Data.RetentionIndexType]:
-        """ Get retention indices from data or computed from carbon numbers. """
+        """Get retention indices from data or computed from carbon numbers."""
         if self._carbon_number_index is not None:
             return self._ri_from_carbon_numbers()
         return self._data[self._ri_index]
 
     def _ri_from_carbon_numbers(self) -> Iterable[int]:
-        """ Returns the RI of compound based on carbon number. """
+        """Returns the RI of compound based on carbon number."""
         return self._data[self._carbon_number_index] * 100
 
     @retention_indices.setter
@@ -139,7 +153,7 @@ class PandasData(Data):
 
     @property
     def comment(self) -> Iterable[Data.CommentFieldType]:
-        """ Get comments.
+        """Get comments.
 
         Returns:
             Iterable[Data.CommentFieldType]: Comments.

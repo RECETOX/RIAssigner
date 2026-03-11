@@ -7,10 +7,4 @@ from .ValidateSimpleData import ValidateSimpleData
 
 logging.getLogger(__name__).addHandler(logging.NullHandler())
 
-__all__ = [
-    "Data",
-    "PandasData",
-    "MatchMSData",
-    "SimpleData",
-    "ValidateSimpleData"
-]
+__all__ = ["Data", "PandasData", "MatchMSData", "SimpleData", "ValidateSimpleData"]

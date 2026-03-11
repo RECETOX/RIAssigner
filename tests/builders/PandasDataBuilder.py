@@ -2,11 +2,10 @@ from RIAssigner.data import PandasData
 
 
 class PandasDataBuilder:
-
     def __init__(self):
         self._filename = None
-        self._rt_unit = 'seconds'
-        self._filetype = 'csv'
+        self._rt_unit = "seconds"
+        self._filetype = "csv"
 
     def with_filename(self, filename: str):
         self._filename = filename

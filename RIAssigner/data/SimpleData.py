@@ -6,10 +6,14 @@ from .Data import Data
 
 
 class SimpleData(Data):
-    """Class to handle data from numpy arrays
-    """
+    """Class to handle data from numpy arrays"""
 
-    def __init__(self, retention_times: Iterable[float], rt_unit: str, retention_indices: Iterable[float] = None):
+    def __init__(
+        self,
+        retention_times: Iterable[float],
+        rt_unit: str,
+        retention_indices: Iterable[float] = None,
+    ):
         """Constructor for `NumpyData` class.
 
         Args:
@@ -32,7 +36,7 @@ class SimpleData(Data):
 
     @property
     def retention_times(self) -> Iterable[Data.RetentionTimeType]:
-        return self._retention_times.to('seconds')
+        return self._retention_times.to("seconds")
 
     @retention_indices.setter
     def retention_indices(self, values: Iterable[Data.RetentionIndexType]):

@@ -19,12 +19,15 @@ def test_abc():
     assert str(message).startswith("Can't instantiate abstract class Data")
 
 
-@pytest.mark.parametrize("value, unit", [
-    # Test cases with single values
-    (1.0, "sec"),
-    # Test cases with more than 2 elements
-    ([1.0, 2.0, 3.0], "sec"),
-])
+@pytest.mark.parametrize(
+    "value, unit",
+    [
+        # Test cases with single values
+        (1.0, "sec"),
+        # Test cases with more than 2 elements
+        ([1.0, 2.0, 3.0], "sec"),
+    ],
+)
 def test_uregistry(value, unit):
     ureg = UnitRegistry().Quantity(value, unit)
     assert isinstance(ureg, Quantity)
@@ -34,25 +37,28 @@ def test_uregistry(value, unit):
         assert ureg.magnitude == value
 
 
-@pytest.mark.parametrize("value, unit", [
-    # Test cases with None
-    ([None], "sec"),
-    ((None,), "sec"),
-    # Test cases with lists or tuples with None
-    ([None, None, None], "sec"),
-    ((None, None, None), "sec"),
-    ([None, None, None], None),
-    ((None, None, None), None),
-    # Test cases with lists or tuples with mixed values
-    ([1.0, None, 3.0], "sec"),
-    ((1.0, None, 3.0), "sec"),
-    ([1.0, None, 3.0], None),
-    ((1.0, None, 3.0), None),
-    ([None, 2.0, None], "sec"),
-    ((None, 2.0, None), "sec"),
-    ([None, 2.0, None], None),
-    ((None, 2.0, None), None),
-])
+@pytest.mark.parametrize(
+    "value, unit",
+    [
+        # Test cases with None
+        ([None], "sec"),
+        ((None,), "sec"),
+        # Test cases with lists or tuples with None
+        ([None, None, None], "sec"),
+        ((None, None, None), "sec"),
+        ([None, None, None], None),
+        ((None, None, None), None),
+        # Test cases with lists or tuples with mixed values
+        ([1.0, None, 3.0], "sec"),
+        ((1.0, None, 3.0), "sec"),
+        ([1.0, None, 3.0], None),
+        ((1.0, None, 3.0), None),
+        ([None, 2.0, None], "sec"),
+        ((None, 2.0, None), "sec"),
+        ([None, 2.0, None], None),
+        ((None, 2.0, None), None),
+    ],
+)
 def test_uregistry_with_none(value, unit):
     ureg = UnitRegistry().Quantity(value, unit)
     assert isinstance(ureg, Quantity)
@@ -70,10 +76,7 @@ def test_get_possible_rt_keys_is_list():
     assert type(actual) == list
 
 
-@pytest.mark.parametrize("expected", [
-    "retention_time",
-    "rt"
-])
+@pytest.mark.parametrize("expected", ["retention_time", "rt"])
 def test_get_possible_rt_keys_has_retention_time(expected):
     actual = Data.get_possible_rt_keys()
     assert expected in actual
@@ -82,8 +85,12 @@ def test_get_possible_rt_keys_has_retention_time(expected):
 def test_get_possible_rt_keys_from_matchms_conversion_table_mapping_to_rt():
     # arrange
     # get keys from matchms that map to retention time
-    matchms_key_conversion = load_known_key_conversions() # get mapping from matchms
-    matchms_rt_mapping = { key: value for key, value in matchms_key_conversion.items() if value == "retention_time"} # mapping to retention time
+    matchms_key_conversion = load_known_key_conversions()  # get mapping from matchms
+    matchms_rt_mapping = {
+        key: value
+        for key, value in matchms_key_conversion.items()
+        if value == "retention_time"
+    }  # mapping to retention time
     expected = list(matchms_rt_mapping.keys())
     # act
     actual = Data.get_possible_rt_keys()
@@ -91,9 +98,7 @@ def test_get_possible_rt_keys_from_matchms_conversion_table_mapping_to_rt():
     assert set(expected) <= set(actual)
 
 
-@pytest.mark.parametrize("keys", [
-    ["test-key"], ["first_key", "second_key"]
-])
+@pytest.mark.parametrize("keys", [["test-key"], ["first_key", "second_key"]])
 def test_add_possible_rt_keys(keys):
     # arrange
     expected_rt_keys = Data.get_possible_rt_keys()
@@ -108,10 +113,8 @@ def test_get_possible_ri_keys_is_list():
     actual = Data.get_possible_ri_keys()
     assert type(actual) == list
 
-@pytest.mark.parametrize("expected", [
-    "retention_index",
-    "ri"
-])
+
+@pytest.mark.parametrize("expected", ["retention_index", "ri"])
 def test_get_possible_ri_keys_has_retention_index(expected):
     actual = Data.get_possible_ri_keys()
     assert expected in actual
@@ -120,8 +123,12 @@ def test_get_possible_ri_keys_has_retention_index(expected):
 def test_get_possible_ri_keys_from_matchms_conversion_table_mapping_to_ri():
     # arrange
     # get keys from matchms that map to retention indices
-    matchms_key_conversion = load_known_key_conversions() # get mapping from matchms
-    matchms_ri_mapping = { key: value for key, value in matchms_key_conversion.items() if value == "retention_index"} # mapping to retention index
+    matchms_key_conversion = load_known_key_conversions()  # get mapping from matchms
+    matchms_ri_mapping = {
+        key: value
+        for key, value in matchms_key_conversion.items()
+        if value == "retention_index"
+    }  # mapping to retention index
     expected = list(matchms_ri_mapping.keys())
     # act
     actual = Data.get_possible_ri_keys()
@@ -129,9 +136,7 @@ def test_get_possible_ri_keys_from_matchms_conversion_table_mapping_to_ri():
     assert set(expected) <= set(actual)
 
 
-@pytest.mark.parametrize("keys", [
-    ["test-key"], ["first_key", "second_key"]
-])
+@pytest.mark.parametrize("keys", [["test-key"], ["first_key", "second_key"]])
 def test_add_possible_ri_keys(keys):
     # arrange
     expected_ri_keys = Data.get_possible_ri_keys()

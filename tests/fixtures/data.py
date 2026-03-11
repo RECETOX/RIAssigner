@@ -19,7 +19,12 @@ data_type_map = {
 def load_test_file(filename: str, rt_unit: str) -> Data:
     extension = get_extension(filename)
     filepath = os.path.join(data_location, extension, filename)
-    builder = data_type_map[extension]().with_filename(filepath).with_filetype(extension).with_rt_unit(rt_unit)
+    builder = (
+        data_type_map[extension]()
+        .with_filename(filepath)
+        .with_filetype(extension)
+        .with_rt_unit(rt_unit)
+    )
     return builder.build()
 
 

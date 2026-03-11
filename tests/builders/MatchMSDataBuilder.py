@@ -2,10 +2,9 @@ from RIAssigner.data import MatchMSData
 
 
 class MatchMSDataBuilder:
-
     def __init__(self):
         self.filename = None
-        self._rt_unit = 'seconds'
+        self._rt_unit = "seconds"
         self._filetype = "msp"
 
     def with_filename(self, filename: str):

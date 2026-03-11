@@ -30,7 +30,7 @@ packages = [
 riassigner = "RIAssigner.__main__:main"
 
 [tool.poetry.dependencies]
-python = "^3.10, <3.14"
+python = "^3.10, <3.13"
 matchms = "^0.24.1"
 numpy = "*"
 pandas = "*"

@@ -4,14 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [dev] - unreleased
 
 ## [0.6.0] - 2026-03-11
-
 ### Added
-- Added CLI for ri-from-comment and switched to click as CLI framework.
+- Added CLI for ri-from-comment and switched to click as CLI framework. [#129](https://github.com/RECETOX/RIAssigner/pull/129)
+
+### Changed
+- Updated dependencies, now using matchms >=0.30.1 [#129](https://github.com/RECETOX/RIAssigner/pull/129)
 
 ## [0.5.0] - 2025-06-09
-
 ### Added
 
 - Support for reading parquet files in CLI [#128](https://github.com/RECETOX/RIAssigner/pull/128)
@@ -23,16 +25,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Improved DataFrame comparison in tests for robustness to column order and invisible characters [#128](https://github.com/RECETOX/RIAssigner/pull/128)
 
-## [dev] - unreleased
 
 ## [0.4.1] - 2024-04-24
-
 ### Changed
 
 - updated _assign_ri_value function to delete the RI key if the value is not greater than 0 [#122](https://github.com/RECETOX/RIAssigner/pull/122)
 
 ## [0.4.0] - 2024-02-13
-
 ### Added
 
 - reading RI values from the comments field [#112](https://github.com/RECETOX/RIAssigner/pull/109)
@@ -48,13 +47,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ## [0.3.4] - 2023-02-21
-
 ### Changed
 
 - pinned pint >=0.17,<0.20 and matchms >=0.14.0,<0.18.0 for dependency issues
 
 ## [0.3.3] - 2022-07-22
-
 ### Added
 
 ### Changed
@@ -67,7 +64,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - removed test cases which include data that has `None` retention times. [#90](https://github.com/RECETOX/RIAssigner/pull/90)
 
 ## [0.3.2] - 2022-02-11
-
 ### Added
 
 - data/Data.py: Added `update_possible_rt_keys()` and `update_possible_ri_keys()` methods for `Data` class.
@@ -89,13 +85,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - data/Data.py: Removed `read` method from class and contructor -> all child classes must now explicitly implement and call the superclass constructor. [#82](https://github.com/RECETOX/RIAssigner/pull/82)
 
 ## [0.3.1] - 2021-12-9
-
 ### Changed
 
 - data/PandasData.py: `_read_into_dataframe()` now deduces a proper delimiter via Python's [`csv.Sniffer`](https://docs.python.org/3/library/csv.html#csv.Sniffer) class. [#73](https://github.com/RECETOX/RIAssigner/pull/73)
 
 ## [0.3.0] - 2021-09-03
-
 ### Added
 
 - **main**.py + cli/LoadDataAction.py: Added required passing of filetype and rt unit. [#64](https://github.com/RECETOX/RIAssigner/issues/64) [#67](https://github.com/RECETOX/RIAssigner/issues/67) [#68](https://github.com/RECETOX/RIAssigner/pull/68)
@@ -108,7 +102,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - data/PandasData.py: Added `filetype` to constructor and made `rt_unit` non-optional. [#67](https://github.com/RECETOX/RIAssigner/issues/67) [#68](https://github.com/RECETOX/RIAssigner/pull/68)
 
 ## [0.2.0] - 2021-08-18
-
 ### Added
 
 - Added `__eq__` to `PandasData` and `MatchMSData` [#51](https://github.com/RECETOX/RIAssigner/pull/51)
@@ -127,7 +120,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - compute/Kovats.py: `compute` now returns a list of floats [#61](https://github.com/RECETOX/RIAssigner/pull/61)
 
 ## [0.1.0] - 2021-07-12
-
 ### Added
 
 - Reading data from `CSV` and `MSP` files [#8](https://github.com/RECETOX/RIAssigner/pull/8)[#15](https://github.com/RECETOX/RIAssigner/pull/15)[#36](https://github.com/RECETOX/RIAssigner/pull/36)

@@ -36,7 +36,7 @@ numpy = "*"
 pandas = "*"
 pint = "^0.25.2"
 scipy = "*"
-fastparquet = "^2023.10.1"
+fastparquet = "^2025.12.0"
 click = ">=8.0"
 
 [tool.poetry.group.dev.dependencies]

@@ -5,7 +5,7 @@ authors:
   given-names: Maksym
 - family-names: Hecht
   given-names: Helge
-orcid: https://orcid.org/0000-0001-6744-996X
-title:
-version: 0.6.0
+  orcid: https://orcid.org/0000-0001-6744-996X
+title: RIAssigner
+version: 0.6.1
 date-released: 2026-03-11

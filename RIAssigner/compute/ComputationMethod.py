@@ -5,7 +5,6 @@ from RIAssigner.data import Data
 
 
 class ComputationMethod(ABC):
-
     @abstractmethod
     def compute(self, query: Data, reference: Data) -> List[Data.RetentionIndexType]:
         """Abstract method for RI computation
@@ -38,4 +37,4 @@ class ComputationMethod(ABC):
             raise ValueError("Reference data has no retention indices.")
 
     def __eq__(self, o: object) -> bool:
-        return type(o) == type(self)
+        return type(o).__name__ == type(self).__name__

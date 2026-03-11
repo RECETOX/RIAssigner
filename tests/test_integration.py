@@ -8,7 +8,7 @@ from RIAssigner.compute import Kovats
 from tests.builders import MatchMSDataBuilder, PandasDataBuilder, SimpleDataBuilder
 
 here = os.path.abspath(os.path.dirname(__file__))
-testdata_dir = os.path.join(here, 'data')
+testdata_dir = os.path.join(here, "data")
 
 
 @pytest.fixture
@@ -31,7 +31,7 @@ def test_integration(tmp_path, reference):
     query.write(outpath)
 
     actual = read_csv(outpath)
-    expected_path = os.path.join(testdata_dir, 'integration', out_filename)
+    expected_path = os.path.join(testdata_dir, "integration", out_filename)
     expected = read_csv(expected_path)
 
     assert_frame_equal(actual, expected, check_dtype=True, check_like=True)

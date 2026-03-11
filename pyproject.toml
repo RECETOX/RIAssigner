@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "RIAssigner"
-version = "0.6.0"
+version = "0.6.1"
 description = "Python library for retention index calculation."
 authors = ["Helge Hecht <helge.hecht@recetox.muni.cz>", "Maksym Skoryk <maksym.skoryk@recetox.muni.cz>"]
 
@@ -44,9 +44,15 @@ urllib3 = "^2.6.3"
 pytest = "*"
 pytest-cov = "*"
 pre-commit = "^4.2.0"
+cffconvert = "^2.0.0"
+ruff = "^0.15.5"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry_bumpversion.file."RIAssigner/__version__.py"]
+
+[tool.ruff]
+# But use a different line length.
+line-length = 200

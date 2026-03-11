@@ -7,7 +7,12 @@ from .Data import Data
 
 
 class ValidateSimpleData(SimpleData):
-    def __init__(self, retention_times: Iterable[float], rt_unit: str, retention_indices: Iterable[float] = None):
+    def __init__(
+        self,
+        retention_times: Iterable[float],
+        rt_unit: str,
+        retention_indices: Iterable[float] = None,
+    ):
         """Constructor for `NumpyData` class.
 
         Args:

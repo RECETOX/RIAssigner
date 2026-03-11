@@ -14,9 +14,9 @@ def create_method(method_name):
     ComputationMethod
         Computation method instance.
     """
-    if method_name == 'kovats':
+    if method_name == "kovats":
         return Kovats()
-    elif method_name == 'cubicspline':
+    elif method_name == "cubicspline":
         return CubicSpline()
     else:
         raise ValueError(f"Unsupported method: {method_name}. Supported methods are 'kovats' and 'cubicspline'.")

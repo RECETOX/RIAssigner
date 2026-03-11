@@ -1,11 +1,11 @@
 import logging
 
-from .CreateMethodAction import CreateMethodAction
-from .LoadDataAction import LoadDataAction
+from .CreateMethodAction import create_method
+from .LoadDataAction import load_data
 
 logging.getLogger(__name__).addHandler(logging.NullHandler())
 
 __all__ = [
-    "LoadDataAction",
-    "CreateMethodAction",
+    "load_data",
+    "create_method",
 ]

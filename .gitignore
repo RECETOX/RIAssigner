@@ -134,4 +134,3 @@ tests/test_pandas_data.py
 .vscode
 
 # poetry
-poetry.lock

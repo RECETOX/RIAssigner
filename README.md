@@ -47,7 +47,7 @@ pip install riassigner
 RIAssigner can be used to read data from `.msp` and `.mgf` files using [matchms](https://github.com/matchms/matchms) and `.csv`, `.tsv` and `.parquet` using [pandas](https://pandas.pydata.org/) and to compute the retention indices for the data.
 A reference list of retention indexed compounds (traditionally an Alkane series) with retention times is used to compute the RI for a query dataset of retention time values using the [van Den Dool and Kratz](<https://doi.org/10.1016/S0021-9673(01)80947-X>) method or by using [cubic spline-based interpolation](https://doi.org/10.1021/ac50035a026).
 
-### Example
+### Python API
 
 ```python
 from RIAssigner.compute import Kovats
@@ -63,6 +63,63 @@ query.write("peaks_with_rt.csv")
 ```
 
 For more details check out this [notebook](doc/example_usage.ipynb).
+
+### Command Line Interface
+
+RIAssigner provides a command-line interface for computing retention indices without writing Python code.
+
+#### Compute retention indices
+
+Use the `compute` command to calculate retention indices for a query dataset based on a reference dataset:
+
+```bash
+riassigner compute \
+  --reference <path> <filetype> <rt_unit> \
+  --query <path> <filetype> <rt_unit> \
+  --method <kovats|cubicspline> \
+  --output <output_path>
+```
+
+**Parameters:**
+- `--reference`: Reference dataset with retention times and indices. Provide: path, filetype (msp/csv/tsv/parquet), and retention time unit (min/seconds)
+- `--query`: Query dataset for which to compute retention indices. Provide: path, filetype (msp/csv/tsv/parquet), and retention time unit (min/seconds)
+- `--method`: Computation method - either `kovats` (van Den Dool and Kratz) or `cubicspline`
+- `--output`: Path for the output file with computed retention indices
+
+**Example:**
+
+```bash
+riassigner compute \
+  --reference reference_alkanes.msp msp min \
+  --query query_peaks.csv csv seconds \
+  --method kovats \
+  --output peaks_with_ri.csv
+```
+
+#### Extract retention indices from comments
+
+Use the `ri-from-comment` command to extract retention indices from the comment field of a dataset:
+
+```bash
+riassigner ri-from-comment \
+  --query <path> <filetype> <rt_unit> \
+  --ri-source <key> \
+  --output <output_path>
+```
+
+**Parameters:**
+- `--query`: Query dataset from which to read retention indices. Provide: path, filetype (msp/csv/tsv/parquet), and retention time unit (min/seconds)
+- `--ri-source`: Key used in the comment field to identify the retention index value
+- `--output`: Path for the output file
+
+**Example:**
+
+```bash
+riassigner ri-from-comment \
+  --query compounds.msp msp min \
+  --ri-source "retention index" \
+  --output compounds_with_ri.msp
+```
 
 ## Developer Documentation
 

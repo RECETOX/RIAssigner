@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "RIAssigner"
-version = "0.5.0"
+version = "0.6.0"
 description = "Python library for retention index calculation."
 authors = ["Helge Hecht <helge.hecht@recetox.muni.cz>", "Maksym Skoryk <maksym.skoryk@recetox.muni.cz>"]
 
@@ -19,22 +19,25 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
-    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
 ]
 
 packages = [
     { include = "RIAssigner" },
 ]
 
+[tool.poetry.scripts]
+riassigner = "RIAssigner.__main__:main"
+
 [tool.poetry.dependencies]
-python = "^3.10, <3.13"
-matchms = "^0.24.1"
+python = "^3.11, <3.14"
+matchms = "^0.30.1"
 numpy = "*"
 pandas = "*"
-pint = "^0.23"
+pint = "^0.25.2"
 scipy = "*"
-urllib3 = "1.26.15"
-fastparquet = "^2023.10.1"
+fastparquet = "^2025.12.0"
+click = ">=8.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "*"

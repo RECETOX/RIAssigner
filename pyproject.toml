@@ -43,6 +43,7 @@ click = ">=8.0"
 pytest = "*"
 pytest-cov = "*"
 pre-commit = "^4.2.0"
+cffconvert = "^2.0.0"
 
 [build-system]
 requires = ["poetry-core"]

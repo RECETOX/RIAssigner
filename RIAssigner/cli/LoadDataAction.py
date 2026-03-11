@@ -23,6 +23,4 @@ def load_data(filename, filetype, rt_unit):
     elif filetype in ["csv", "tsv", "tabular", "parquet"]:
         return PandasData(filename, filetype, rt_unit)
     else:
-        raise ValueError(
-            f"Unsupported file type: {filetype}. Supported types are 'msp', 'csv', 'tsv', 'tabular' and 'parquet'."
-        )
+        raise ValueError(f"Unsupported file type: {filetype}. Supported types are 'msp', 'csv', 'tsv', 'tabular' and 'parquet'.")

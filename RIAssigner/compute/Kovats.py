@@ -31,10 +31,7 @@ class Kovats(ComputationMethod):
         reference_rts = [0.0] + list(reference.retention_times)
         reference_ris = [0.0] + list(reference.retention_indices)
 
-        retention_indices = [
-            self._compute_ri(target_rt, reference_rts, reference_ris, index)
-            for target_rt in query.retention_times
-        ]
+        retention_indices = [self._compute_ri(target_rt, reference_rts, reference_ris, index) for target_rt in query.retention_times]
 
         return retention_indices
 
@@ -64,9 +61,7 @@ class Kovats(ComputationMethod):
         return ri
 
 
-def _update_index(
-    target_rt: float, reference_rts: Iterable[Data.RetentionTimeType], index: int
-):
+def _update_index(target_rt: float, reference_rts: Iterable[Data.RetentionTimeType], index: int):
     """Get the indices of previosly eluting and next eluting reference compounds.
     Retention times in 'Data' objects are sorted in ascending order, so this method assumes
     that 'reference_rt' is sorted in ascending order.

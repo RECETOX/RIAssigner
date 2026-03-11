@@ -24,17 +24,13 @@ def test_get_retention_indices():
     assert actual == expected
 
 
-@pytest.mark.parametrize(
-    "retention_times, expected", [([1.0, 2.0, 3.0], True), ([1.0, 2.0, -1], False)]
-)
+@pytest.mark.parametrize("retention_times, expected", [([1.0, 2.0, 3.0], True), ([1.0, 2.0, -1], False)])
 def test_simple_retention_times(retention_times, expected):
     data = SimpleDataBuilder().with_rt(retention_times).build()
     assert data.has_retention_times() == expected
 
 
-@pytest.mark.parametrize(
-    "retention_index, expected", [((1.0, 2.0, 3.0), True), ((1.0, 2.0, None), False)]
-)
+@pytest.mark.parametrize("retention_index, expected", [((1.0, 2.0, 3.0), True), ((1.0, 2.0, None), False)])
 def test_simple_retention_indices(retention_index, expected):
     data = SimpleDataBuilder().with_ri(retention_index).build()
     assert data.has_retention_indices() == expected

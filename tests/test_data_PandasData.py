@@ -43,9 +43,7 @@ def test_open_parquet():
 
 
 # tmp_path from https://docs.pytest.org/en/6.2.x/tmpdir.html#the-tmp-path-fixture
-@pytest.mark.parametrize(
-    "filename", ["test_file.csv", "test_file.tsv", "test_file.parquet"]
-)
+@pytest.mark.parametrize("filename", ["test_file.csv", "test_file.tsv", "test_file.parquet"])
 def test_write_new_file(filename_csv, filename, tmp_path):
     filepath = os.path.join(tmp_path, filename)
 
@@ -97,9 +95,7 @@ def test_ri_column_was_added(filename):
     assert data._ri_index == "retention_index"
 
 
-@pytest.mark.parametrize(
-    "filename", ["aplcms_aligned_peaks.csv", "Alkanes_20210325.csv"]
-)
+@pytest.mark.parametrize("filename", ["aplcms_aligned_peaks.csv", "Alkanes_20210325.csv"])
 def test_equal(filename):
     filename = os.path.join(testdata_dir, filename)
     actual = PandasDataBuilder().with_filename(filename).build()
@@ -143,9 +139,7 @@ def test_has_retention_indices(filename, expected):
 def test_clean_pandas_column_names():
     # arrange
     expected = ["rt"]
-    builder = PandasDataBuilder().with_filename(
-        os.path.join(testdata_dir, "minimal_unclean_colnames.csv")
-    )
+    builder = PandasDataBuilder().with_filename(os.path.join(testdata_dir, "minimal_unclean_colnames.csv"))
     # act
     actual = list(builder.build()._data.columns)
     # assert

@@ -19,6 +19,4 @@ def create_method(method_name):
     elif method_name == "cubicspline":
         return CubicSpline()
     else:
-        raise ValueError(
-            f"Unsupported method: {method_name}. Supported methods are 'kovats' and 'cubicspline'."
-        )
+        raise ValueError(f"Unsupported method: {method_name}. Supported methods are 'kovats' and 'cubicspline'.")

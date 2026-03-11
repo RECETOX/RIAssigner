@@ -71,9 +71,7 @@ def test_compute_missing_reference_raises_error(runner, tmp_path, query_csv):
     assert "reference" in result.output
 
 
-def test_compute_missing_method_raises_error(
-    runner, tmp_path, reference_msp, query_csv
-):
+def test_compute_missing_method_raises_error(runner, tmp_path, reference_msp, query_csv):
     output = str(tmp_path / "output.csv")
     result = runner.invoke(
         compute,

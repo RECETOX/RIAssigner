@@ -14,12 +14,8 @@ class Data(ABC):
     CommentFieldType = Optional[str]
     URegistry = UnitRegistry()
     _keys_conversions = load_known_key_conversions()
-    _rt_possible_keys = [
-        key for key, value in _keys_conversions.items() if "retention_time" == value
-    ] + ["retention_time"]
-    _ri_possible_keys = [
-        key for key, value in _keys_conversions.items() if "retention_index" == value
-    ] + ["retention_index"]
+    _rt_possible_keys = [key for key, value in _keys_conversions.items() if "retention_time" == value] + ["retention_time"]
+    _ri_possible_keys = [key for key, value in _keys_conversions.items() if "retention_index" == value] + ["retention_index"]
 
     @staticmethod
     def is_valid(value: Union[RetentionTimeType, RetentionIndexType]) -> bool:
@@ -158,9 +154,7 @@ class Data(ABC):
         Returns:
             bool: True if all retention indices exist, False otherwise.
         """
-        return len(self.retention_indices) > 0 and all(
-            [Data.is_valid(rt) for rt in self.retention_indices]
-        )
+        return len(self.retention_indices) > 0 and all([Data.is_valid(rt) for rt in self.retention_indices])
 
     def has_retention_times(self) -> bool:
         """
@@ -173,9 +167,7 @@ class Data(ABC):
         Returns:
             bool: True if all retention times exist, False otherwise.
         """
-        return len(self.retention_times) > 0 and all(
-            [Data.is_valid(rt) for rt in self.retention_times]
-        )
+        return len(self.retention_times) > 0 and all([Data.is_valid(rt) for rt in self.retention_times])
 
     @property
     @abstractmethod
@@ -201,9 +193,5 @@ class Data(ABC):
             String that is expected to be in the comment field before the RI value.
         """
         mask = pd.Series(self.comment).str.contains(rf"\b{ri_source}\b", na=False)
-        extracted_values = (
-            pd.Series(self.comment)
-            .str.extract(rf"\b{ri_source}=(\d+)\b")[0]
-            .astype(float)
-        )
+        extracted_values = pd.Series(self.comment).str.extract(rf"\b{ri_source}=(\d+)\b")[0].astype(float)
         self.retention_indices = extracted_values.where(mask, None).tolist()

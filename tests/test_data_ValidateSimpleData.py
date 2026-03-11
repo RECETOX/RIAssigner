@@ -40,11 +40,7 @@ from tests.builders import ValidateSimpleDataBuilder
 )
 def test_constructor_exception(retention_times, retention_indices, expected):
     with pytest.raises(expected[0]) as exception:
-        builder = (
-            ValidateSimpleDataBuilder()
-            .with_rt(retention_times)
-            .with_ri(retention_indices)
-        )
+        builder = ValidateSimpleDataBuilder().with_rt(retention_times).with_ri(retention_indices)
         builder.build()
 
     message = exception.value.args[0]

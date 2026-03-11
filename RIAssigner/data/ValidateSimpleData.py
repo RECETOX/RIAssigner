@@ -32,8 +32,6 @@ class ValidateSimpleData(SimpleData):
             raise ValueError("Retention time data has to be sorted.")
         if retention_indices is not None:
             if len(retention_times) != len(retention_indices):
-                raise ValueError(
-                    "Retention times and index data are of different length."
-                )
+                raise ValueError("Retention times and index data are of different length.")
             if not is_sorted(retention_indices):
                 raise ValueError("Retention indices data has to be sorted.")

@@ -56,9 +56,7 @@ def test_construct(method):
         ],
     ],
 )
-def test_compute_exceptions(
-    method: ComputationMethod, query: Data, reference: Data, message: str
-):
+def test_compute_exceptions(method: ComputationMethod, query: Data, reference: Data, message: str):
     with pytest.raises(ValueError) as exception:
         method.compute(query, reference)
 
@@ -78,9 +76,7 @@ def test_compute_exceptions(
 def test_computation(reference_alkanes, method, query_file, rt_unit):
     query = load_test_file(query_file, rt_unit)
     method_name = str(type(method).__name__).lower()
-    results_path = os.path.join(
-        data_location, method_name, os.path.splitext(query_file)[0] + ".npy"
-    )
+    results_path = os.path.join(data_location, method_name, os.path.splitext(query_file)[0] + ".npy")
     expected = numpy.load(results_path)
 
     actual = method.compute(query, reference_alkanes)

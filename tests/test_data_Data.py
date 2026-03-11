@@ -86,11 +86,7 @@ def test_get_possible_rt_keys_from_matchms_conversion_table_mapping_to_rt():
     # arrange
     # get keys from matchms that map to retention time
     matchms_key_conversion = load_known_key_conversions()  # get mapping from matchms
-    matchms_rt_mapping = {
-        key: value
-        for key, value in matchms_key_conversion.items()
-        if value == "retention_time"
-    }  # mapping to retention time
+    matchms_rt_mapping = {key: value for key, value in matchms_key_conversion.items() if value == "retention_time"}  # mapping to retention time
     expected = list(matchms_rt_mapping.keys())
     # act
     actual = Data.get_possible_rt_keys()
@@ -124,11 +120,7 @@ def test_get_possible_ri_keys_from_matchms_conversion_table_mapping_to_ri():
     # arrange
     # get keys from matchms that map to retention indices
     matchms_key_conversion = load_known_key_conversions()  # get mapping from matchms
-    matchms_ri_mapping = {
-        key: value
-        for key, value in matchms_key_conversion.items()
-        if value == "retention_index"
-    }  # mapping to retention index
+    matchms_ri_mapping = {key: value for key, value in matchms_key_conversion.items() if value == "retention_index"}  # mapping to retention index
     expected = list(matchms_ri_mapping.keys())
     # act
     actual = Data.get_possible_ri_keys()

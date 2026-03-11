@@ -14,9 +14,7 @@ testdata_dir = os.path.join(here, "data")
 @pytest.fixture
 def reference():
     reference_path = os.path.join(testdata_dir, "msp/Alkanes_20210325.msp")
-    reference = (
-        MatchMSDataBuilder().with_filename(reference_path).with_rt_unit("min").build()
-    )
+    reference = MatchMSDataBuilder().with_filename(reference_path).with_rt_unit("min").build()
     return reference
 
 

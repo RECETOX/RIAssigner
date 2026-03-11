@@ -36,9 +36,7 @@ class PandasData(Data):
         elif self._filetype == "parquet":
             self._data = read_parquet(self._filename)
         else:
-            raise NotImplementedError(
-                "File formats different from ['csv', 'tsv', 'tabular', 'parquet'] are not implemented yet."
-            )
+            raise NotImplementedError("File formats different from ['csv', 'tsv', 'tabular', 'parquet'] are not implemented yet.")
         self._data.columns = clean_column_names(self._data.columns)
 
     def write(self, filename: str) -> None:
@@ -49,21 +47,15 @@ class PandasData(Data):
             separator = define_separator(filename)
             self._data.to_csv(filename, index=False, sep=separator)
         else:
-            raise ValueError(
-                "File extension must be 'csv', 'tsv', 'tabular', or 'parquet'."
-            )
+            raise ValueError("File extension must be 'csv', 'tsv', 'tabular', or 'parquet'.")
 
     def _init_carbon_number_index(self) -> None:
         """Find key of carbon number column and store it."""
-        self._carbon_number_index = get_first_common_element(
-            self._data.columns, self._carbon_number_column_names
-        )
+        self._carbon_number_index = get_first_common_element(self._data.columns, self._carbon_number_column_names)
 
     def _init_rt_column_info(self) -> None:
         """Find key of retention time column and store it."""
-        self._rt_index = get_first_common_element(
-            self._data.columns, Data.get_possible_rt_keys()
-        )
+        self._rt_index = get_first_common_element(self._data.columns, Data.get_possible_rt_keys())
         if self._rt_index is not None:
             self._rt_position = self._data.columns.tolist().index(self._rt_index)
         else:
@@ -71,9 +63,7 @@ class PandasData(Data):
 
     def _init_ri_column_info(self) -> None:
         """Initialize retention index column name and set its position next to the retention time column."""
-        self._ri_index = get_first_common_element(
-            self._data.columns, Data.get_possible_ri_keys()
-        )
+        self._ri_index = get_first_common_element(self._data.columns, Data.get_possible_ri_keys())
         if self._ri_index in self._data.columns:
             self._ri_position = self._data.columns.get_loc(self._ri_index)
         else:
@@ -96,13 +86,9 @@ class PandasData(Data):
     def _replace_nans_with_0s(self) -> None:
         """Replace NaN values (including blank strings and invalid values) with 0s."""
         if self._rt_index is not None:
-            self._data[self._rt_index] = to_numeric(
-                self._data[self._rt_index], errors="coerce"
-            ).fillna(0)
+            self._data[self._rt_index] = to_numeric(self._data[self._rt_index], errors="coerce").fillna(0)
         if self._ri_index is not None:
-            self._data[self._ri_index] = to_numeric(
-                self._data[self._ri_index], errors="coerce"
-            ).fillna(0)
+            self._data[self._ri_index] = to_numeric(self._data[self._ri_index], errors="coerce").fillna(0)
 
     def __eq__(self, o: object) -> bool:
         """Comparison operator `==`.

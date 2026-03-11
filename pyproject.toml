@@ -52,3 +52,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry_bumpversion.file."RIAssigner/__version__.py"]
+
+[tool.ruff]
+# But use a different line length.
+line-length = 200

@@ -53,22 +53,16 @@ class MatchMSData(Data):
 
     def _read_retention_times(self) -> None:
         """Read retention times from spectrum metadata."""
-        magnitude = [
-            safe_read_key(spectrum, self._rt_key) for spectrum in self._spectra
-        ]
+        magnitude = [safe_read_key(spectrum, self._rt_key) for spectrum in self._spectra]
         self._retention_times = Data.URegistry.Quantity(magnitude, self._unit)
 
     def _read_retention_indices(self) -> None:
         """Read retention indices from spectrum metadata."""
-        self.retention_indices = [
-            safe_read_key(spectrum, self._ri_key) for spectrum in self._spectra
-        ]
+        self.retention_indices = [safe_read_key(spectrum, self._ri_key) for spectrum in self._spectra]
 
     def _sort_spectra_by_rt(self) -> None:
         """Sort objects (peaks) in spectra list by their retention times."""
-        self._spectra.sort(
-            key=lambda spectrum: safe_read_key(spectrum, self._rt_key) or 0
-        )
+        self._spectra.sort(key=lambda spectrum: safe_read_key(spectrum, self._rt_key) or 0)
 
     def __eq__(self, o: object) -> bool:
         """Comparison operator `==`.
@@ -107,17 +101,13 @@ class MatchMSData(Data):
         if len(values) == len(self._spectra):
             self._retention_indices = values
         else:
-            raise ValueError(
-                "There is different numbers of computed indices and peaks."
-            )
+            raise ValueError("There is different numbers of computed indices and peaks.")
 
     @property
     def comment(self) -> Iterable[Data.CommentFieldType]:
         """Get comments."""
         self.comment_keys = "comment"
-        content = [
-            spectrum.get(self.comment_keys, default=None) for spectrum in self._spectra
-        ]
+        content = [spectrum.get(self.comment_keys, default=None) for spectrum in self._spectra]
         return content
 
     @property
@@ -154,9 +144,7 @@ def safe_read_key(spectrum: Spectrum, key: str) -> float:
     return value
 
 
-def _assign_ri_value(
-    spectrum: Spectrum, key: str, value: Data.RetentionIndexType
-) -> None:
+def _assign_ri_value(spectrum: Spectrum, key: str, value: Data.RetentionIndexType) -> None:
     """Assign RI value to Spectrum object
 
     Args:

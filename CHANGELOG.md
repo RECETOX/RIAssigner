@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [dev] - unreleased
 
+## [0.6.1] - 2026-03-11
+### Changed
+- Fixed warnings in tests related to pint and validated CITATION.cff file. [#136](https://github.com/RECETOX/RIAssigner/pull/136)
+- Included dependency updates from dependabot.
+
 ## [0.6.0] - 2026-03-11
 ### Added
 - Added CLI for ri-from-comment and switched to click as CLI framework. [#129](https://github.com/RECETOX/RIAssigner/pull/129)

@@ -32,17 +32,17 @@ riassigner = "RIAssigner.__main__:main"
 [tool.poetry.dependencies]
 python = "^3.10, <3.13"
 matchms = "^0.24.1"
-numpy = "*"
-pandas = "*"
+numpy
+pandas
 pint = "^0.23"
-scipy = "*"
+scipy
 urllib3 = "^1.26.15"
 fastparquet = "^2023.10.1"
 click = ">=8.0"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "*"
-pytest-cov = "*"
+pytest
+pytest-cov
 pre-commit = "^4.2.0"
 
 [build-system]

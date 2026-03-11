@@ -26,6 +26,9 @@ packages = [
     { include = "RIAssigner" },
 ]
 
+[tool.poetry.scripts]
+riassigner = "RIAssigner.__main__:main"
+
 [tool.poetry.dependencies]
 python = "^3.10, <3.13"
 matchms = "^0.24.1"

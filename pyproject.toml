@@ -39,6 +39,13 @@ scipy = "*"
 fastparquet = "^2025.12.0"
 click = ">=8.0"
 urllib3 = "^2.6.3"
+sphinx = {version = "*", optional = true}
+sphinx-rtd-theme = {version = "*", optional = true}
+sphinx-autoapi = {version = "*", optional = true}
+myst-parser = {version = "*", optional = true}
+
+[tool.poetry.extras]
+docs = ["sphinx", "sphinx-rtd-theme", "sphinx-autoapi", "myst-parser"]
 
 [tool.poetry.group.dev.dependencies]
 pytest = "*"

@@ -40,6 +40,12 @@ fastparquet = "^2025.12.0"
 click = ">=8.0"
 urllib3 = "^2.6.3"
 
+[tool.poetry.group.docs.dependencies]
+sphinx =  "*"
+sphinx-rtd-theme =  "*"
+sphinx-autoapi =  "*"
+myst-parser = "*"
+
 [tool.poetry.group.dev.dependencies]
 pytest = "*"
 pytest-cov = "*"

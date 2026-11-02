@@ -21,12 +21,12 @@ Hecht et al., (2022). RIAssigner: A package for gas chromatographic retention in
 
 ## Installation
 
-(1) From source by cloning the repository and then installing the package with `pip`.
+(1) From source by cloning the repository and installing its dependencies with [uv](https://docs.astral.sh/uv/).
 
 ```
 git clone https://github.com/RECETOX/RIAssigner.git
 cd RIAssigner
-poetry install
+uv sync
 ```
 
 (2) Install via [bioconda](https://anaconda.org/bioconda/riassigner) in your existing environment.
@@ -125,11 +125,7 @@ riassigner ri-from-comment \
 ### Setup
 
 ```
-conda create -n riassigner-dev -c conda-forge python=3.10 poetry
-
-conda activate riassigner-dev
-
-poetry install --no-root
+uv sync --all-groups
 ```
 
 ### Contributing
@@ -192,13 +188,13 @@ classDiagram
 
 ### Testing
 
-All functionality is tested with the [pytest](https://docs.pytest.org/en/6.2.x/contents.html) framework. Make sure to run your IDE in the `riassigner-dev` conda environment (or make sure to use the respective python interpreter when developing) to follow formatting guidelines and to be able to execute the tests.
+All functionality is tested with the [pytest](https://docs.pytest.org/en/6.2.x/contents.html) framework. Use the Python environment created by uv when developing to follow formatting guidelines and execute the tests.
 
 For testing, install the package dependencies as follows:
 
 ```
 git clone https://github.com/RECETOX/RIAssigner.git
 cd RIAssigner
-poetry install --no-root
-pytest
+uv sync --group dev
+uv run pytest
 ```

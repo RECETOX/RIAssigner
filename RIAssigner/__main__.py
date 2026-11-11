@@ -15,14 +15,14 @@ def main():
     required=True,
     type=(str, str, str),
     help="""Reference dataset containing retention times and indices.
-              Path to msp, csv, tsv/tabular or parquet file, filetype and retention time unit.""",
+              Path to msp, mgf, csv, tsv/tabular or parquet file, filetype and retention time unit.""",
 )
 @click.option(
     "--query",
     required=True,
     type=(str, str, str),
     help="""Query dataset for which to compute retention indices.
-              Path to msp, csv, tsv/tabular or parquet file, filetype and retention time unit.""",
+              Path to msp, mgf, csv, tsv/tabular or parquet file, filetype and retention time unit.""",
 )
 @click.option(
     "--method",
@@ -47,7 +47,7 @@ def compute(reference, query, method, output):
     required=True,
     type=(str, str, str),
     help="""Query dataset from which to read retention indices.
-              Path to msp, csv, tsv/tabular or parquet file, filetype and retention time unit.""",
+              Path to msp, mgf, csv, tsv/tabular or parquet file, filetype and retention time unit.""",
 )
 @click.option(
     "--ri-source",

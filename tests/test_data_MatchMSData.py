@@ -116,3 +116,20 @@ def test_has_retention_indices(filename, expected):
     filepath = os.path.join(testdata_dir, filename)
     data = MatchMSDataBuilder().with_filename(filepath).build()
     assert data.has_retention_indices() == expected
+
+
+@pytest.mark.parametrize("extension", ["mzspeclib", "mzspeclib.txt"])
+def test_write_mzspeclib(tmp_path, extension):
+    filename = os.path.join(testdata_dir, "Alkanes_20210325.msp")
+    data = MatchMSDataBuilder().with_filename(filename).build()
+    data.retention_indices = [1234] * len(data.retention_indices)
+    output = tmp_path / f"output.{extension}"
+
+    data.write(str(output))
+
+    content = output.read_text()
+    assert content.startswith("<mzSpecLib>\n")
+    assert "MS:1003275|other attribute name=retention_index" in content
+    assert "MS:1003276|other attribute value=1234" in content
+    with pytest.raises(FileExistsError):
+        data.write(str(output))

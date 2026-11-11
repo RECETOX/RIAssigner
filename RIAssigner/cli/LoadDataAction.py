@@ -9,7 +9,7 @@ def load_data(filename, filetype, rt_unit):
     filename : str
         Path to the data file.
     filetype : str
-        Type of the data file. Supported types are 'msp', 'csv', 'tsv', 'tabular', 'parquet'.
+        Type of the data file. Supported types are 'msp', 'mgf', 'csv', 'tsv', 'tabular', 'parquet'.
     rt_unit : str
         Retention time unit.
 
@@ -18,9 +18,9 @@ def load_data(filename, filetype, rt_unit):
     Data
         Data instance.
     """
-    if filetype == "msp":
+    if filetype in ["msp", "mgf"]:
         return MatchMSData(filename, filetype, rt_unit)
     elif filetype in ["csv", "tsv", "tabular", "parquet"]:
         return PandasData(filename, filetype, rt_unit)
     else:
-        raise ValueError(f"Unsupported file type: {filetype}. Supported types are 'msp', 'csv', 'tsv', 'tabular' and 'parquet'.")
+        raise ValueError(f"Unsupported file type: {filetype}. Supported types are 'msp', 'mgf', 'csv', 'tsv', 'tabular' and 'parquet'.")

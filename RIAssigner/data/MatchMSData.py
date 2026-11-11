@@ -1,8 +1,9 @@
+import os
 from typing import Iterable, List, Tuple
 import numpy as np
 
 from matchms import Spectrum
-from matchms.exporting import save_spectra
+from matchms.exporting import save_as_mzspeclib, save_spectra
 from matchms.exporting.metadata_export import get_metadata_as_array
 from matchms.importing import load_spectra
 
@@ -38,7 +39,12 @@ class MatchMSData(Data):
             filename (str): Path to filename under which to store the data.
         """
         self._write_RIs_to_spectra()
-        save_spectra(self._spectra, filename)
+        if str(filename).lower().endswith((".mzspeclib", ".mzspeclib.txt")):
+            if os.path.exists(filename):
+                raise FileExistsError(f"The specified file: {filename} already exists.")
+            save_as_mzspeclib(self._spectra, filename)
+        else:
+            save_spectra(self._spectra, filename)
 
     def _write_RIs_to_spectra(self) -> None:
         """Write the RI values stored in the object to the spectra metadata."""

@@ -44,6 +44,7 @@ pip install riassigner
 ## Usage
 
 RIAssigner can be used to read data from `.msp` and `.mgf` files using [matchms](https://github.com/matchms/matchms) and `.csv`, `.tsv` and `.parquet` using [pandas](https://pandas.pydata.org/) and to compute the retention indices for the data.
+Spectral data can also be exported as mzSpecLib text using a `.mzspeclib.txt` or `.mzspeclib` output filename. Reading mzSpecLib is not supported by the current matchms version.
 A reference list of retention indexed compounds (traditionally an Alkane series) with retention times is used to compute the RI for a query dataset of retention time values using the [van Den Dool and Kratz](<https://doi.org/10.1016/S0021-9673(01)80947-X>) method or by using [cubic spline-based interpolation](https://doi.org/10.1021/ac50035a026).
 
 ### Python API
@@ -80,8 +81,8 @@ riassigner compute \
 ```
 
 **Parameters:**
-- `--reference`: Reference dataset with retention times and indices. Provide: path, filetype (msp/csv/tsv/parquet), and retention time unit (min/seconds)
-- `--query`: Query dataset for which to compute retention indices. Provide: path, filetype (msp/csv/tsv/parquet), and retention time unit (min/seconds)
+- `--reference`: Reference dataset with retention times and indices. Provide: path, filetype (msp/mgf/csv/tsv/tabular/parquet), and retention time unit (min/seconds)
+- `--query`: Query dataset for which to compute retention indices. Provide: path, filetype (msp/mgf/csv/tsv/tabular/parquet), and retention time unit (min/seconds)
 - `--method`: Computation method - either `kovats` (van Den Dool and Kratz) or `cubicspline`
 - `--output`: Path for the output file with computed retention indices
 
@@ -107,7 +108,7 @@ riassigner ri-from-comment \
 ```
 
 **Parameters:**
-- `--query`: Query dataset from which to read retention indices. Provide: path, filetype (msp/csv/tsv/parquet), and retention time unit (min/seconds)
+- `--query`: Query dataset from which to read retention indices. Provide: path, filetype (msp/mgf/csv/tsv/tabular/parquet), and retention time unit (min/seconds)
 - `--ri-source`: Key used in the comment field to identify the retention index value
 - `--output`: Path for the output file
 

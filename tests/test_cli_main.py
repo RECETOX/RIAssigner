@@ -2,6 +2,7 @@ import os
 
 import pytest
 from click.testing import CliRunner
+from matchms.importing import load_from_mgf
 
 from RIAssigner.__main__ import compute, main, ri_from_comment
 
@@ -132,3 +133,18 @@ def test_main_group_lists_subcommands(runner):
     assert result.exit_code == 0
     assert "compute" in result.output
     assert "ri-from-comment" in result.output
+
+
+def test_compute_mgf(runner, tmp_path, reference_msp):
+    query = tmp_path / "query.mgf"
+    query.write_text("BEGIN IONS\nTITLE=Example\nRETENTION_TIME=3\n100 20\nEND IONS\n")
+    output = tmp_path / "output.mgf"
+    result = runner.invoke(
+        compute,
+        ["--reference", reference_msp, "msp", "min", "--query", str(query), "mgf", "min",
+         "--method", "kovats", "--output", str(output)],
+    )
+    assert result.exit_code == 0, repr(result.exception)
+    spectra = list(load_from_mgf(str(output)))
+    assert len(spectra) == 1
+    assert float(spectra[0].get("retention_index")) > 0

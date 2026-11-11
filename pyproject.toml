@@ -1,64 +1,66 @@
-[tool.poetry]
+[project]
 name = "RIAssigner"
 version = "0.6.1"
 description = "Python library for retention index calculation."
-authors = ["Helge Hecht <helge.hecht@recetox.muni.cz>", "Maksym Skoryk <maksym.skoryk@recetox.muni.cz>"]
-
-license = "MIT License"
+authors = [
+    { name = "Helge Hecht", email = "helge.hecht@recetox.muni.cz" },
+    { name = "Maksym Skoryk", email = "maksym.skoryk@recetox.muni.cz" },
+]
+license = "MIT"
 readme = "README.md"
-repository = "https://github.com/RECETOX/RIAssigner"
-keywords=[
+requires-python = ">=3.11,<3.14"
+keywords = [
     "gas chromatography",
     "mass spectrometry",
-    "retention index"
+    "retention index",
 ]
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Education",
     "Intended Audience :: Science/Research",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Programming Language :: Python :: 3.11",
 ]
-
-packages = [
-    { include = "RIAssigner" },
+dependencies = [
+    "matchms>=0.30.1,<0.31.0",
+    "numpy",
+    "pandas",
+    "pint>=0.25.2,<0.26.0",
+    "scipy",
+    "fastparquet>=2025.12.0,<2026.0.0",
+    "click>=8.0",
+    "urllib3>=2.6.3,<3.0.0",
 ]
 
-[tool.poetry.scripts]
+[project.urls]
+Repository = "https://github.com/RECETOX/RIAssigner"
+
+[project.scripts]
 riassigner = "RIAssigner.__main__:main"
 
-[tool.poetry.dependencies]
-python = "^3.11, <3.14"
-matchms = "^0.30.1"
-numpy = "*"
-pandas = "*"
-pint = "^0.25.2"
-scipy = "*"
-fastparquet = "^2025.12.0"
-click = ">=8.0"
-urllib3 = "^2.6.3"
-
-[tool.poetry.group.docs.dependencies]
-sphinx =  "*"
-sphinx-rtd-theme =  "*"
-sphinx-autoapi =  "*"
-myst-parser = "*"
-
-[tool.poetry.group.dev.dependencies]
-pytest = "*"
-pytest-cov = "*"
-pre-commit = "^4.2.0"
-cffconvert = "^2.0.0"
-ruff = "^0.15.5"
+[dependency-groups]
+docs = [
+    "sphinx",
+    "sphinx-rtd-theme",
+    "sphinx-autoapi",
+    "myst-parser",
+]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "pre-commit>=4.2.0,<5.0.0",
+    "cffconvert>=2.0.0,<3.0.0",
+    "ruff>=0.15.5,<0.16.0",
+    "flake8",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=78.1.1"]
+build-backend = "setuptools.build_meta"
 
-[tool.poetry_bumpversion.file."RIAssigner/__version__.py"]
+[tool.setuptools.packages.find]
+include = ["RIAssigner*"]
 
 [tool.ruff]
-# But use a different line length.
 line-length = 200
